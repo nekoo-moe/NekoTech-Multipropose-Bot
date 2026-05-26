@@ -22,7 +22,7 @@ exports.default = new Command_1.Command({
         yield o.reply({
           embeds: [
             new discord_js_1.EmbedBuilder()
-              .setTitle(`Succesfully cleared ${r.size} message(s)`)
+              .setTitle(`✅ Đã xóa thành công ${r.size} tin nhắn`)
               .setColor(e.config.GeneralSettings.EmbedColor),
           ],
         });
@@ -32,7 +32,7 @@ exports.default = new Command_1.Command({
             new discord_js_1.EmbedBuilder()
               .setTitle(
                 (null == e ? void 0 : e.message) ||
-                  "An error occurred. Don't panic.",
+                  "❌ Đã xảy ra lỗi khi xóa tin nhắn",
               )
               .setColor("Red"),
           ],

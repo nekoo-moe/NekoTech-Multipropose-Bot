@@ -21,7 +21,7 @@ exports.default = new Command_1.Command({
         yield s.reply({
           embeds: [
             new discord_js_1.EmbedBuilder()
-              .setTitle("The message has been sent")
+              .setTitle("✅ Tin nhắn đã được gửi")
               .setColor(e.config.GeneralSettings.EmbedColor),
           ],
           ephemeral: !0,

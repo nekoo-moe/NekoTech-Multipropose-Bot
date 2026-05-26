@@ -27,7 +27,7 @@ exports.default = new Command_1.Command({
           (0, replaceAll_1.default)(r.messages.Embeds.BalanceEmbed, {
             "{user-tag}": a.tag,
             "{user-avatar}": a.displayAvatarURL(),
-            "{coin}": s.economyConfig.coin,
+            "{coin}": (null == s ? void 0 : s.economyConfig?.coin) || "🪙",
             "{cash}": i.balance.money,
             "{bank}": i.balance.bank,
             "{total}": i.balance.money + i.balance.bank,

@@ -82,7 +82,7 @@ exports.default = new Command_1.Command({
                     )
                     .setDisabled(e)
                     .setCustomId("name")
-                    .setLabel("Name")
+                    .setLabel("Tên")
                     .setEmoji("👤"),
                   new discord_js_1.ButtonBuilder()
                     .setStyle(
@@ -102,7 +102,7 @@ exports.default = new Command_1.Command({
                     )
                     .setDisabled(e)
                     .setCustomId("category")
-                    .setLabel("Category")
+                    .setLabel("Danh mục")
                     .setEmoji("🎹"),
                   new discord_js_1.ButtonBuilder()
                     .setStyle(
@@ -112,7 +112,7 @@ exports.default = new Command_1.Command({
                     )
                     .setDisabled(e)
                     .setCustomId("style")
-                    .setLabel("Style")
+                    .setLabel("Kiểu")
                     .setEmoji("💅"),
                   new discord_js_1.ButtonBuilder()
                     .setStyle(
@@ -122,7 +122,7 @@ exports.default = new Command_1.Command({
                     )
                     .setDisabled(e)
                     .setCustomId("roles")
-                    .setLabel("Roles")
+                    .setLabel("Vai trò")
                     .setEmoji("🕵️"),
                 ),
                 new discord_js_1.ActionRowBuilder().addComponents(
@@ -135,7 +135,7 @@ exports.default = new Command_1.Command({
                     .setEmoji("🪐")
                     .setCustomId("label")
                     .setDisabled(e)
-                    .setLabel("Label"),
+                    .setLabel("Hiển thị tên"),
                   new discord_js_1.ButtonBuilder()
                     .setStyle(
                       r.length
@@ -143,7 +143,7 @@ exports.default = new Command_1.Command({
                         : discord_js_1.ButtonStyle.Secondary,
                     )
                     .setLabel(
-                      r.length ? `Questions (${r.length})` : "Questions",
+                      r.length ? `Câu hỏi (${r.length})` : "Câu hỏi",
                     )
                     .setEmoji("⁉️")
                     .setCustomId("questions")
@@ -163,7 +163,7 @@ exports.default = new Command_1.Command({
                     .setCustomId("finish")
                     .setDisabled(e)
                     .setEmoji("✔️")
-                    .setLabel("Save Panel"),
+                    .setLabel("Lưu Panel"),
                 ),
               a
             );
@@ -171,9 +171,9 @@ exports.default = new Command_1.Command({
           i = (e = !0) => ({
             embeds: [
               new discord_js_1.EmbedBuilder()
-                .setTitle("Set-up Ticket Panel")
+                .setTitle("⚙️ Thiết Lập Panel Ticket")
                 .setDescription(
-                  "Use the button corresponding to each property you want to edit.",
+                  "Nhấn nút tương ứng với thuộc tính bạn muốn chỉnh sửa.",
                 )
                 .setColor(t.config.GeneralSettings.EmbedColor),
             ],
@@ -187,19 +187,19 @@ exports.default = new Command_1.Command({
                 .setStyle(discord_js_1.ButtonStyle.Success)
                 .setDisabled(s.questions.length >= 25 || e)
                 .setEmoji("🧩")
-                .setLabel("Add"),
+                .setLabel("Thêm"),
               new discord_js_1.ButtonBuilder()
                 .setCustomId("modal-remove")
                 .setStyle(discord_js_1.ButtonStyle.Danger)
                 .setDisabled(s.questions.length <= 0 || e)
                 .setEmoji("🗑️")
-                .setLabel("Remove"),
+                .setLabel("Xóa"),
               new discord_js_1.ButtonBuilder()
                 .setCustomId("modal-list")
                 .setStyle(discord_js_1.ButtonStyle.Primary)
                 .setDisabled(s.questions.length <= 0 || e)
                 .setEmoji("🖼️")
-                .setLabel("List"),
+                .setLabel("Danh sách"),
               new discord_js_1.ButtonBuilder()
                 .setCustomId("modal-back")
                 .setStyle(discord_js_1.ButtonStyle.Secondary)
@@ -221,14 +221,14 @@ exports.default = new Command_1.Command({
               yield r.showModal(
                 new discord_js_1.ModalBuilder()
                   .setCustomId(`add-${o}`)
-                  .setTitle("Ticket Modal Builder")
+                  .setTitle("Tạo Câu Hỏi Ticket")
                   .setComponents(
                     new discord_js_1.ActionRowBuilder().addComponents(
                       new discord_js_1.TextInputBuilder()
                         .setStyle(discord_js_1.TextInputStyle.Short)
                         .setCustomId("modal-name")
                         .setPlaceholder("The ticket question name")
-                        .setLabel("✍ Name")
+                        .setLabel("✍ Tên câu hỏi")
                         .setRequired(!0)
                         .setMaxLength(44)
                         .setMinLength(0),
@@ -238,7 +238,7 @@ exports.default = new Command_1.Command({
                         .setStyle(discord_js_1.TextInputStyle.Short)
                         .setCustomId("modal-type")
                         .setPlaceholder('You can use "Short" or "Paragraph"')
-                        .setLabel("📌 Type")
+                        .setLabel("📌 Loại (Short/Paragraph)")
                         .setRequired(!0)
                         .setMaxLength(9)
                         .setMinLength(5),
@@ -248,7 +248,7 @@ exports.default = new Command_1.Command({
                         .setStyle(discord_js_1.TextInputStyle.Short)
                         .setCustomId("modal-required")
                         .setPlaceholder('You can use "Yes" or "No"')
-                        .setLabel("🎯 Required")
+                        .setLabel("🎯 Bắt buộc (Yes/No)")
                         .setRequired(!0)
                         .setMaxLength(3)
                         .setMinLength(2),
@@ -258,7 +258,7 @@ exports.default = new Command_1.Command({
                         .setStyle(discord_js_1.TextInputStyle.Short)
                         .setCustomId("modal-description")
                         .setPlaceholder("Optional (*)")
-                        .setLabel("📃 Description")
+                        .setLabel("📃 Mô tả")
                         .setRequired(!1)
                         .setMaxLength(100),
                     ),
@@ -267,7 +267,7 @@ exports.default = new Command_1.Command({
                         .setStyle(discord_js_1.TextInputStyle.Short)
                         .setCustomId("modal-regex")
                         .setPlaceholder("Optional (*)")
-                        .setLabel("👮‍♂️ Regex Validation")
+                        .setLabel("👮‍♂️ Regex")
                         .setRequired(!1),
                     ),
                   ),
@@ -309,9 +309,9 @@ exports.default = new Command_1.Command({
                   embeds: [
                     new discord_js_1.EmbedBuilder(r.message.embeds[0])
                       .setColor(t.config.GeneralSettings.EmbedColor)
-                      .setTitle("Select the modal option")
+                      .setTitle("⚙️ Chọn tuỳ chọn câu hỏi")
                       .setDescription(
-                        "Use the buttons below to remove or add questions to the modal.",
+                        "Dùng các nút bên dưới để thêm hoặc xóa câu hỏi.",
                       ),
                   ],
                   components: n(),
@@ -344,7 +344,7 @@ exports.default = new Command_1.Command({
                     new discord_js_1.ButtonBuilder()
                       .setCustomId("back")
                       .setStyle(discord_js_1.ButtonStyle.Secondary)
-                      .setLabel("Back")
+                      .setLabel("Quay lại")
                       .setEmoji("⬅️"),
                   ),
                 ],
@@ -353,9 +353,9 @@ exports.default = new Command_1.Command({
               yield e.editReply({
                 embeds: [
                   i()
-                    .embeds[0].setTitle("Question name?")
+                    .embeds[0].setTitle("❔ Tên câu hỏi muốn xóa?")
                     .setDescription(
-                      "Submit the name of the question you want to remove.",
+                      "Nhập tên của câu hỏi bạn muốn xóa.",
                     ),
                 ],
                 components: n(!0),
@@ -382,9 +382,9 @@ exports.default = new Command_1.Command({
                   embeds: [
                     new discord_js_1.EmbedBuilder(r.message.embeds[0])
                       .setColor(t.config.GeneralSettings.EmbedColor)
-                      .setTitle("Select the modal option")
+                      .setTitle("⚙️ Chọn tuỳ chọn câu hỏi")
                       .setDescription(
-                        "Use the buttons below to remove or add questions to the modal.",
+                        "Dùng các nút bên dưới để thêm hoặc xóa câu hỏi.",
                       ),
                   ],
                   components: n(),
@@ -412,9 +412,9 @@ exports.default = new Command_1.Command({
                 embeds: [
                   new discord_js_1.EmbedBuilder(r.message.embeds[0])
                     .setColor(t.config.GeneralSettings.EmbedColor)
-                    .setTitle("Select the button color")
+                    .setTitle("⚙️ Chọn màu nút bấm")
                     .setDescription(
-                      "This is the color that the button will have, you have 4 options",
+                      "Chọn màu cho nút ticket (4 lựa chọn).",
                     ),
                 ],
                 components: [
@@ -443,9 +443,9 @@ exports.default = new Command_1.Command({
                 embeds: [
                   new discord_js_1.EmbedBuilder(r.message.embeds[0])
                     .setColor(t.config.GeneralSettings.EmbedColor)
-                    .setTitle("Toggle the ticket label")
+                    .setTitle("🎯 Hiển thị tên trên nút ticket")
                     .setDescription(
-                      'If you select "Yes" you will see the name of the panel in the button to create it',
+                      "Chọn **Có** để hiển thị tên panel trên nút tạo ticket.",
                     ),
                 ],
                 components: [
@@ -453,11 +453,11 @@ exports.default = new Command_1.Command({
                     new discord_js_1.ButtonBuilder()
                       .setCustomId("yes")
                       .setStyle(discord_js_1.ButtonStyle.Success)
-                      .setLabel("Yes"),
+                      .setLabel("✅ Có"),
                     new discord_js_1.ButtonBuilder()
                       .setCustomId("no")
                       .setStyle(discord_js_1.ButtonStyle.Danger)
-                      .setLabel("No"),
+                      .setLabel("❌ Không"),
                   ),
                 ],
               }));
@@ -556,7 +556,7 @@ exports.default = new Command_1.Command({
               ? e.editReply({
                   embeds: [
                     new discord_js_1.EmbedBuilder()
-                      .setTitle(`The ticket panel ${s.name} has been created.`)
+                      .setTitle(`✅ Panel ticket '${s.name}' đã được tạo.`)
                       .setColor(t.config.GeneralSettings.EmbedColor),
                   ],
                   components: d(!0),
@@ -566,7 +566,7 @@ exports.default = new Command_1.Command({
                     i()
                       .embeds[0].setTitle("Đã hết thời gian chờ")
                       .setDescription(
-                        "The waiting time for you to respond has passed (5 minutes), use the command again.",
+                        "Đã quá thời gian chờ (5 phút). Vui lòng gõ lại lệnh.",
                       )
                       .setColor("Red"),
                   ],
@@ -590,7 +590,7 @@ exports.default = new Command_1.Command({
           return e.followUp({
             embeds: [
               new discord_js_1.EmbedBuilder()
-                .setTitle("This guild does not have a ticket panel.")
+                .setTitle("❌ Server chưa có panel ticket nào.")
                 .setColor("Red"),
             ],
           });
@@ -644,7 +644,7 @@ exports.default = new Command_1.Command({
           yield e.followUp({
             embeds: [
               new discord_js_1.EmbedBuilder()
-                .setTitle("The ticket panel has been sent to the channel")
+                .setTitle("✅ Panel ticket đã được gửi tới kênh")
                 .setColor(t.config.GeneralSettings.EmbedColor),
             ],
           }));
@@ -659,7 +659,7 @@ exports.default = new Command_1.Command({
           return e.reply({
             embeds: [
               new discord_js_1.EmbedBuilder()
-                .setTitle("This guild does not have a ticket panel.")
+                .setTitle("❌ Server chưa có panel ticket nào.")
                 .setColor("Red"),
             ],
           });
@@ -669,17 +669,17 @@ exports.default = new Command_1.Command({
           d.push(
             new discord_js_1.EmbedBuilder()
               .setAuthor({
-                name: `Total Ticket Panels ${o.length}`,
+                name: `Tổng số Panel Ticket: ${o.length}`,
                 iconURL: t.user.displayAvatarURL(),
               })
               .setColor(t.config.GeneralSettings.EmbedColor)
               .addFields(
                 {
-                  name: "• Panel Information:",
-                  value: `>>> CustomId: **${e.customId}**\nName: **${e.name}**\nEmoji: ${e.emoji}\nCategory: <#${e.category}>\nStyle: **${n[e.style]}**`,
+                  name: "• Thông tin Panel:",
+                  value: `>>> ID: **${e.customId}**\nTên: **${e.name}**\nEmoji: ${e.emoji}\nDanh mục: <#${e.category}>\nKiểu: **${n[e.style]}**`,
                 },
                 {
-                  name: "• Roles Information:",
+                  name: "• Vai trò:",
                   value: `>>> ${e.roles.map((e) => `<@&${e}>`).join("\n")}`,
                 },
               )
@@ -702,7 +702,7 @@ exports.default = new Command_1.Command({
           return e.reply({
             embeds: [
               new discord_js_1.EmbedBuilder()
-                .setTitle("This guild does not have a ticket panel.")
+                .setTitle("❌ Server chưa có panel ticket nào.")
                 .setColor("Red"),
             ],
           });
@@ -732,7 +732,7 @@ exports.default = new Command_1.Command({
         return e.editReply({
           embeds: [
             new discord_js_1.EmbedBuilder()
-              .setTitle(`The ${i.name} has been deleted`)
+              .setTitle(`✅ Đã xóa panel '${i.name}' thành công`)
               .setColor(t.config.GeneralSettings.EmbedColor),
           ],
         });

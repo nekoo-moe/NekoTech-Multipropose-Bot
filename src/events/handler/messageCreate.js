@@ -117,7 +117,7 @@ function checkUserAFK(e) {
           ),
         ],
       });
-      return setInterval(() => s.delete().catch((e) => e), 5e3);
+      return setTimeout(() => s.delete().catch((e) => e), 5e3);
     }
     const s = e.mentions.users;
     for (const t of s.toJSON()) {
@@ -132,12 +132,12 @@ function checkUserAFK(e) {
               "{user-username}": t.username,
               "{user-pfp}": t.displayAvatarURL(),
               "{user-id}": t.id,
-              "{reason}": s.afk.reason,
-              "{time}": Math.floor(s.afk.since / 1e3),
+              "{reason}": s.afk.reason || "Không có lý do",
+              "{time}": Math.floor((s.afk.since || Date.now()) / 1e3),
             }),
           ],
         });
-        return setInterval(() => i.delete().catch((e) => e), 5e3);
+        return setTimeout(() => i.delete().catch((e) => e), 5e3);
       }
     }
   });

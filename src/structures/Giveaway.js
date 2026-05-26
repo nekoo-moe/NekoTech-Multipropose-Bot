@@ -9,20 +9,33 @@ class ExtendedGiveawaysManager extends discord_giveaways_1.GiveawaysManager {
   generateMainEmbed(e) {
     const a = Object.values(e.extraData.requirements).some((e) => "" !== e),
       { GiveawayEmbed: t, GiveawayWithRequirements: i } =
-        this.client.messages.Embeds,
-      r = (0, replaceAll_1.default)(a ? i : t, {
-        "{description}": e.extraData.description || "",
-        "{timestamp}": Math.round(e.endAt / 1e3),
-        "{prize}": e.prize,
-        "{winners}": e.winnerCount,
-        "{user-tag}": e.hostedBy.tag,
-        "{user}": e.hostedBy.toString(),
-        "{image}": e.extraData.image,
-        "{requirements}": Object.entries(e.extraData.requirements)
-          .filter((e) => e[1])
-          .map((e) => `> You must be at ${e[0]} ${e[1] || 5} or higher`)
-          .join("\n"),
-      });
+        this.client.messages.Embeds;
+    const isPaused = e.pauseOptions?.isPaused || !isFinite(e.endAt);
+    let embedConfig = JSON.parse(JSON.stringify(a ? i : t));
+    if (isPaused && embedConfig.fields) {
+      for (const field of embedConfig.fields) {
+        if (field.name === "Kết Thúc Sau") {
+          field.name = "Trạng Thái";
+          field.value = "⏸️ Đang tạm dừng";
+        }
+      }
+    }
+    const r = (0, replaceAll_1.default)(embedConfig, {
+      "{description}": e.extraData.description || "",
+      "{timestamp}": isPaused ? 0 : Math.round(e.endAt / 1e3),
+      "{prize}": e.prize,
+      "{winners}": e.winnerCount,
+      "{user-tag}": e.hostedBy.tag,
+      "{user}": e.hostedBy.toString(),
+      "{image}": e.extraData.image,
+      "{requirements}": Object.entries(e.extraData.requirements)
+        .filter((e) => e[1])
+        .map((e) => {
+          const reqNames = { levels: "cấp độ", invites: "lượt mời", messages: "tin nhắn" };
+          return `> Bạn phải có tối thiểu **${e[1]}** ${reqNames[e[0]] || e[0]}`;
+        })
+        .join("\n"),
+    });
     return (
       e.extraData.image || delete r.image,
       new discord_js_1.EmbedBuilder(r)

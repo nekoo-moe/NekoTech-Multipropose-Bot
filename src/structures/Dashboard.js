@@ -185,7 +185,8 @@ class Dashboard {
                       ],
                       components: [...r.buttons(), n()],
                     }));
-                } catch (t) {
+                } catch (err) {
+                  console.error("Dashboard update error:", err);
                   e.editReply({
                     embeds: [
                       r

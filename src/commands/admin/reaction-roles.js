@@ -9,7 +9,7 @@ const tslib_1 = require("tslib"),
   styles = { 1: "Primary", 2: "Secondary", 3: "Success", 4: "Danger" };
 exports.default = new Command_1.Command({
   name: "reaction-roles",
-  description: "Manage the reaction-roles system",
+  description: "Quản lý hệ thống reaction roles",
   options: [
     {
       name: "add",
@@ -127,11 +127,11 @@ exports.default = new Command_1.Command({
           e.reply({
             embeds: [
               new discord_js_1.EmbedBuilder()
-                .setTitle("Reaction Panel Added")
+                .setTitle("✅ Đã thêm Reaction Role thành công")
                 .setColor(o.config.GeneralSettings.EmbedColor)
                 .addFields({
-                  name: "• Panel Information:",
-                  value: `>>> Role: **${t.name}**\nEmoji: ${i}\nLabel: **${n}**\nStyle: **${styles[s]}**`,
+                  name: "• Thông tin Panel:",
+                  value: `>>> Vai trò: **${t.name}**\nEmoji: ${i}\nNhãn: **${n}**\nKiểu: **${styles[s]}**`,
                 })
                 .setTimestamp(),
             ],
@@ -149,7 +149,7 @@ exports.default = new Command_1.Command({
           return e.reply({
             embeds: [
               new discord_js_1.EmbedBuilder()
-                .setTitle("This guild does not have a reaction role panel.")
+                .setTitle("❌ Server chưa có panel reaction role nào.")
                 .setColor("Red"),
             ],
           });
@@ -159,7 +159,7 @@ exports.default = new Command_1.Command({
               embeds: [
                 new discord_js_1.EmbedBuilder()
                   .setTitle(
-                    `The ${i.name} has been deleted from the reaction-roles`,
+                    `✅ Đã xóa vai trò ${i.name} khỏi reaction-roles`,
                   )
                   .setColor(o.config.GeneralSettings.EmbedColor),
               ],
@@ -167,7 +167,7 @@ exports.default = new Command_1.Command({
           : e.followUp({
               embeds: [
                 new discord_js_1.EmbedBuilder()
-                  .setTitle("This reaction-role doesn't exists")
+                  .setTitle("❌ Reaction role này không tồn tại")
                   .setColor("Red"),
               ],
             });
@@ -182,7 +182,7 @@ exports.default = new Command_1.Command({
           return e.reply({
             embeds: [
               new discord_js_1.EmbedBuilder()
-                .setTitle("This guild does not have a reaction role panel.")
+                .setTitle("❌ Server chưa có panel reaction role nào.")
                 .setColor("Red"),
             ],
           });
@@ -191,13 +191,13 @@ exports.default = new Command_1.Command({
           n.push(
             new discord_js_1.EmbedBuilder()
               .setAuthor({
-                name: `Total Roles Panels ${t.rolesConfig.length}`,
+                name: `Tổng số Panels: ${t.rolesConfig.length}`,
                 iconURL: o.user.displayAvatarURL(),
               })
               .setColor(o.config.GeneralSettings.EmbedColor)
               .addFields({
-                name: "• Panel Information:",
-                value: `>>> Role: <@&${e.role}>\nCategory: **${e.category}**\nLabel: **${e.label}**\nStyle: **${styles[e.style]}**\nEmoji: ${e.emoji}`,
+                name: "• Thông tin Panel:",
+                value: `>>> Vai trò: <@&${e.role}>\nDanh mục: **${e.category}**\nNhãn: **${e.label}**\nKiểu: **${styles[e.style]}**\nEmoji: ${e.emoji}`,
               })
               .setTimestamp()
               .setFooter({
@@ -267,7 +267,7 @@ exports.default = new Command_1.Command({
             embeds: [
               new discord_js_1.EmbedBuilder()
                 .setTitle(
-                  "The reaction roles panel has been sent to the channel",
+                  "✅ Panel reaction roles đã được gửi tới kênh",
                 )
                 .setColor(o.config.GeneralSettings.EmbedColor),
             ],

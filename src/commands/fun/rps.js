@@ -11,19 +11,19 @@ function generateComponentsBoard(e = !1) {
         .setCustomId("rps-rock")
         .setStyle(discord_js_1.ButtonStyle.Secondary)
         .setDisabled(e)
-        .setLabel("Rock")
+        .setLabel("Đá")
         .setEmoji("🪨"),
       new discord_js_1.ButtonBuilder()
         .setCustomId("rps-paper")
         .setStyle(discord_js_1.ButtonStyle.Secondary)
         .setDisabled(e)
-        .setLabel("Paper")
+        .setLabel("Báo")
         .setEmoji("🧻"),
       new discord_js_1.ButtonBuilder()
         .setCustomId("rps-scissors")
         .setStyle(discord_js_1.ButtonStyle.Secondary)
         .setDisabled(e)
-        .setLabel("Scissors")
+        .setLabel("Kéo")
         .setEmoji("✂️"),
     ),
   ];
@@ -70,7 +70,7 @@ exports.default = new Command_1.Command({
         return s.editReply({
           embeds: [
             new discord_js_1.EmbedBuilder()
-              .setTitle(`The game has been rejected by ${t.username}`)
+              .setTitle(`Trò chơi đã bị ${t.username} từ chối`)
               .setColor("Red"),
           ],
           components: [],
@@ -81,7 +81,7 @@ exports.default = new Command_1.Command({
         embeds: [
           new discord_js_1.EmbedBuilder()
             .setTitle("Trò chơi Kéo Búa Bao")
-            .setDescription("Press a button below to make a choice.")
+            .setDescription("➡️ Nhấn một nút bên dưới để chọn")
             .setColor(e.config.GeneralSettings.EmbedColor)
             .addFields(
               { name: s.user.username, value: "❔", inline: !0 },
@@ -100,25 +100,25 @@ exports.default = new Command_1.Command({
           const { customId: n } = o;
           if (o.user.id !== s.user.id && o.user.id !== t.id)
             return void o.reply({
-              content: "❌ | You are not part of this game.",
+              content: "❌ | Bạn không tham gia trò chơi này.",
               ephemeral: !0,
             });
           if (r[0] && r[1])
             return void o.reply({
-              content: "❌ | Both players have already made their choices.",
+              content: "❌ | Cả hai người đã chọn xong rồi.",
               ephemeral: !0,
             });
           let d;
           if (((d = o.user.id === s.user.id ? 0 : 1), r[d]))
             return void o.reply({
-              content: "❌ | You have already made your choice.",
+              content: "❌ | Bạn đã chọn rồi.",
               ephemeral: !0,
             });
           const a = n.split("rps-")[1];
           if (
             ((r[d] = a),
             yield o.reply({
-              content: "Your choice has been recorded.",
+              content: "✅ Lựa chọn của bạn đã được ghi nhận.",
               ephemeral: !0,
             }),
             r[0] && r[1])
@@ -133,8 +133,8 @@ exports.default = new Command_1.Command({
                     .setColor(e.config.GeneralSettings.EmbedColor)
                     .setDescription(
                       0 === o
-                        ? "The Game tied! No one won the Game!"
-                        : `🎉 ${n.toString()} won the Game! Congratulations`,
+                        ? "🤝 Hòa! Không ai thắng!"
+                        : `🎉 ${n.toString()} thắng! Chúc mừng bạn!`,
                     )
                     .addFields(
                       {
@@ -160,7 +160,7 @@ exports.default = new Command_1.Command({
               new discord_js_1.EmbedBuilder()
                 .setTitle("Trò chơi Kéo Búa Bao")
                 .setDescription(
-                  `${o.user.toString()} has just selected his option\n\t\t\t\t\t\t\tPress a button below to make a choice.`,
+                  `${o.user.toString()} vừa chọn xong\n\t\t\t\t\t\t\t➡️ Nhấn một nút bên dưới để chọn.`,
                 )
                 .setColor(e.config.GeneralSettings.EmbedColor)
                 .addFields(
@@ -178,9 +178,9 @@ exports.default = new Command_1.Command({
               embeds: [
                 new discord_js_1.EmbedBuilder()
                   .setTitle("Trò chơi Kéo Búa Bao")
-                  .setDescription("The game has ended due to inactivity.")
+                  .setDescription("⏰ Trò chơi đã kết thúc do không hoạt động.")
                   .setColor("Red")
-                  .setFooter({ text: "Both players needed to make a choice." }),
+                  .setFooter({ text: "⚠️ Cả hai người cần phải chọn." }),
               ],
               components: generateComponentsBoard(!0),
             });

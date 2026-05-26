@@ -272,7 +272,7 @@ function banMentionablesFromChannel(e, i, n) {
         ephemeral: !0,
       }),
       t = yield i.awaitMessageComponent({
-        componentType: discord_js_1.ComponentType.StringSelect,
+        componentType: discord_js_1.ComponentType.MentionableSelect,
         filter: (e) => e.user.id === n.user.id,
       });
     for (const i of t.values)
@@ -312,7 +312,7 @@ function permitMentionablesFromChannel(e, i, n) {
         ephemeral: !0,
       }),
       t = yield i.awaitMessageComponent({
-        componentType: discord_js_1.ComponentType.StringSelect,
+        componentType: discord_js_1.ComponentType.MentionableSelect,
         filter: (e) => e.user.id === n.user.id,
       });
     for (const i of t.values)

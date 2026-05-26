@@ -52,14 +52,14 @@ exports.default = new Command_1.Command({
           e.followUp({
             embeds: [
               new discord_js_1.EmbedBuilder()
-                .setTitle("The verify panel has been sent to the channel")
+                .setTitle("✅ Panel xác minh đã được gửi đến kênh")
                 .setColor(i.config.GeneralSettings.EmbedColor),
             ],
           }))
         : e.followUp({
             embeds: [
               new discord_js_1.EmbedBuilder()
-                .setTitle("You need configure the role id using /setup")
+                .setTitle("❌ Bạn cần cấu hình vai trò xác minh trong /setup trước")
                 .setColor("Red"),
             ],
           });

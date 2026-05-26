@@ -140,7 +140,8 @@ function applySchemaDefaults(data, definition) {
           result[key] = typeof prop.default === 'function' ? prop.default() : JSON.parse(JSON.stringify(prop.default));
         } else if (prop.type && typeof prop.type === 'object' && !Array.isArray(prop.type) && !prop.type.type) {
           // If the type is a nested schema definition without a direct type key
-          result[key] = applySchemaDefaults(undefined, prop.type);
+          const nestedDef = (prop.type && prop.type.definition) ? prop.type.definition : prop.type;
+          result[key] = applySchemaDefaults(undefined, nestedDef);
         }
       } else if (result[key] && typeof result[key] === 'object' && !Array.isArray(result[key])) {
         // If it exists and prop has default defined as an object, merge missing keys
@@ -155,7 +156,8 @@ function applySchemaDefaults(data, definition) {
         
         // Also apply nested defaults if the type is a nested schema definition
         if (prop.type && typeof prop.type === 'object' && !prop.type.type) {
-          result[key] = applySchemaDefaults(result[key], prop.type);
+          const nestedDef = (prop.type && prop.type.definition) ? prop.type.definition : prop.type;
+          result[key] = applySchemaDefaults(result[key], nestedDef);
         }
       }
     }
@@ -180,6 +182,13 @@ class SQLiteDocument {
     }
     await this._model.updateOne({ _id: this._id }, dataToSave, { upsert: true });
     return this;
+  }
+
+  async updateOne(update, options = {}) {
+    const result = await this._model.updateOne({ _id: this._id }, update, options);
+    const updatedData = applyUpdate(this, update);
+    Object.assign(this, updatedData);
+    return result;
   }
   
   async deleteOne() {
@@ -367,11 +376,38 @@ Schema.Types = {
   ObjectId: 'objectId'
 };
 
+function createModel(tableName, schema) {
+  const modelInstance = new SQLiteModel(tableName, schema);
+  
+  class DocumentConstructor extends SQLiteDocument {
+    constructor(data) {
+      super(modelInstance, data);
+    }
+  }
+  
+  // Delegate all methods of modelInstance to DocumentConstructor
+  const methods = [
+    'findOne', 'find', 'create', 'updateOne', 'deleteOne', 
+    'deleteMany', 'countDocuments', '_loadAll', '_saveRow'
+  ];
+  
+  for (const method of methods) {
+    if (typeof modelInstance[method] === 'function') {
+      DocumentConstructor[method] = modelInstance[method].bind(modelInstance);
+    }
+  }
+  
+  DocumentConstructor.tableName = tableName;
+  DocumentConstructor.schema = schema;
+  
+  return DocumentConstructor;
+}
+
 const sqliteDbModule = {
   Schema,
   Types,
   SchemaTypes: Schema.Types,
-  model: (tableName, schema) => new SQLiteModel(tableName, schema),
+  model: (tableName, schema) => createModel(tableName, schema),
   connect: async () => {
     console.log('Mock connecting to database successfully (SQLite)');
     return true;

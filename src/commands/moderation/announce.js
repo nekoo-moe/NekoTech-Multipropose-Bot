@@ -56,7 +56,7 @@ module.exports = new Command_1.Command({
         embeds: [
           new discord_js_1.EmbedBuilder()
             .setTitle("Tin nhắn đã được gửi thành công!")
-            .setDescription(`Message sent to ${d.toString()}`)
+            .setDescription(`✅ Tin nhắn đã được gửi đến ${d.toString()}`)
             .setColor(e.config.GeneralSettings.EmbedColor),
         ],
         ephemeral: !0,

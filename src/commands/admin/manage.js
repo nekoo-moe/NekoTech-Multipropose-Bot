@@ -22,8 +22,8 @@ function manageVoiceChannelsCategory({ client: e, interaction: n }) {
         return n.reply({
           embeds: [
             new discord_js_1.EmbedBuilder()
-              .setTitle("A generator channel already exists")
-              .setDescription("Use the command /manage voice-channels delete")
+              .setTitle("❌ Đã có kênh generator tồn tại")
+              .setDescription("Dùng lệnh /manage voice-channels delete để xóa trước")
               .setColor("Red"),
           ],
           ephemeral: !0,
@@ -49,7 +49,7 @@ function manageVoiceChannelsCategory({ client: e, interaction: n }) {
           embeds: [
             new discord_js_1.EmbedBuilder()
               .setColor(e.config.GeneralSettings.EmbedColor)
-              .setTitle("All the channels has been created correctly"),
+              .setTitle("✅ Tất cả các kênh đã được tạo thành công"),
           ],
         }));
     }
@@ -63,7 +63,7 @@ function manageVoiceChannelsCategory({ client: e, interaction: n }) {
           embeds: [
             new discord_js_1.EmbedBuilder()
               .setColor(e.config.GeneralSettings.EmbedColor)
-              .setTitle("The channel has been deleted correctly"),
+              .setTitle("Kênh đã được xóa thành công"),
           ],
         }));
     }
@@ -126,8 +126,8 @@ function manageStatsChannels({ client: e, interaction: n }) {
           yield n.followUp({
             embeds: [
               new discord_js_1.EmbedBuilder()
-                .setTitle("📊 Server Stats Channels")
-                .setDescription("Default channels have been created")
+                .setTitle("📊 Kênh Thống Kê Máy Chủ")
+                .setDescription("Đã tạo các kênh thống kê mặc định")
                 .setColor(e.config.GeneralSettings.EmbedColor),
             ],
           }));
@@ -156,14 +156,14 @@ function manageStatsChannels({ client: e, interaction: n }) {
           n.reply({
             embeds: [
               new discord_js_1.EmbedBuilder()
-                .setTitle("The channel name has been updated")
+                .setTitle("✅ Tên kênh thống kê đã được cập nhật")
                 .setColor(e.config.GeneralSettings.EmbedColor),
             ],
           }))
         : n.reply({
             embeds: [
               new discord_js_1.EmbedBuilder()
-                .setTitle("I can't find that channel in my database")
+                .setTitle("❌ Không tìm thấy kênh này trong cơ sở dữ liệu")
                 .setColor("Red"),
             ],
             ephemeral: !0,
@@ -180,7 +180,7 @@ function manageStatsChannels({ client: e, interaction: n }) {
         return n.reply({
           embeds: [
             new discord_js_1.EmbedBuilder()
-              .setTitle("This channel is not of type statistics")
+              .setTitle("❌ Kênh này không phải là kênh thống kê")
               .setColor("Red"),
           ],
         });
@@ -190,7 +190,7 @@ function manageStatsChannels({ client: e, interaction: n }) {
         n.reply({
           embeds: [
             new discord_js_1.EmbedBuilder()
-              .setTitle("The channel has been deleted correctly")
+              .setTitle("✅ Kênh đã được xóa thành công")
               .setColor(e.config.GeneralSettings.EmbedColor),
           ],
         })
@@ -202,7 +202,7 @@ function manageStatsChannels({ client: e, interaction: n }) {
         return n.reply({
           embeds: [
             new discord_js_1.EmbedBuilder()
-              .setTitle("There are no statistics channels")
+              .setTitle("❌ Không có kênh thống kê nào")
               .setColor("Red"),
           ],
           ephemeral: !0,
@@ -211,7 +211,7 @@ function manageStatsChannels({ client: e, interaction: n }) {
         o = [];
       for (const e of t.statsChannels) {
         n.guild.channels.cache.get(e.id) ||
-          (i.push(`The channel ${e.name} is not in the server`), o.push(e.id));
+          (i.push(`Kênh ${e.name} không tồn tại trong server`), o.push(e.id));
       }
       return (
         yield t.updateOne({
@@ -222,8 +222,8 @@ function manageStatsChannels({ client: e, interaction: n }) {
         n.reply({
           embeds: [
             new discord_js_1.EmbedBuilder()
-              .setTitle("Stats Channels Fixed")
-              .setDescription(i.length ? i.join("\n") : "There are no errors")
+              .setTitle("✅ Kênh Thống Kê Đã Được Kiểm Tra")
+              .setDescription(i.length ? i.join("\n") : "ÔK, không có lỗi nào")
               .setColor(e.config.GeneralSettings.EmbedColor),
           ],
         })

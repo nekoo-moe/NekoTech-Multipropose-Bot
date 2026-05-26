@@ -56,12 +56,14 @@ exports.default = new Event_1.Event("voiceStateUpdate", (e, i) =>
         __1.client.voiceTimer.set(d, { guildId: t, start: Date.now() }),
       e.channelId && !i.channelId)
     ) {
-      const e = yield (0, querys_1.users)()
-          .profile()
-          .get({ guildId: t, userId: d }),
-        i = Date.now() - l.start;
-      (__1.client.voiceTimer.delete(d),
-        yield e.updateOne({ $inc: { voiceTime: i } }));
+      if (l) {
+        const e = yield (0, querys_1.users)()
+            .profile()
+            .get({ guildId: t, userId: d }),
+          i = Date.now() - l.start;
+        (__1.client.voiceTimer.delete(d),
+          yield e.updateOne({ $inc: { voiceTime: i } }));
+      }
     }
   }),
 );

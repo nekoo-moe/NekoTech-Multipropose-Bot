@@ -154,7 +154,7 @@ Embeds:
       - name: "Kết Thúc Sau"
         value: "<t:{timestamp}:R>"
         inline: true
-  GiveawayWithYêu Cầu Tham Gia:
+  GiveawayWithRequirements:
     title: "🎁 Sự Kiện Quà Tặng (Giveaway)"
     description: "{description}"
     color: "{color-default}"
@@ -203,14 +203,14 @@ Embeds:
       - name: "\u200b"
         value: ":tada: **Hãy tạo một ticket hỗ trợ để nhận phần thưởng!**"
         inline: false
-  GiveawayNoYêu Cầu Tham Gia:
+  GiveawayNoRequirements:
     title: "Bạn không đủ điều kiện tham gia"
     color: "{color-default}"
     description: |
-      Bạn không thể tham gia giveaway [{prize}]({giveaway-url}) vì thiếu các điều kiện sau
+      Bạn không thể tham gia giveaway [{prize}]({giveaway-url}) vì thiếu các điều kiện sau:
 
       __**Yêu Cầu Tham Gia**__
-      {formattedYêu Cầu Tham Gia}
+      {formattedRequirements}
   SuggestSentEmbed:
     title: "Hệ Thống Góp Ý"
     description: "Ý kiến đóng góp của bạn đã được gửi thành công!"
@@ -228,7 +228,7 @@ Embeds:
       - name: "Thống kê"
         value: |
           >>> {upvote-emoji} {upvote-count} phiếu tán thành
-          {phiếu phản đối-emoji} {phiếu phản đối-count} phiếu phản đối
+          {downvote-emoji} {downvote-count} phiếu phản đối
         inline: true
     footer:
       iconURL: "{user-pfp}"
@@ -246,7 +246,7 @@ Embeds:
       - name: "Thống kê"
         value: |
           >>> {upvote-emoji} {upvote-count} phiếu tán thành
-          {phiếu phản đối-emoji} {phiếu phản đối-count} phiếu phản đối
+          {downvote-emoji} {downvote-count} phiếu phản đối
         inline: true
     footer:
       iconURL: "{user-pfp}"
@@ -264,7 +264,7 @@ Embeds:
       - name: "Thống kê"
         value: |
           >>> {upvote-emoji} {upvote-count} phiếu tán thành
-          {phiếu phản đối-emoji} {phiếu phản đối-count} phiếu phản đối
+          {downvote-emoji} {downvote-count} phiếu phản đối
         inline: true
     footer:
       iconURL: "{user-pfp}"
@@ -381,12 +381,12 @@ Embeds:
   MessageWithLinkBlocked:
     title: "Này {user-tag}, vui lòng không gửi bất kỳ liên kết (link) nào trong kênh chat!"
     color: "Red"
-  Trò Chơi Đoán Chữ (Wordle)PendingGame:
+  WordlePendingGame:
     title: "Trò Chơi Đoán Chữ (Wordle)"
     image:
       url: "attachment://wordle.png"
     color: "{color-default}"
-  Trò Chơi Đoán Chữ (Wordle)WrongGame:
+  WordleWrongGame:
     title: "Trò Chơi Đoán Chữ (Wordle)"
     description: |
       **Trò Chơi Kết Thúc**
@@ -394,7 +394,7 @@ Embeds:
     image:
       url: "attachment://wordle.png"
     color: "Red"
-  Trò Chơi Đoán Chữ (Wordle)SuccesGame:
+  WordleSuccesGame:
     title: "Trò Chơi Đoán Chữ (Wordle)"
     description: |
       **Trò Chơi Kết Thúc**
@@ -887,31 +887,41 @@ Embeds:
     color: "{color-default}"
     description: "Try looking-up the US, UK or CA postcode, or using coordinates (latitude,longitude)"
   AfkDisableEmbed:
-    title: "Your afk status has been updated to disabled"
-    color: "{color-defult}"
-  AfkEnabledEmbed:
-    title: "Your afk status has been updated to enabled"
+    title: "Trạng thái treo máy (AFK) của bạn đã được tắt"
     color: "{color-default}"
+  AfkEnabledEmbed:
+    title: "Trạng thái treo máy (AFK) đã được kích hoạt"
+    color: "{color-default}"
+    fields:
+      - name: "😴 Trạng thái"
+        value: "Đang treo máy (AFK)"
+        inline: true
+      - name: "📄 Lý do"
+        value: "{reason}"
+        inline: true
+      - name: "⏰ Bắt đầu từ"
+        value: "<t:{time}:R>"
+        inline: true
   AfkInvalidTimeEmbed:
-    title: "You need use a valid time (1h, 1d, 1m, 1y)"
+    title: "Bạn cần sử dụng một khoảng thời gian hợp lệ (1h, 1d, 1m, 1y)"
     color: "Red"
   AfkPingEmbed:
     author:
-      name: "{user-username} is currently AFK"
+      name: "{user-username} hiện đang treo máy (AFK)"
       iconURL: "{user-pfp}"
     color: "{color-default}"
     fields:
-      - name: "😴 Status"
-        value: "AFK"
+      - name: "😴 Trạng thái"
+        value: "Đang treo máy (AFK)"
         inline: true
-      - name: "📄 Reason"
+      - name: "📄 Lý do"
         value: "{reason}"
         inline: true
-      - name: "⏰ Since"
+      - name: "⏰ Bắt đầu từ"
         value: "<t:{time}:R>"
         inline: true
   AfkDetectedEmbed:
-    title: "Your afk status has been disabled"
+    title: "Chào mừng bạn đã trở lại! Trạng thái treo máy (AFK) đã được tự động tắt."
     color: "{color-default}"
   AfkListEmbed:
     author:
@@ -1049,7 +1059,7 @@ Buttons:
     Label: "Tán Thành"
     Style: "Success"
   SuggestDownvote:
-    Emoji: "{phiếu phản đối-emoji}"
+    Emoji: "{downvote-emoji}"
     Label: "Phản Đối"
     Style: "Danger"
   SuggestReset:
@@ -1277,9 +1287,9 @@ Logs:
 
 Strings:
   GiveawayContentMessage: "🎉 @everyone"
-  GiveawayContentEnded: "🎉 Giveaway Ended"
-  GiveawayContentNoNgười Thắng Cuộc: "🎉 Giveaway cancelled, no valid participations."
-  GiveawayWinMessage: "Congratulations, {winners}! You won **{this.prize}**"
+  GiveawayContentEnded: "🎉 Sự Kiện Quà Tặng Đã Kết Thúc"
+  GiveawayContentNoWinners: "🎉 Giveaway đã bị hủy, không có lượt tham gia hợp lệ."
+  GiveawayWinMessage: "Chúc mừng, {winners}! Bạn đã thắng giải **{this.prize}**"
   WarnRemovedMessage: "__**[{reason}]**__"
   BanRemovedMessage: "__**[{reason}]**__"
   TicketChannelName: "ticket-{counter}"

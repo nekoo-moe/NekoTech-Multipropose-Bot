@@ -69,7 +69,7 @@ exports.default = new Command_1.Command({
                     )
                     .setDisabled(e)
                     .setCustomId("name")
-                    .setLabel("Name")
+                    .setLabel("Tên")
                     .setEmoji("👤"),
                   new discord_js_1.ButtonBuilder()
                     .setStyle(
@@ -79,7 +79,7 @@ exports.default = new Command_1.Command({
                     )
                     .setDisabled(e)
                     .setCustomId("description")
-                    .setLabel("Description")
+                    .setLabel("Mô tả")
                     .setEmoji("📰"),
                   new discord_js_1.ButtonBuilder()
                     .setStyle(
@@ -89,7 +89,7 @@ exports.default = new Command_1.Command({
                     )
                     .setDisabled(e)
                     .setCustomId("response")
-                    .setLabel("Response")
+                    .setLabel("Nội dung phản hồi")
                     .setEmoji("✏️"),
                   new discord_js_1.ButtonBuilder()
                     .setStyle(
@@ -99,7 +99,7 @@ exports.default = new Command_1.Command({
                     )
                     .setDisabled(e)
                     .setCustomId("permission")
-                    .setLabel("Permission")
+                    .setLabel("Quyền")
                     .setEmoji("🕵️"),
                 ),
               ];
@@ -123,7 +123,7 @@ exports.default = new Command_1.Command({
               new discord_js_1.EmbedBuilder()
                 .setTitle("Cài đặt lệnh tùy chỉnh cá nhân")
                 .setDescription(
-                  "Use the button corresponding to each property you want to edit.",
+                  "Nhấn nút tương ứng với thuộc tính bạn muốn chỉnh sửa.",
                 )
                 .setColor(t.config.GeneralSettings.EmbedColor),
             ],
@@ -185,7 +185,7 @@ exports.default = new Command_1.Command({
                   embeds: [
                     d()
                       .embeds[0].setDescription(
-                        "To configure the message that the bot will send when the command is used, you must do it from [here](https://glitchii.github.io/embedbuilder)",
+                        "Tạo câu trả lời bạn muốn bot gửi tại [embedbuilder](https://glitchii.github.io/embedbuilder).",
                       )
                       .setColor("Red"),
                   ],
@@ -200,7 +200,7 @@ exports.default = new Command_1.Command({
                   embeds: [
                     d()
                       .embeds[0].setDescription(
-                        "You must mention all the roles that will be able to use this command.",
+                        "Bạn phải mention các vai trò có thể sử dụng lệnh này.",
                       )
                       .setColor("Red"),
                   ],
@@ -216,7 +216,7 @@ exports.default = new Command_1.Command({
                     d()
                       .embeds[0].setTitle("Lệnh tùy chỉnh đã được tạo thành công!")
                       .setDescription(
-                        `The command has been created successfully, use **/${i.name}** for use that.`,
+                        `✅ Lệnh đã tạo thành công! Dùng **/${i.name}** để sử dụng.`,
                       )
                       .setColor(t.config.GeneralSettings.EmbedColor),
                   ],
@@ -227,7 +227,7 @@ exports.default = new Command_1.Command({
                     d()
                       .embeds[0].setTitle("Đã hết thời gian chờ")
                       .setDescription(
-                        "The waiting time for you to respond has passed (2 minutes), use the command again.",
+                        "Đã quá thời gian chờ (2 phút). Vui lòng gõ lại lệnh.",
                       )
                       .setColor("Red"),
                   ],
@@ -253,7 +253,7 @@ exports.default = new Command_1.Command({
                 new discord_js_1.EmbedBuilder()
                   .setTitle("Đã xóa lệnh tùy chỉnh")
                   .setDescription(
-                    `Deleted command **/${o}** remember restart your bot!`,
+                    `✅ Đã xóa lệnh **/${o}**. Nhớ khởi động lại bot!`,
                   )
                   .setColor(t.config.GeneralSettings.EmbedColor),
               ],
@@ -262,7 +262,7 @@ exports.default = new Command_1.Command({
               embeds: [
                 new discord_js_1.EmbedBuilder()
                   .setTitle("Lỗi khi xóa lệnh tùy chỉnh")
-                  .setDescription("A command with this name does not exist.")
+                  .setDescription("❌ Không tìm thấy lệnh với tên này.")
                   .setColor("Red"),
               ],
             });
@@ -272,8 +272,8 @@ exports.default = new Command_1.Command({
           return e.reply({
             embeds: [
               new discord_js_1.EmbedBuilder()
-                .setTitle("No custom commands")
-                .setDescription("There are no custom commands.")
+                .setTitle("❌ Không có lệnh tùy chỉnh nào")
+                .setDescription("⚠️ Chưa có lệnh tùy chỉnh nào. Hãy tạo lệnh bằng /custom-commands create.")
                 .setColor("Red"),
             ],
           });
@@ -282,20 +282,20 @@ exports.default = new Command_1.Command({
           const s = t.commandsConfig[e.permission].Permissions;
           o.push(
             new discord_js_1.EmbedBuilder()
-              .setTitle(`Custom command ${e.name}`)
+              .setTitle(`Lệnh tùy chỉnh: ${e.name}`)
               .addFields(
                 {
-                  name: "• Command Information:",
-                  value: `>>> Name: **${e.name}**\nDescription: **${e.description}**`,
+                  name: "• Thông tin lệnh:",
+                  value: `>>> Tên: **${e.name}**\nMô tả: **${e.description}**`,
                 },
                 {
-                  name: "• Permission Information:",
+                  name: "• Thông tin quyền:",
                   value: `>>> ${s.map((e) => `<@&${e}>`).join("\n")}`,
                 },
               )
               .setColor(t.config.GeneralSettings.EmbedColor)
               .setFooter({
-                text: `Command ${o.length + 1} of ${i.length}`,
+                text: `Lệnh ${o.length + 1} / ${i.length}`,
                 iconURL: t.user.displayAvatarURL(),
               }),
           );

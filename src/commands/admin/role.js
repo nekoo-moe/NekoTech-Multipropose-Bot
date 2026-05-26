@@ -80,7 +80,7 @@ exports.default = new Command_1.Command({
           return r.reply({
             embeds: [
               new discord_js_1.EmbedBuilder()
-                .setTitle("You need specify a valid time ex: (10m, 1h, 1d)")
+                .setTitle("❌ Vui lòng nhập thời gian hợp lệ (ví dụ: 10m, 1h, 1d)")
                 .setColor("Red"),
             ],
             ephemeral: !0,
@@ -90,7 +90,7 @@ exports.default = new Command_1.Command({
           return r.reply({
             embeds: [
               new discord_js_1.EmbedBuilder()
-                .setTitle("The user already has the role to add")
+                .setTitle("❌ Thành viên này đã có vai trò đó rồi")
                 .setColor("Red"),
             ],
             ephemeral: !0,
@@ -180,7 +180,7 @@ exports.default = new Command_1.Command({
           return r.reply({
             embeds: [
               new discord_js_1.EmbedBuilder()
-                .setTitle("The user does not have that temporary role on hold")
+                .setTitle("❌ Thành viên này không có vai trò tạm thời đó")
                 .setColor("Red"),
             ],
             ephemeral: !0,

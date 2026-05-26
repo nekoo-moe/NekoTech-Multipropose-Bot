@@ -56,12 +56,15 @@ exports.default = new Command_1.Command({
       if ("enable" === a)
         return (
           (t.afk.status = !0),
-          (t.afk.reason = i),
+          (t.afk.reason = i || "Không có lý do"),
           (t.afk.since = Date.now()),
           yield t.save(),
           s.reply({
             embeds: [
-              (0, replaceAll_1.default)(e.messages.Embeds.AfkEnabledEmbed),
+              (0, replaceAll_1.default)(e.messages.Embeds.AfkEnabledEmbed, {
+                "{reason}": t.afk.reason,
+                "{time}": Math.floor(t.afk.since / 1e3),
+              }),
             ],
           })
         );

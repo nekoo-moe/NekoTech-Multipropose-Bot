@@ -74,7 +74,7 @@ module.exports = new Command_1.Command({
             embeds: [
               new discord_js_1.EmbedBuilder()
                 .setTitle(
-                  "You can't use this command, beacuse you don't have permissions",
+                  "❌ Bạn không có quyền sử dụng lệnh này",
                 )
                 .setColor("Red"),
             ],
@@ -84,7 +84,7 @@ module.exports = new Command_1.Command({
             embeds: [
               new discord_js_1.EmbedBuilder()
                 .setTitle(
-                  "Hey, you can't kick me, what will you do without me?",
+                  "🤖 Không thể kick bot — bạn sẽ làm gì thiếu tôi?",
                 )
                 .setColor("Red"),
             ],
@@ -94,7 +94,7 @@ module.exports = new Command_1.Command({
             embeds: [
               new discord_js_1.EmbedBuilder()
                 .setTitle(
-                  "You can't use this command, beacuse you don't have permissions",
+                  "❌ Bạn không có quyền sử dụng lệnh này",
                 )
                 .setColor("Red"),
             ],
@@ -164,7 +164,7 @@ module.exports = new Command_1.Command({
               new discord_js_1.EmbedBuilder()
                 .setTitle("Trục xuất thành viên thất bại")
                 .setDescription(
-                  `📕 \`Case #${o}\` does not exist or has already been removed`,
+                  `📕 \`Case #${o}\` không tồn tại hoặc đã bị xóa trước đó`,
                 )
                 .setColor("Red"),
             ],
@@ -185,7 +185,7 @@ module.exports = new Command_1.Command({
               new discord_js_1.EmbedBuilder()
                 .setTitle("Đã xóa án phạt trục xuất")
                 .setDescription(
-                  `✅ \`Case #${o}\` <@!${s.userId}> has been removed for \`${l}\``,
+                  `✅ \`Case #${o}\` đã xóa khỏi lịch sử trục xuất đối với <@!${s.userId}> vì \`${l}\``,
                 )
                 .setColor(e.config.GeneralSettings.EmbedColor),
             ],
@@ -202,7 +202,7 @@ module.exports = new Command_1.Command({
               new discord_js_1.EmbedBuilder()
                 .setTitle("Không tìm thấy lịch sử trục xuất nào")
                 .setDescription(
-                  `📕 \`${(null == a ? void 0 : a.id) ? a.user.tag : "All members"}\` have no kick's`,
+                  `📕 \`${ (null == a ? void 0 : a.id) ? a.user.tag : "Tất cả thành viên"}\` chưa có lịch sử trục xuất nào`,
                 )
                 .setColor("Red"),
             ],
@@ -212,19 +212,19 @@ module.exports = new Command_1.Command({
           const u = l[c],
             p = new discord_js_1.EmbedBuilder()
               .setTitle(
-                `Kick's for ${(null === (o = null == a ? void 0 : a.user) || void 0 === o ? void 0 : o.tag) || i.guild.name}`,
+                `Lịch sử Trục Xuất — ${(null === (o = null == a ? void 0 : a.user) || void 0 === o ? void 0 : o.tag) || i.guild.name}`,
               )
               .setDescription(
-                `**🦵 Case #${u.caseNumber}${u.removeReason ? "** __**[Removed]**__" : "**"}`,
+                `**🦵 Case #${u.caseNumber}${u.removeReason ? "** __**[Đã xoá]**__" : "**"}`,
               )
               .addFields(
                 {
-                  name: "📦 | Case",
-                  value: `Number: ${u.caseNumber}`,
+                  name: "📦 | Mã Trường Hợp",
+                  value: `Số: ${u.caseNumber}`,
                   inline: !0,
                 },
                 {
-                  name: "👥 | User",
+                  name: "👥 | Người Dùng",
                   value:
                     null !==
                       (d =
@@ -237,17 +237,17 @@ module.exports = new Command_1.Command({
                   inline: !0,
                 },
                 {
-                  name: "📆 | Date",
+                  name: "📆 | Ngày",
                   value: `<t:${Math.floor(u.date.getTime() / 1e3)}> (<t:${Math.floor(u.date.getTime() / 1e3)}:R>)`,
                   inline: !0,
                 },
-                { name: "📃 | Reason", value: u.reason, inline: !0 },
+                { name: "📃 | Lý Do", value: u.reason, inline: !0 },
                 {
-                  name: "👮 | Moderator",
+                  name: "👮 | Quản Trị Viên",
                   value:
                     null !==
                       (r =
-                        null === (t = i.guild.members.cache.get(u.moderator)) ||
+                        null === (t = i.guild.members.cache.get(u.staff)) ||
                         void 0 === t
                           ? void 0
                           : t.user.tag) && void 0 !== r
@@ -263,9 +263,9 @@ module.exports = new Command_1.Command({
               });
           (u.removeReason &&
             p.addFields({
-              name: "🔑 | Removed",
+              name: "🔑 | Đã Xoá Án",
               value:
-                null !== (n = u.removeReason) && void 0 !== n ? n : "No reason",
+                null !== (n = u.removeReason) && void 0 !== n ? n : "Không có lý do",
               inline: !0,
             }),
             m.push(p));

@@ -38,8 +38,8 @@ exports.default = new Command_1.Command({
         yield s.editReply({
           embeds: [
             new discord_js_1.EmbedBuilder()
-              .setTitle("👋 Bot reloaded")
-              .setDescription("The bot has been reloaded correctly and slash commands synchronized!")
+              .setTitle("👋 Bot đã được tải lại")
+              .setDescription("✅ Cấu hình và lệnh đã được nạp lại thành công và đã đồng bộ với Discord!")
               .setColor(e.config.GeneralSettings.EmbedColor),
           ],
         });
@@ -48,8 +48,8 @@ exports.default = new Command_1.Command({
         yield s.editReply({
           embeds: [
             new discord_js_1.EmbedBuilder()
-              .setTitle("❌ Error reloading bot")
-              .setDescription(`An error occurred: \`\`\`${error.message}\`\`\``)
+              .setTitle("❌ Lỗi khi tải lại bot")
+              .setDescription(`Đã xảy ra lỗi: \`\`\`${error.message}\`\`\``)
               .setColor("Red"),
           ],
         });

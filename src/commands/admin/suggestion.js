@@ -10,22 +10,22 @@ const tslib_1 = require("tslib"),
   querys_1 = require("../../helpers/querys");
 exports.default = new Command_1.Command({
   name: "suggestion",
-  description: "Suggestion Manager",
+  description: "Quản lý góp ý",
   options: [
     {
       name: "accept",
-      description: "Accept a suggestion",
+      description: "Chấp thuận một góp ý",
       type: discord_js_1.ApplicationCommandOptionType.Subcommand,
       options: [
         {
           name: "token",
-          description: "Suggestion Token",
+          description: "Mã ID của góp ý",
           type: discord_js_1.ApplicationCommandOptionType.String,
           required: !0,
         },
         {
           name: "reply",
-          description: "Your reply for the Suggestion",
+          description: "Phản hồi của bạn với góp ý",
           type: discord_js_1.ApplicationCommandOptionType.String,
           required: !0,
         },
@@ -33,18 +33,18 @@ exports.default = new Command_1.Command({
     },
     {
       name: "decline",
-      description: "Decline a suggestion",
+      description: "Từ chối một góp ý",
       type: discord_js_1.ApplicationCommandOptionType.Subcommand,
       options: [
         {
           name: "token",
-          description: "Suggestion Token",
+          description: "Mã ID của góp ý",
           type: discord_js_1.ApplicationCommandOptionType.String,
           required: !0,
         },
         {
           name: "reply",
-          description: "Your reply for the Suggestion",
+          description: "Phản hồi của bạn với góp ý",
           type: discord_js_1.ApplicationCommandOptionType.String,
           required: !0,
         },
@@ -80,14 +80,14 @@ exports.default = new Command_1.Command({
         return e.reply({
           embeds: [
             new discord_js_1.EmbedBuilder()
-              .setTitle("There is no suggestion with that id")
+              .setTitle("❌ Không tìm thấy góp ý với ID này")
               .setColor(t.config.GeneralSettings.EmbedColor),
           ],
         });
       (e.reply({
         embeds: [
           new discord_js_1.EmbedBuilder()
-            .setTitle(`The suggestion has been ${s}`)
+            .setTitle(`✅ Góp ý đã được ${s === "Accepted" ? "chấp thuận" : "từ chối"}`)
             .setColor(t.config.GeneralSettings.EmbedColor),
         ],
         ephemeral: !0,
