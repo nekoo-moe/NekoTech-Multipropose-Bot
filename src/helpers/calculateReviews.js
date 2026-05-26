@@ -1,0 +1,1 @@
+"use strict";function calculateReviews(e){const t=[0,0,0,0,0];for(const c of e){const e=c.rating;e>=1&&e<=5&&t[e-1]++}return((5*t[4]+4*t[3]+3*t[2]+2*t[1]+t[0])/t.reduce(((e,t)=>e+t),0)).toFixed(2)}Object.defineProperty(exports,"__esModule",{value:!0}),exports.default=calculateReviews;

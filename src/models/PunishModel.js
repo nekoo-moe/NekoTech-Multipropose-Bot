@@ -1,0 +1,1 @@
+"use strict";Object.defineProperty(exports,"__esModule",{value:!0});const mongoose_1=require("mongoose"),schema=new mongoose_1.Schema({guildId:{type:String,required:!0},cases:{type:Number,default:0},bans:{type:[],default:[]},kicks:{type:[],default:[]},warns:{type:[],default:[]}});exports.default=(0,mongoose_1.model)("sanctions",schema);

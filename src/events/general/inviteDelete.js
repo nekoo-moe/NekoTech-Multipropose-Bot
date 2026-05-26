@@ -1,0 +1,1 @@
+"use strict";Object.defineProperty(exports,"__esModule",{value:!0});const tslib_1=require("tslib"),Event_1=require("../../structures/Event"),__1=require("../..");exports.default=new Event_1.Event("inviteDelete",(e=>tslib_1.__awaiter(void 0,void 0,void 0,(function*(){const t=yield(yield e.guild.fetch()).invites.fetch();__1.client.guildInvites.set(e.guild.id,t)}))));

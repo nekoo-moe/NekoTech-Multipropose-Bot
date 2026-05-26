@@ -1,0 +1,14 @@
+GeneralSettings:
+  Token: "Your-Token-Here"
+  LicenseKey: "Black-Minecraft"
+  EmbedColor: "#E74C3C"
+
+ActivitySettings:
+  Enabled: true
+  Activities:
+    - ["Watching", "black-minecraft.com", "dnd"]
+    - ["Playing", "play.example.net", "dnd"]
+  Interval: "1m"
+
+DatabaseSettings:
+  Uri: "mongodb://localhost/Absolet"
