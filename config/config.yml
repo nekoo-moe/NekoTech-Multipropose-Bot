@@ -1,0 +1,13 @@
+GeneralSettings:
+  Token: "MTUwODgxNTU2MDM5NjM3NDEzNg.G6951Y.cH9d_VN9QF1AFulYv4Sq3-njkwAi6Uk68fOIRs"
+  EmbedColor: "#E74C3C"
+
+ActivitySettings:
+  Enabled: true
+  Activities:
+    - ["Watching", "heiznerd", "heiznerd"]
+    - ["Playing", "heiznerd", "heiznerd"]
+  Interval: "1m"
+
+DatabaseSettings:
+  Uri: "mongodb://localhost/Absolet"

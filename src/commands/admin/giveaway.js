@@ -1,1 +1,589 @@
-"use strict";Object.defineProperty(exports,"__esModule",{value:!0});const tslib_1=require("tslib"),discord_js_1=require("discord.js"),Command_1=require("../../structures/Command"),ms_1=tslib_1.__importDefault(require("ms"));exports.default=new Command_1.Command({name:"giveaway",description:"Manage giveaways",run:({interaction:e,client:t})=>tslib_1.__awaiter(void 0,void 0,void 0,(function*(){const s=(e=!1)=>[(new discord_js_1.ActionRowBuilder).addComponents((new discord_js_1.ButtonBuilder).setCustomId("create").setStyle(discord_js_1.ButtonStyle.Secondary).setLabel("Create").setDisabled(e).setEmoji("🎉"),(new discord_js_1.ButtonBuilder).setCustomId("pause").setStyle(discord_js_1.ButtonStyle.Secondary).setLabel("Pause").setDisabled(e).setEmoji("⏸️"),(new discord_js_1.ButtonBuilder).setCustomId("resume").setLabel("Resume").setStyle(discord_js_1.ButtonStyle.Secondary).setDisabled(e).setEmoji("▶️"),(new discord_js_1.ButtonBuilder).setCustomId("reroll").setStyle(discord_js_1.ButtonStyle.Secondary).setLabel("Reroll").setDisabled(e).setEmoji("🔁"),(new discord_js_1.ButtonBuilder).setCustomId("end").setStyle(discord_js_1.ButtonStyle.Secondary).setLabel("End").setDisabled(e).setEmoji("⏹️"))];let i={channel:null,time:null,winners:null,prize:"",description:"",image:"",requirements:{levels:"",messages:"",invites:""}};const n=(e=!1)=>{const{channel:t,time:s,winners:n,prize:o,description:r,image:d,requirements:a}=i,l=[(new discord_js_1.ActionRowBuilder).addComponents((new discord_js_1.ButtonBuilder).setCustomId("cr-channel").setDisabled(e).setStyle(t?discord_js_1.ButtonStyle.Primary:discord_js_1.ButtonStyle.Secondary).setLabel("Channel").setEmoji("🛒"),(new discord_js_1.ButtonBuilder).setCustomId("cr-time").setDisabled(e).setStyle(s?discord_js_1.ButtonStyle.Primary:discord_js_1.ButtonStyle.Secondary).setLabel("Time").setEmoji("⏳"),(new discord_js_1.ButtonBuilder).setCustomId("cr-winners").setDisabled(e).setStyle(n?discord_js_1.ButtonStyle.Primary:discord_js_1.ButtonStyle.Secondary).setLabel("Winners").setEmoji("👑"),(new discord_js_1.ButtonBuilder).setCustomId("cr-prize").setDisabled(e).setStyle(o?discord_js_1.ButtonStyle.Primary:discord_js_1.ButtonStyle.Secondary).setLabel("Prize").setEmoji("🎁"),(new discord_js_1.ButtonBuilder).setCustomId("cr-description").setDisabled(e).setStyle(r?discord_js_1.ButtonStyle.Primary:discord_js_1.ButtonStyle.Secondary).setLabel("Description").setEmoji("📰")),(new discord_js_1.ActionRowBuilder).addComponents((new discord_js_1.ButtonBuilder).setCustomId("cr-image").setDisabled(e).setStyle(d?discord_js_1.ButtonStyle.Primary:discord_js_1.ButtonStyle.Secondary).setLabel("Image").setEmoji("🖼"),(new discord_js_1.ButtonBuilder).setCustomId("cr-requirements").setDisabled(e).setStyle(Object.values(a).some((e=>""!==e))?discord_js_1.ButtonStyle.Primary:discord_js_1.ButtonStyle.Secondary).setLabel("Requirements").setEmoji("🍱"),(new discord_js_1.ButtonBuilder).setCustomId("cr-back").setStyle(discord_js_1.ButtonStyle.Secondary).setEmoji("⬅️").setDisabled(e).setLabel("Back"))];return t&&s&&n&&o&&r&&l[1].addComponents((new discord_js_1.ButtonBuilder).setCustomId("cr-finish").setDisabled(e).setStyle(discord_js_1.ButtonStyle.Success).setLabel("Save").setEmoji("✔️")),l},o=(e=!1)=>[(new discord_js_1.ActionRowBuilder).addComponents((new discord_js_1.ButtonBuilder).setCustomId("rq-levels").setDisabled(e).setStyle(i.requirements.levels?discord_js_1.ButtonStyle.Primary:discord_js_1.ButtonStyle.Secondary).setLabel("Level").setEmoji("✨"),(new discord_js_1.ButtonBuilder).setCustomId("rq-invites").setDisabled(e).setStyle(i.requirements.invites?discord_js_1.ButtonStyle.Primary:discord_js_1.ButtonStyle.Secondary).setLabel("Invites").setEmoji("👥"),(new discord_js_1.ButtonBuilder).setCustomId("rq-messages").setDisabled(e).setStyle(i.requirements.messages?discord_js_1.ButtonStyle.Primary:discord_js_1.ButtonStyle.Secondary).setLabel("Messages").setEmoji("🌟"),(new discord_js_1.ButtonBuilder).setCustomId("rq-back").setDisabled(e).setStyle(discord_js_1.ButtonStyle.Secondary).setLabel("Back").setEmoji("⬅️"))],r=(e=!1,s)=>({embeds:[(new discord_js_1.EmbedBuilder).setTitle("Giveaway Requirements Settings").setDescription(s||"Use the buttons below to set up the requirements for this giveaway.").setColor(t.config.GeneralSettings.EmbedColor)],components:o(e)}),d=(e=!1)=>({embeds:[(new discord_js_1.EmbedBuilder).setTitle("Giveaway System Manager").setDescription("Use the button corresponding to the action you want to use.").setColor(t.config.GeneralSettings.EmbedColor)],components:n(e)}),a=(s,i)=>({embeds:[(new discord_js_1.EmbedBuilder).setTitle("Manage a giveaway").setDescription(`${e.user} select the giveaway you want to ${i}.`).setColor(t.config.GeneralSettings.EmbedColor)],components:[(new discord_js_1.ActionRowBuilder).addComponents((new discord_js_1.StringSelectMenuBuilder).setPlaceholder("🔎 Select the giveaway...").setCustomId("select-panel").setOptions(s.map((e=>({label:`${e.prize}`,value:e.messageId,emoji:"🎁"})))))]}),l=(e,i)=>({embeds:[(new discord_js_1.EmbedBuilder).setTitle("Giveaway System Manager").setDescription(e||"Use the button corresponding to the action you want to use.").setColor(i||t.config.GeneralSettings.EmbedColor)],components:s(),fetchReply:!0}),c=yield e.reply(Object.assign(Object.assign({},l()),{fetchReply:!0})),u=c.createMessageComponentCollector({filter:t=>t.user.id===e.user.id,componentType:discord_js_1.ComponentType.Button,time:18e4});u.on("collect",(s=>tslib_1.__awaiter(void 0,void 0,void 0,(function*(){u.resetTimer();const{customId:m}=s;if(m.startsWith("cr-"))((s,o)=>{tslib_1.__awaiter(void 0,void 0,void 0,(function*(){if(yield s.deferUpdate(),"finish"===o)return yield t.giveawayManager.start(i.channel,{prize:i.prize,hostedBy:e.user,winnerCount:parseInt(i.winners),duration:i.time,extraData:{description:i.description,image:i.image,requirements:i.requirements},messages:{winMessage:t.messages.Strings.GiveawayWinMessage,giveaway:t.messages.Strings.GiveawayContentMessage,giveawayEnded:t.messages.Strings.GiveawayContentEnded,noWinner:t.messages.Strings.GiveawayContentNoWinners}}),i={channel:null,time:0,winners:"",prize:"",description:"",image:"",requirements:{invites:"",levels:"",messages:""}},e.editReply(l());if("requirements"===o)return e.editReply(r());if("back"===o)return e.editReply(l());yield e.editReply(d(!0));const a=yield s.channel.awaitMessages({filter:t=>t.author.id===e.user.id,max:1});yield a.first().delete().catch();let c=a.first().content;if("channel"===o&&(c=a.first().mentions.channels.first(),!c))return e.editReply({embeds:[l().embeds[0].setColor("Red").setDescription("You must mention the channel where the giveaway message will be sent.")],components:n()});if("time"===o&&(c=(0,ms_1.default)(c),!c))return e.editReply({embeds:[l().embeds[0].setColor("Red").setDescription("You must enter a valid date for example: `30m`, `1h`, `1d`")],components:n()});if("winners"===o&&(isNaN(parseInt(c))||parseInt(c)<=0))return e.editReply({embeds:[l().embeds[0].setColor("Red").setDescription("You must enter a correct amount, remember not to use negative numbers")],components:n()});if("image"===o){const t=a.first().attachments.first();if(!t||!t.contentType.startsWith("image/"))return e.editReply({embeds:[l().embeds[0].setColor("Red").setDescription("You must send a valid image, remember not to use links, just upload the image to this channel.")],components:n()});c=t.url}return i[o]=c,e.editReply(d())}))})(s,m.slice(3));else if(m.startsWith("rq-"))((t,s)=>{tslib_1.__awaiter(void 0,void 0,void 0,(function*(){if(yield t.deferUpdate(),"back"===s)return c.edit(d());yield c.edit(r(!0,`How many ${s}'s should the user who wants to participate in this draw have?\nIf you want to remove a requirement use the number 0.`));const n=yield t.channel.awaitMessages({filter:t=>t.author.id===e.user.id,max:1});yield n.first().delete().catch();let a=parseInt(n.first().content);return isNaN(a)||a<0?c.edit({embeds:[l().embeds[0].setColor("Red").setDescription("You must enter a correct number, remember not to enter negative numbers.")],components:o(!0)}):(0===a&&(a=""),i.requirements[s]=a,c.edit(r()))}))})(s,m.slice(3));else if(yield s.deferUpdate(),"create"!==m){if("pause"===m){const s=t.giveawayManager.giveaways.filter((e=>e.endAt!==1/0));yield e.editReply(a(s,m));const i=yield c.awaitMessageComponent({componentType:discord_js_1.ComponentType.SelectMenu,filter:t=>t.user.id===e.user.id});yield i.deferUpdate();try{const s=i.values[0];return yield t.giveawayManager.pause(s),void e.editReply(l("The giveaway has been paused successfully."))}catch(t){return console.error(t),void e.editReply(l(t,"Red"))}}if("resume"===m){const s=t.giveawayManager.giveaways.filter((e=>e.endAt===1/0));yield e.editReply(a(s,m));const i=yield c.awaitMessageComponent({componentType:discord_js_1.ComponentType.SelectMenu,filter:t=>t.user.id===e.user.id});yield i.deferUpdate();try{const s=i.values[0];return yield t.giveawayManager.unpause(s),void e.editReply(l("The giveaway has been resumed successfully."))}catch(t){return console.error(t),void e.editReply(l(t,"Red"))}}if("resume"===m){const s=t.giveawayManager.giveaways.filter((e=>e.endAt===1/0));yield e.editReply(a(s,m));const i=yield c.awaitMessageComponent({componentType:discord_js_1.ComponentType.SelectMenu,filter:t=>t.user.id===e.user.id});yield i.deferUpdate();try{const s=i.values[0];return yield t.giveawayManager.unpause(s),void e.editReply(l("The giveaway has been resumed successfully."))}catch(t){return console.error(t),void e.editReply(l(t,"Red"))}}if("reroll"===m){const s=t.giveawayManager.giveaways.filter((e=>e.ended));yield e.editReply(a(s,m));const i=yield c.awaitMessageComponent({componentType:discord_js_1.ComponentType.SelectMenu,filter:t=>t.user.id===e.user.id});yield i.deferUpdate();try{const s=i.values[0];return yield t.giveawayManager.reroll(s),void e.editReply(l("The giveaway has been rerolled successfully."))}catch(t){return console.error(t),void e.editReply(l(t,"Red"))}}if("end"===m){const s=t.giveawayManager.giveaways.filter((e=>!e.ended));yield e.editReply(a(s,m));const i=yield c.awaitMessageComponent({componentType:discord_js_1.ComponentType.SelectMenu,filter:t=>t.user.id===e.user.id});yield i.deferUpdate();try{const s=i.values[0];return yield t.giveawayManager.end(s),void e.editReply(l("The giveaway has been ended successfully."))}catch(t){return console.error(t),void e.editReply(l(t,"Red"))}}}else e.editReply(d())})))),u.once("end",((t,s)=>{"time"===s&&e.editReply({embeds:[(new discord_js_1.EmbedBuilder).setTitle("Time is over").setDescription("The waiting time for you to respond has passed (3 minutes), use the command again.").setColor("Red")],components:[]})}))}))});
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: !0 });
+const tslib_1 = require("tslib"),
+  discord_js_1 = require("discord.js"),
+  Command_1 = require("../../structures/Command"),
+  ms_1 = tslib_1.__importDefault(require("ms"));
+
+exports.default = new Command_1.Command({
+  name: "giveaway",
+  description: "Quản lý và thiết lập các sự kiện Giveaway (Quà tặng)",
+  run: ({ interaction: e, client: t }) =>
+    tslib_1.__awaiter(void 0, void 0, void 0, function* () {
+      const s = (e = !1) => [
+        new discord_js_1.ActionRowBuilder().addComponents(
+          new discord_js_1.ButtonBuilder()
+            .setCustomId("create")
+            .setStyle(discord_js_1.ButtonStyle.Secondary)
+            .setLabel("Tạo mới")
+            .setDisabled(e)
+            .setEmoji("🎉"),
+          new discord_js_1.ButtonBuilder()
+            .setCustomId("pause")
+            .setStyle(discord_js_1.ButtonStyle.Secondary)
+            .setLabel("Tạm dừng")
+            .setDisabled(e)
+            .setEmoji("⏸️"),
+          new discord_js_1.ButtonBuilder()
+            .setCustomId("resume")
+            .setLabel("Tiếp tục")
+            .setStyle(discord_js_1.ButtonStyle.Secondary)
+            .setDisabled(e)
+            .setEmoji("▶️"),
+          new discord_js_1.ButtonBuilder()
+            .setCustomId("reroll")
+            .setStyle(discord_js_1.ButtonStyle.Secondary)
+            .setLabel("Quay lại giải")
+            .setDisabled(e)
+            .setEmoji("🔁"),
+          new discord_js_1.ButtonBuilder()
+            .setCustomId("end")
+            .setStyle(discord_js_1.ButtonStyle.Secondary)
+            .setLabel("Kết thúc")
+            .setDisabled(e)
+            .setEmoji("⏹️"),
+        ),
+      ];
+      
+      let i = {
+        channel: null,
+        time: null,
+        winners: null,
+        prize: "",
+        description: "",
+        image: "",
+        requirements: { levels: "", messages: "", invites: "" },
+      };
+
+      const n = (e = !1) => {
+        const {
+          channel: t,
+          time: s,
+          winners: n,
+          prize: o,
+          description: r,
+          image: d,
+          requirements: a,
+        } = i,
+        l = [
+          new discord_js_1.ActionRowBuilder().addComponents(
+            new discord_js_1.ButtonBuilder()
+              .setCustomId("cr-channel")
+              .setDisabled(e)
+              .setStyle(
+                t
+                  ? discord_js_1.ButtonStyle.Primary
+                  : discord_js_1.ButtonStyle.Secondary,
+              )
+              .setLabel("Kênh chat")
+              .setEmoji("🛒"),
+            new discord_js_1.ButtonBuilder()
+              .setCustomId("cr-time")
+              .setDisabled(e)
+              .setStyle(
+                s
+                  ? discord_js_1.ButtonStyle.Primary
+                  : discord_js_1.ButtonStyle.Secondary,
+              )
+              .setLabel("Thời gian")
+              .setEmoji("⏳"),
+            new discord_js_1.ButtonBuilder()
+              .setCustomId("cr-winners")
+              .setDisabled(e)
+              .setStyle(
+                n
+                  ? discord_js_1.ButtonStyle.Primary
+                  : discord_js_1.ButtonStyle.Secondary,
+              )
+              .setLabel("Số người thắng")
+              .setEmoji("👑"),
+            new discord_js_1.ButtonBuilder()
+              .setCustomId("cr-prize")
+              .setDisabled(e)
+              .setStyle(
+                o
+                  ? discord_js_1.ButtonStyle.Primary
+                  : discord_js_1.ButtonStyle.Secondary,
+              )
+              .setLabel("Phần quà")
+              .setEmoji("🎁"),
+            new discord_js_1.ButtonBuilder()
+              .setCustomId("cr-description")
+              .setDisabled(e)
+              .setStyle(
+                r
+                  ? discord_js_1.ButtonStyle.Primary
+                  : discord_js_1.ButtonStyle.Secondary,
+              )
+              .setLabel("Mô tả")
+              .setEmoji("📰"),
+          ),
+          new discord_js_1.ActionRowBuilder().addComponents(
+            new discord_js_1.ButtonBuilder()
+              .setCustomId("cr-image")
+              .setDisabled(e)
+              .setStyle(
+                d
+                  ? discord_js_1.ButtonStyle.Primary
+                  : discord_js_1.ButtonStyle.Secondary,
+              )
+              .setLabel("Hình ảnh")
+              .setEmoji("🖼"),
+            new discord_js_1.ButtonBuilder()
+              .setCustomId("cr-requirements")
+              .setDisabled(e)
+              .setStyle(
+                Object.values(a).some((e) => "" !== e)
+                  ? discord_js_1.ButtonStyle.Primary
+                  : discord_js_1.ButtonStyle.Secondary,
+              )
+              .setLabel("Yêu cầu")
+              .setEmoji("🍱"),
+            new discord_js_1.ButtonBuilder()
+              .setCustomId("cr-back")
+              .setStyle(discord_js_1.ButtonStyle.Secondary)
+              .setEmoji("⬅️")
+              .setDisabled(e)
+              .setLabel("Quay lại"),
+          ),
+        ];
+        return (
+          t &&
+            s &&
+            n &&
+            o &&
+            r &&
+            l[1].addComponents(
+              new discord_js_1.ButtonBuilder()
+                .setCustomId("cr-finish")
+                .setDisabled(e)
+                .setStyle(discord_js_1.ButtonStyle.Success)
+                .setLabel("Hoàn tất & Bắt đầu")
+                .setEmoji("✔️"),
+            ),
+          l
+        );
+      };
+
+      const o = (e = !1) => [
+        new discord_js_1.ActionRowBuilder().addComponents(
+          new discord_js_1.ButtonBuilder()
+            .setCustomId("rq-levels")
+            .setDisabled(e)
+            .setStyle(
+              i.requirements.levels
+                ? discord_js_1.ButtonStyle.Primary
+                : discord_js_1.ButtonStyle.Secondary,
+            )
+            .setLabel("Cấp độ")
+            .setEmoji("✨"),
+          new discord_js_1.ButtonBuilder()
+            .setCustomId("rq-invites")
+            .setDisabled(e)
+            .setStyle(
+              i.requirements.invites
+                ? discord_js_1.ButtonStyle.Primary
+                : discord_js_1.ButtonStyle.Secondary,
+            )
+            .setLabel("Lượt mời")
+            .setEmoji("👥"),
+          new discord_js_1.ButtonBuilder()
+            .setCustomId("rq-messages")
+            .setDisabled(e)
+            .setStyle(
+              i.requirements.messages
+                ? discord_js_1.ButtonStyle.Primary
+                : discord_js_1.ButtonStyle.Secondary,
+            )
+            .setLabel("Tin nhắn")
+            .setEmoji("🌟"),
+          new discord_js_1.ButtonBuilder()
+            .setCustomId("rq-back")
+            .setDisabled(e)
+            .setStyle(discord_js_1.ButtonStyle.Secondary)
+            .setLabel("Quay lại")
+            .setEmoji("⬅️"),
+        ),
+      ];
+
+      const r = (e = !1, s) => ({
+        embeds: [
+          new discord_js_1.EmbedBuilder()
+            .setTitle("⚙️ Cấu hình yêu cầu tham gia Giveaway")
+            .setDescription(
+              s || "Sử dụng các nút bên dưới để thiết lập các điều kiện tham gia cho sự kiện Giveaway này.",
+            )
+            .setColor(t.config.GeneralSettings.EmbedColor),
+        ],
+        components: o(e),
+      });
+
+      const d = (e = !1, customDesc) => ({
+        embeds: [
+          new discord_js_1.EmbedBuilder()
+            .setTitle("🎉 Hệ thống Thiết lập Giveaway mới")
+            .setDescription(
+              customDesc || "Bấm vào các nút bên dưới để thiết lập thông tin cho sự kiện Giveaway của bạn.",
+            )
+            .setColor(t.config.GeneralSettings.EmbedColor),
+        ],
+        components: n(e),
+      });
+
+      const a = (s, i) => {
+        let actionVi = "tạm dừng";
+        if (i === "resume") actionVi = "tiếp tục";
+        if (i === "reroll") actionVi = "quay thưởng lại";
+        if (i === "end") actionVi = "kết thúc";
+        
+        return {
+          embeds: [
+            new discord_js_1.EmbedBuilder()
+              .setTitle("🎁 Quản lý sự kiện Giveaway")
+              .setDescription(`${e.user}, vui lòng chọn sự kiện Giveaway bạn muốn **${actionVi}** bên dưới.`)
+              .setColor(t.config.GeneralSettings.EmbedColor),
+          ],
+          components: [
+            new discord_js_1.ActionRowBuilder().addComponents(
+              new discord_js_1.StringSelectMenuBuilder()
+                .setPlaceholder("🔎 Chọn sự kiện Giveaway từ danh sách...")
+                .setCustomId("select-panel")
+                .setOptions(
+                  s.map((e) => ({
+                    label: `${e.prize}`,
+                    value: e.messageId,
+                    emoji: "🎁",
+                  })),
+                ),
+            ),
+          ],
+        };
+      };
+
+      const l = (e, i) => ({
+        embeds: [
+          new discord_js_1.EmbedBuilder()
+            .setTitle("🎉 Hệ thống Quản lý Giveaway")
+            .setDescription(
+              e || "Bấm vào các nút bên dưới tương ứng với hành động bạn muốn thực hiện.",
+            )
+            .setColor(i || t.config.GeneralSettings.EmbedColor),
+        ],
+        components: s(),
+        fetchReply: !0,
+      });
+
+      const c = yield e.reply(
+        Object.assign(Object.assign({}, l()), { fetchReply: !0 }),
+      );
+
+      const u = c.createMessageComponentCollector({
+        filter: (t) => t.user.id === e.user.id,
+        componentType: discord_js_1.ComponentType.Button,
+        time: 180000,
+      });
+
+      u.on("collect", (s) =>
+        tslib_1.__awaiter(void 0, void 0, void 0, function* () {
+          u.resetTimer();
+          const { customId: m } = s;
+          
+          if (m.startsWith("cr-")) {
+            ((s, o) => {
+              tslib_1.__awaiter(void 0, void 0, void 0, function* () {
+                yield s.deferUpdate();
+                
+                if ("finish" === o) {
+                  yield t.giveawayManager.start(i.channel, {
+                    prize: i.prize,
+                    hostedBy: e.user,
+                    winnerCount: parseInt(i.winners),
+                    duration: i.time,
+                    extraData: {
+                      description: i.description,
+                      image: i.image,
+                      requirements: i.requirements,
+                    },
+                    messages: {
+                      winMessage: t.messages.Strings.GiveawayWinMessage,
+                      giveaway: t.messages.Strings.GiveawayContentMessage,
+                      giveawayEnded: t.messages.Strings.GiveawayContentEnded,
+                      noWinner: t.messages.Strings.GiveawayContentNoWinners,
+                    },
+                  });
+                  i = {
+                    channel: null,
+                    time: 0,
+                    winners: "",
+                    prize: "",
+                    description: "",
+                    image: "",
+                    requirements: { invites: "", levels: "", messages: "" },
+                  };
+                  return e.editReply(l("🎉 Sự kiện Giveaway đã được khởi tạo và gửi đi thành công!"));
+                }
+                
+                if ("requirements" === o) return e.editReply(r());
+                if ("back" === o) return e.editReply(l());
+                
+                // Show clear prompt on what to type
+                let promptText = "";
+                if (o === "channel") promptText = "👉 **[THIẾT LẬP KÊNH CHAT]**: Vui lòng đề cập (tag) kênh chat bạn muốn gửi tin nhắn Giveaway vào trong phòng chat này (Ví dụ: `#giveaways`).";
+                if (o === "time") promptText = "👉 **[THIẾT LẬP THỜI GIAN]**: Vui lòng nhập thời gian diễn ra sự kiện (Ví dụ: `30m` (30 phút), `1h` (1 giờ), `1d` (1 ngày)).";
+                if (o === "winners") promptText = "👉 **[THIẾT LẬP NGƯỜI THẮNG]**: Vui lòng nhập số lượng người may mắn sẽ trúng giải giải thưởng này (Ví dụ: `1`, `3`, `5`).";
+                if (o === "prize") promptText = "👉 **[THIẾT LẬP PHẦN QUÀ]**: Vui lòng nhập tên phần thưởng của sự kiện này (Ví dụ: `Discord Nitro Classic`, `2,500 Xu`).";
+                if (o === "description") promptText = "👉 **[THIẾT LẬP MÔ TẢ]**: Vui lòng nhập đoạn tin nhắn hoặc mô tả chi tiết của sự kiện này vào phòng chat.";
+                if (o === "image") promptText = "👉 **[THIẾT LẬP HÌNH ẢNH]**: Vui lòng tải và đăng trực tiếp một tệp hình ảnh lên kênh chat này để dùng làm ảnh bìa.";
+                
+                yield e.editReply(d(!0, promptText));
+                
+                const a = yield s.channel.awaitMessages({
+                  filter: (t) => t.author.id === e.user.id,
+                  max: 1,
+                  time: 60000
+                });
+                
+                if (!a.size) {
+                  return e.editReply(d(!1, "⏱️ Đã hết thời gian chờ nhập thông tin (1 phút). Vui lòng nhấn lại nút để thiết lập."));
+                }
+                
+                yield a.first().delete().catch();
+                let c = a.first().content;
+                
+                if ("channel" === o) {
+                  c = a.first().mentions.channels.first();
+                  if (!c) {
+                    return e.editReply({
+                      embeds: [
+                        new discord_js_1.EmbedBuilder()
+                          .setTitle("❌ Lỗi thiết lập")
+                          .setColor("Red")
+                          .setDescription("Bạn cần phải đề cập chính xác một kênh chat trong máy chủ (Ví dụ: `#kênh-chat`)."),
+                      ],
+                      components: n(),
+                    });
+                  }
+                }
+                
+                if ("time" === o) {
+                  const parsedTime = (0, ms_1.default)(c);
+                  if (!parsedTime) {
+                    return e.editReply({
+                      embeds: [
+                        new discord_js_1.EmbedBuilder()
+                          .setTitle("❌ Lỗi thiết lập")
+                          .setColor("Red")
+                          .setDescription("Thời gian không hợp lệ! Vui lòng thử lại với định dạng: `30m`, `1h`, `1d`..."),
+                      ],
+                      components: n(),
+                    });
+                  }
+                  c = parsedTime;
+                }
+                
+                if ("winners" === o) {
+                  const winCount = parseInt(c);
+                  if (isNaN(winCount) || winCount <= 0) {
+                    return e.editReply({
+                      embeds: [
+                        new discord_js_1.EmbedBuilder()
+                          .setTitle("❌ Lỗi thiết lập")
+                          .setColor("Red")
+                          .setDescription("Số người trúng thưởng phải là một số nguyên dương lớn hơn 0!"),
+                      ],
+                      components: n(),
+                    });
+                  }
+                  c = winCount;
+                }
+                
+                if ("image" === o) {
+                  const img = a.first().attachments.first();
+                  if (!img || !img.contentType.startsWith("image/")) {
+                    return e.editReply({
+                      embeds: [
+                        new discord_js_1.EmbedBuilder()
+                          .setTitle("❌ Lỗi thiết lập")
+                          .setColor("Red")
+                          .setDescription("Tệp tải lên không hợp lệ! Vui lòng đính kèm một hình ảnh thực tế trực tiếp vào kênh chat."),
+                      ],
+                      components: n(),
+                    });
+                  }
+                  c = img.url;
+                }
+                
+                i[o] = c;
+                return e.editReply(d());
+              });
+            })(s, m.slice(3));
+          } 
+          
+          else if (m.startsWith("rq-")) {
+            ((t, s) => {
+              tslib_1.__awaiter(void 0, void 0, void 0, function* () {
+                yield t.deferUpdate();
+                
+                if ("back" === s) return e.editReply(d());
+                
+                let requirementName = "";
+                if (s === "levels") requirementName = "Cấp độ (Level)";
+                if (s === "invites") requirementName = "Lượt mời (Invites)";
+                if (s === "messages") requirementName = "Tin nhắn (Messages)";
+                
+                yield e.editReply(
+                  r(
+                    !0,
+                    `👉 **[THIẾT LẬP YÊU CẦU]**: Thành viên cần có tối thiểu bao nhiêu **${requirementName}** để tham gia?\n*Gõ số \`0\` để gỡ bỏ yêu cầu này.*`,
+                  ),
+                );
+                
+                const n = yield t.channel.awaitMessages({
+                  filter: (t) => t.author.id === e.user.id,
+                  max: 1,
+                  time: 60000
+                });
+                
+                if (!n.size) {
+                  return e.editReply(r(!1, "⏱️ Đã hết thời gian chờ nhập thông tin (1 phút). Vui lòng nhấn lại nút để thiết lập."));
+                }
+                
+                yield n.first().delete().catch();
+                let a = parseInt(n.first().content);
+                
+                if (isNaN(a) || a < 0) {
+                  return e.editReply({
+                    embeds: [
+                      new discord_js_1.EmbedBuilder()
+                        .setTitle("❌ Lỗi thiết lập")
+                        .setColor("Red")
+                        .setDescription("Yêu cầu nhập vào phải là một số nguyên dương không âm!"),
+                    ],
+                    components: o(!0),
+                  });
+                }
+                
+                if (a === 0) a = "";
+                i.requirements[s] = a;
+                return e.editReply(r());
+              });
+            })(s, m.slice(3));
+          } 
+          
+          else {
+            yield s.deferUpdate();
+            
+            if ("create" === m) {
+              yield e.editReply(d());
+            }
+            
+            if ("pause" === m) {
+              const s = t.giveawayManager.giveaways.filter(
+                (e) => e.endAt !== 1 / 0,
+              );
+              if (s.length === 0) {
+                return e.editReply(l("❌ Hiện tại không có sự kiện Giveaway nào đang hoạt động để tạm dừng."));
+              }
+              yield e.editReply(a(s, m));
+              const i = yield c.awaitMessageComponent({
+                componentType: discord_js_1.ComponentType.SelectMenu,
+                filter: (t) => t.user.id === e.user.id,
+                time: 60000
+              });
+              yield i.deferUpdate();
+              try {
+                const s = i.values[0];
+                yield t.giveawayManager.pause(s);
+                return e.editReply(l("🎉 Sự kiện Giveaway đã được tạm dừng thành công!"));
+              } catch (t) {
+                console.error(t);
+                return e.editReply(l(`❌ Có lỗi xảy ra: ${t.message}`, "Red"));
+              }
+            }
+            
+            if ("resume" === m) {
+              const s = t.giveawayManager.giveaways.filter(
+                (e) => e.endAt === 1 / 0,
+              );
+              if (s.length === 0) {
+                return e.editReply(l("❌ Hiện tại không có sự kiện Giveaway nào đang bị tạm dừng để tiếp tục."));
+              }
+              yield e.editReply(a(s, m));
+              const i = yield c.awaitMessageComponent({
+                componentType: discord_js_1.ComponentType.SelectMenu,
+                filter: (t) => t.user.id === e.user.id,
+                time: 60000
+              });
+              yield i.deferUpdate();
+              try {
+                const s = i.values[0];
+                yield t.giveawayManager.unpause(s);
+                return e.editReply(l("🎉 Sự kiện Giveaway đã được tiếp tục hoạt động thành công!"));
+              } catch (t) {
+                console.error(t);
+                return e.editReply(l(`❌ Có lỗi xảy ra: ${t.message}`, "Red"));
+              }
+            }
+            
+            if ("reroll" === m) {
+              const s = t.giveawayManager.giveaways.filter((e) => e.ended);
+              if (s.length === 0) {
+                return e.editReply(l("❌ Hiện tại không có sự kiện Giveaway nào đã kết thúc để quay thưởng lại."));
+              }
+              yield e.editReply(a(s, m));
+              const i = yield c.awaitMessageComponent({
+                componentType: discord_js_1.ComponentType.SelectMenu,
+                filter: (t) => t.user.id === e.user.id,
+                time: 60000
+              });
+              yield i.deferUpdate();
+              try {
+                const s = i.values[0];
+                yield t.giveawayManager.reroll(s);
+                return e.editReply(l("🎉 Đã chọn lại người thắng cuộc may mắn mới thành công!"));
+              } catch (t) {
+                console.error(t);
+                return e.editReply(l(`❌ Có lỗi xảy ra: ${t.message}`, "Red"));
+              }
+            }
+            
+            if ("end" === m) {
+              const s = t.giveawayManager.giveaways.filter((e) => !e.ended);
+              if (s.length === 0) {
+                return e.editReply(l("❌ Hiện tại không có sự kiện Giveaway nào đang chạy để kết thúc."));
+              }
+              yield e.editReply(a(s, m));
+              const i = yield c.awaitMessageComponent({
+                componentType: discord_js_1.ComponentType.SelectMenu,
+                filter: (t) => t.user.id === e.user.id,
+                time: 60000
+              });
+              yield i.deferUpdate();
+              try {
+                const s = i.values[0];
+                yield t.giveawayManager.end(s);
+                return e.editReply(l("🎉 Sự kiện Giveaway đã được dừng và chốt người thắng cuộc thành công!"));
+              } catch (t) {
+                console.error(t);
+                return e.editReply(l(`❌ Có lỗi xảy ra: ${t.message}`, "Red"));
+              }
+            }
+          }
+        })
+      );
+
+      u.once("end", (t, s) => {
+        if ("time" === s) {
+          e.editReply({
+            embeds: [
+              new discord_js_1.EmbedBuilder()
+                .setTitle("⏱️ Hết thời gian chờ")
+                .setDescription("Đã quá 3 phút mà không thấy bạn phản hồi thao tác menu. Vui lòng gõ lại lệnh nếu muốn tiếp tục.")
+                .setColor("Red"),
+            ],
+            components: [],
+          });
+        }
+      });
+    }),
+});

@@ -1,0 +1,1306 @@
+Embeds:
+  CreateTicketEmbed:
+    panelsFormat: "{emoji} » {name}"
+    color: "{color-default}"
+    title: "Support Tickets"
+    description: |
+      🌟 Hello there! Having trouble? Looking for help?
+      Support tickets are the best way to get in contact with our staff teams. A Support  ticket can be opened for any kind of issues. Remember ou staff team will try their best  to get your issues resolved as soon possible.
+
+      {panels}
+
+      ⏰ Staff try to reply as fast as possible in each ticket, so please don't ping staff  unless its urgent.
+    footer:
+      text: "Support Bot"
+      iconURL: "{bot-pfp}"
+  OpenedTicketEmbed:
+    content: "{owner}"
+    title: "{emoji} {panel}"
+    color: "{color-default}"
+    description: |
+      Thank you for reaching out for support! Staff will be with you shortly.
+      In the meantime, please answer the following question(s)
+
+      **Ticket Panel:** {panel}
+      **Ticket Owner:** {owner}
+  OpenedTicketWithQuestionsEmbed:
+    content: "{owner}"
+    title: "{emoji} {panel}"
+    color: "{color-default}"
+    description: |
+      Thank you for reaching out for support! Staff will be with you shortly.
+      In the meantime, please answer the following question(s)
+
+      ❔ **TICKET QUESTIONS**
+  UserCreatedTicketEmbed:
+    title: "Support System"
+    description: "Your ticket has been created {channel}"
+    color: "{color-default}"
+    footer:
+      text: "{bot-tag}"
+      iconURL: "{bot-pfp}"
+  ChannelIsNotATicketEmbed:
+    title: "This channel isn't a ticket"
+    color: "{color-default}"
+  TicketAlreadyClosed:
+    title: "This ticket is already closed"
+    color: "{color-default}"
+  TicketClosedEmbed:
+    title: "This ticket has been closed by {user-tag}"
+    color: "{color-default}"
+  TicketOpenedEmbed:
+    title: "The ticket was opened by {user-tag}"
+    color: "{color-default}"
+  TicketAlreadyClaimed:
+    title: "This ticket is already claimed by {user-tag}"
+    color: "{color-default}"
+  TicketClaimedEmbed:
+    title: "This ticket has been claimed by {user-tag}"
+    color: "{color-default}"
+  TicketIsNotClosed:
+    title: "You must first close this ticket"
+    color: "{color-default}"
+  TicketWillBeClosed:
+    title: "The ticket will be closed in 5 seconds"
+    color: "{color-default}"
+  UserAlreadyInTicket:
+    title: "This user is already on this ticket."
+    color: "{color-default}"
+  TicketTranscriptEmbed:
+    color: "{color-default}"
+    author:
+      name: "{user-tag}"
+      iconURL: "{user-pfp}"
+    fields:
+      - name: "Ticket Owner"
+        value: "{user}"
+        inline: true
+      - name: "Ticket Name"
+        value: "{ticket-name}"
+        inline: true
+      - name: "Panel Name"
+        value: "{panel-name}"
+        inline: true
+      - name: "Direct Transcript"
+        value: "[Direct Link]({transcript-url})"
+        inline: true
+      - name: "Ticket Closed"
+        value: "{staff-tag}"
+        inline: true
+  TicketTranscriptSaved:
+    title: "The transcript was saved and sent"
+    color: "{color-default}"
+  TicketUserAdded:
+    title: "The user {user-tag} has been added to the ticket"
+    color: "{color-default}"
+  TicketUserIsNotAdded:
+    title: "The user {user-tag} is not added in this ticket"
+    color: "{color-default}"
+  TicketUserRemoved:
+    title: "The user {user-tag} has been removed from the ticket"
+    color: "{color-default}"
+  TicketAlertUserEmbed:
+    author:
+      name: "{user-tag}"
+      iconURL: "{user-pfp}"
+    description: "Our staff is waiting for an answer on your [{channel-name}]({channel-url}) ticket"
+    color: "{color-default}"
+  TicketAlertCorrectEmbed:
+    title: "The user {user-tag} has been alerted from the ticket"
+    color: "{color-default}"
+  TicketAlertWrongEmbed:
+    title: "I couldn't send a private message to the user"
+    color: "{color-default}"
+  TicketChannelRenamed:
+    title: "The ticket channel has been renamed"
+    color: "{color-default}"
+  UserMaxTicketsOpened:
+    title: "Support System"
+    description: "You have reached the maximum number of tickets opened"
+    color: "#FF1919"
+  SelectReactionRoleEmbed:
+    panelsFormat: "{emoji} » {name}" # Placeholder: {panels}
+    title: "{title}"
+    color: "#2F3136"
+    description: "{description}"
+  ReactionRoleAddedEmbed:
+    description: "**The role {role} has been added to your account**"
+    color: "{color-default}"
+  ReactionRoleRemovedEmbed:
+    description: "**The role {role} has been removed to your account**"
+    color: "{color-default}"
+  GiveawayEmbed:
+    title: "🎁 Giveaway"
+    description: "{description}"
+    image:
+      url: "{image}"
+    color: "{color-default}"
+    fields:
+      - name: "Prize"
+        value: "{prize}"
+        inline: true
+      - name: "\u200b"
+        value: "\u200b"
+        inline: true
+      - name: "Winners"
+        value: "{winners}"
+        inline: true
+      - name: "Hosted by"
+        value: "{user}"
+        inline: true
+      - name: "\u200b"
+        value: "\u200b"
+        inline: true
+      - name: "Giveaway Ends"
+        value: "<t:{timestamp}:R>"
+        inline: true
+  GiveawayWithRequirements:
+    title: "🎁 Giveaway"
+    description: "{description}"
+    color: "{color-default}"
+    image:
+      url: "{image}"
+    fields:
+      - name: "Prize"
+        value: "{prize}"
+        inline: true
+      - name: "\u200b"
+        value: "\u200b"
+        inline: true
+      - name: "Winners"
+        value: "{winners}"
+        inline: true
+      - name: "Hosted By"
+        value: "{user}"
+        inline: true
+      - name: "\u200b"
+        value: "\u200b"
+        inline: true
+      - name: "Giveaway Ends"
+        value: "<t:{timestamp}:R>"
+        inline: true
+      - name: "Requirements"
+        inline: false
+        value: |
+          {requirements}
+
+          **React with the :tada: emoji to join!**
+  GiveawayEndEmbed:
+    title: ":gift: Giveaway Ended"
+    image:
+      url: "{image}"
+    color: "#2F3136"
+    fields:
+      - name: "Prize"
+        value: "{prize}\n{description}"
+        inline: false
+      - name: "Hosted By"
+        value: "{user}"
+        inline: true
+      - name: "Winners"
+        value: "{winners}"
+        inline: true
+      - name: "\u200b"
+        value: ":tada: **Create a ticket to claim your prize!**"
+        inline: false
+  GiveawayNoRequirements:
+    title: "You don't meet the requirements"
+    color: "{color-default}"
+    description: |
+      You cannot participate in the [{prize}]({giveaway-url}) giveaway because you do not have the following requirements
+
+      __**Requirements**__
+      {formattedRequirements}
+  SuggestSentEmbed:
+    title: "Suggestion System"
+    description: "Your suggestion has been sent!"
+    color: "{color-default}"
+  SuggestPendingEmbed:
+    title: "Suggestion System"
+    description: '>>> "{suggestion}" '
+    color: "Orange"
+    fields:
+      - name: "Updated on the {updated-date}"
+        value: |
+          >>> Waiting for staff
+          Status: Pending
+        inline: true
+      - name: "Statistics"
+        value: |
+          >>> {upvote-emoji} {upvote-count} upvotes
+          {downvote-emoji} {downvote-count} downvote
+        inline: true
+    footer:
+      iconURL: "{user-pfp}"
+      text: "{user-tag}'s suggestion | ID: {message-id}"
+  SuggestAcceptedEmbed:
+    title: "Suggestion System"
+    description: '>>> "{suggestion}" '
+    color: "Green"
+    fields:
+      - name: "Updated on the {updated-date}"
+        value: |
+          >>> Accepted by {staff-username}
+          {response}
+        inline: true
+      - name: "Statistics"
+        value: |
+          >>> {upvote-emoji} {upvote-count} upvotes
+          {downvote-emoji} {downvote-count} downvote
+        inline: true
+    footer:
+      iconURL: "{user-pfp}"
+      text: "{user-tag}'s suggestion | ID: {message-id}"
+  SuggestDeclinedEmbed:
+    title: "Suggestion System"
+    description: '>>> "{suggestion}" '
+    color: "Red"
+    fields:
+      - name: "Updated on the {updated-date}"
+        value: |
+          >>> Declined by {staff-username}
+          {response}
+        inline: true
+      - name: "Statistics"
+        value: |
+          >>> {upvote-emoji} {upvote-count} upvotes
+          {downvote-emoji} {downvote-count} downvote
+        inline: true
+    footer:
+      iconURL: "{user-pfp}"
+      text: "{user-tag}'s suggestion | ID: {message-id}"
+  VerificationMainEmbed:
+    title: "Verification System"
+    color: "{color-default}"
+    description: |
+      Hey, Welcome to {guild-name},
+      for security reasons we have added a verification system
+
+      **Use the button bellow to verify your account***
+  UserVerifiedEmbed:
+    title: "You account has been verified correctly"
+    image:
+      url: "attachment://captcha.png"
+    color: "{color-default}"
+  UserMessagesEmbed:
+    title: "{user-tag}"
+    description: "You sent a total of **{messages}** messages in this server."
+    color: "{color-default}"
+    footer:
+      text: "{bot-tag}"
+      iconURL: "{bot-pfp}"
+  LeaderboardMessagesEmbed:
+    panelsFormat: "`{position}. ` {user} • **{messages}** messages sent."
+    title: "🌟 Messages Leaderboard"
+    description: "{users}"
+    color: "{color-default}"
+    footer:
+      text: "{bot-tag} • Page {current-page}/{total-pages}"
+      iconURL: "{bot-pfp}"
+  UserInvitesEmbed:
+    title: "{user-tag}"
+    description: "{user-tag} currently has **{total}** invites. (**{join}** join, **{left}** left, **{fake}** fake, **{bonus}** bonus)"
+    color: "{color-default}"
+    footer:
+      text: "{bot-tag}"
+      iconURL: "{bot-pfp}"
+  LeaderboardInvitesEmbed:
+    panelsFormat: "`{position}. ` {user} • **{total}** invites. (**{join}** join, **{left}** left, **{fake}** fake, **{bonus}** bonus)"
+    title: "Invites Leaderboard"
+    description: "{users}"
+    color: "{color-default}"
+    footer:
+      text: "{bot-tag} • Page {current-page}/{total-pages}"
+      iconURL: "{bot-pfp}"
+  LeaderboardLevelsEmbed:
+    panelsFormat: "`{position}. ` {user} • Level {level}"
+    title: "Level Leaderboard"
+    description: "{users}"
+    color: "{color-default}"
+    footer:
+      text: "{bot-tag} • Page {current-page}/{total-pages}"
+      iconURL: "{bot-pfp}"
+  TemporalRankAddEmbed:
+    title: "👑 Temporary Role Added"
+    description: |
+      The role <@&{role-id}> has been added to {user-tag}
+      Role expires on: <t:{timestamp}:R>
+    color: "{color-default}"
+  TemporalRankListEmbed:
+    title: "👑 Temporary Ranks"
+    color: "{color-default}"
+    fields:
+      - name: "User"
+        value: "<@!{user-id}> (**{user-tag}**)"
+        inline: true
+      - name: "Role"
+        value: "<@&{role-id}>"
+        inline: true
+      - name: "Expires At"
+        value: "<t:{timestamp}:R>"
+        inline: true
+    footer:
+      text: "{bot-tag} • Page {current-page}/{total-pages}"
+      iconURL: "{bot-pfp}"
+  TemporalRankRemoveEmbed:
+    title: "👑 Temporary Role Removed"
+    description: "Removed from my pending tasks remove the role <@&{role-id}> from {user-tag}"
+    color: "{color-default}"
+  BackupCreatedEmbed:
+    title: "🔑 Backup Created"
+    color: "{color-default}"
+    description: "The backup has been created successfully"
+    fields:
+      - name: "Backup Id"
+        value: "{backup-id}"
+  BackupListEmbed:
+    title: "🔑 List of Backups"
+    color: "{color-default}"
+    fields:
+      - name: "Preview"
+        value: "```{channels-format}```"
+      - name: "Backup Id"
+        value: "{backup-id}"
+        inline: true
+      - name: "Created At"
+        value: "<t:{timestamp}:R>"
+        inline: true
+      - name: "Emojis"
+        value: "{emojis-count}"
+        inline: true
+    footer:
+      text: "{bot-tag} • Page {current-page}/{total-pages}"
+      iconURL: "{bot-pfp}"
+  BackupDeletedEmbed:
+    title: "🔑 Backup Deleted"
+    description: "The backup **{backup-id}** has been deleted successfully"
+    color: "{color-default}"
+  MessageWithInviteBlocked:
+    title: "Hey {user-tag}, do not send invitation links to other discords"
+    color: "Red"
+  MessageWithLinkBlocked:
+    title: "Hey {user-tag}, remember do not send any links"
+    color: "Red"
+  WordlePendingGame:
+    title: "Wordle"
+    image:
+      url: "attachment://wordle.png"
+    color: "{color-default}"
+  WordleWrongGame:
+    title: "Wordle"
+    description: |
+      **Game Over**
+      You lost! The word was **{word}**.
+    image:
+      url: "attachment://wordle.png"
+    color: "Red"
+  WordleSuccesGame:
+    title: "Wordle"
+    description: |
+      **Game Over**
+      You won! The word was **{word}**.
+    image:
+      url: "attachment://wordle.png"
+    color: "Green"
+  UserAvatarEmbed:
+    title: "🖼 {user-tag} Avatar"
+    image:
+      url: "{user-avatar}"
+    description: "Download the avatar of **{user-tag}** using the buttons"
+    color: "{color-default}"
+  ServerInfoEmbed:
+    title: "{server-name}"
+    description: "This guild is owned by <@!{owner-id}>"
+    color: "{color-default}"
+    thumbnail:
+      url: "{server-icon}"
+    fields:
+      - name: "Origin"
+        value: "Created on <t:{createdTimestamp}:F> (<t:{createdTimestamp}:R>)"
+      - name: "Members"
+        value: |
+          👥 {online-members} online out of {total-members} ({online-percentage}%)
+          🤖 {robotsCount} robots in the server
+      - name: "Boosters"
+        value: "🌟 Tier {boost-tier} with {boosters} boosters"
+      - name: "Another"
+        value: |
+          🎫 {ticketRating}/5.00 ticket rating
+          🧰 {channels} channels
+          😃 {emojis} emojis
+          🎨 {roles} roles
+  UserInfoEmbed:
+    title: "{user-tag}"
+    description: "{user-platforms}"
+    color: "{color-default}"
+    thumbnail:
+      url: "{user-avatar}"
+    fields:
+      - name: "Origin"
+        value: "<t:{createdTimestamp}:F> (<t:{createdTimestamp}:R>)"
+      - name: "Joined"
+        value: "<t:{joinedTimestamp}:F> (<t:{joinedTimestamp}:R>)"
+      - name: "Roles"
+        value: |
+          {user-roles}
+  ServerIpEmbed:
+    title: "{query-hostname} ({ip})"
+    color: "{color-default}"
+    image:
+      url: "http://status.mclive.eu/{query-hostname}/{query-hostname}/banner.png"
+    thumbnail:
+      url: "https://api.mcsrvstat.us/icon/{hostname}"
+    fields:
+      - name: "Online"
+        value: "{online} players out of {max-players}"
+      - name: "Software"
+        value: "{software}"
+      - name: "Hostname"
+        value: "{hostname}"
+  ServerOfflineEmbed:
+    title: "This server appears to be offline"
+    color: "Red"
+  DreamGeneratedEmbed:
+    title: "🤯 {prompt}"
+    color: "{color-default}"
+    image:
+      url: "attachment://image.png"
+  GuessTheNumberMain:
+    description: "Select the correct number below! You have 1 minute"
+    color: "{color-default}"
+  GuessTheNumberSuccess:
+    title: "You got it right!"
+    description: "The correct number is **{number}**, and you got it right in **{tries}** tries! Great Job!"
+    color: "{color-default}"
+  GuessTheNumberWrongSelect:
+    title: "WRONG"
+    description: "**{selected}** is not correct, please try again. You have **{tries}** tries remaining."
+    color: "Red"
+  GuessTheNumberOutChances:
+    title: "Out of chances!"
+    description: "You have used up your **10** tries. The correct number was **{number}**."
+    color: "Red"
+  GuessTheNumberOutTime:
+    title: "Out of time!"
+    description: "You were unable to complete this game within 30 seconds therefore,\nit has ended. The correct number was **{number}**"
+    color: "Red"
+  ShipWrongMentionEmbed:
+    title: "you need to mention a valid user, (not bots, nor yourself)"
+    color: "Red"
+  ShipCorrectEmbed:
+    title: "Shipped {user1-tag} and {user2-tag}"
+    image:
+      url: "{image}"
+    fields:
+      - name: "Ship Meter"
+        value: "{ship}"
+    color: "LuminousVividPink"
+  WorkEmbed:
+    author:
+      name: "{user-tag}"
+      iconURL: "{user-avatar}"
+    description: "You worked in the server and earned {coin} {money}"
+    color: "{color-default}"
+  BalanceEmbed:
+    author:
+      name: "{user-tag}"
+      iconURL: "{user-avatar}"
+    color: "{color-default}"
+    fields:
+      - name: "Cash:"
+        value: "{coin} {cash}"
+        inline: true
+      - name: "Bank:"
+        value: "{coin} {bank}"
+        inline: true
+      - name: "Total:"
+        value: "{coin} {total}"
+        inline: true
+  DepositIncorrectEmbed:
+    title: "You need specify a valid amount"
+    color: "Red"
+  DepositInsufficientEmbed:
+    title: "You don't have that much money to deposit"
+    color: "Red"
+  DepositCorrectEmbed:
+    author:
+      name: "{user-tag}"
+      iconURL: "{user-avatar}"
+    description: "Deposited {coin} {amount} to your bank account!"
+    color: "{color-default}"
+  WithdrawlIncorrectEmbed:
+    title: "You need specify a valid amount"
+    color: "Red"
+  WithdrawlInsufficientEmbed:
+    title: "You don't have that much money in your bank account"
+    color: "Red"
+  WithdrawlCorrectEmbed:
+    author:
+      name: "{user-tag}"
+      iconURL: "{user-avatar}"
+    description: "Withdrew {coin} {amount} from your bank account!"
+    color: "{color-default}"
+  DailyMustWaitEmbed:
+    title: "You must wait <t:{time}:R> to claim your daily reward again"
+    color: "Red"
+  DailyClaimedEmbed:
+    author:
+      name: "{user-tag}"
+      iconURL: "{user-avatar}"
+    description: "💰 You successfully claimed your daily {coin} {amount} coins"
+    color: "{color-default}"
+  WeeklyMustWaitEmbed:
+    title: "You must wait <t:{time}:R> to claim your weekly reward again"
+    color: "Red"
+  WeeklyClaimedEmbed:
+    author:
+      name: "{user-tag}"
+      iconURL: "{user-avatar}"
+    description: "💰 You successfully claimed your weekly {coin} {amount} coins"
+    color: "{color-default}"
+  PayInvalidUserEmbed:
+    title: "You can't pay yourself"
+    color: "Red"
+  PayInsufficientEmbed:
+    title: "You don't have that much money in your bank account"
+    color: "Red"
+  PaySentEmbed:
+    author:
+      name: "{user-tag}"
+      iconURL: "{user-avatar}"
+    description: "You have successfully given {coin} {amount} to {payed-tag}"
+    color: "{color-default}"
+  UserInCooldownEmbed:
+    author:
+      name: "{user-tag}"
+      iconURL: "{user-avatar}"
+    description: |
+      ⏰ Sorry {user-tag}, you are still in cooldown!
+      Time left: <t:{time}:R>
+    color: "Red"
+  RobtInvalidUserEmbed:
+    title: "What are you trying to do? you can't rob yourself"
+    color: "Red"
+  RobVictimInsufficientEmbed:
+    title: "You can't rob someone who doesn't have any money"
+    color: "Red"
+  RobSuccessEmbed:
+    author:
+      name: "{user-tag}"
+      iconURL: "{user-avatar}"
+    description: "You robbed {coin} {amount} from **{victim-tag}**"
+    color: "Red"
+  RobWrongEmbed:
+    author:
+      name: "{user-tag}"
+      iconURL: "{user-avatar}"
+    description: |
+      👮‍♂️ You tried to rob **{victim-tag}** but failed!
+      You lost {coin} {amount} coins
+    color: "Red"
+  LeaderboardEconomyEmbed:
+    panelsFormat: "`{position}. ` {user} • {coin} {total}"
+    title: "💰 Economy Leaderboard"
+    description: "{users}"
+    color: "{color-default}"
+    footer:
+      text: "{bot-tag} • Page {current-page}/{total-pages}"
+      iconURL: "{bot-pfp}"
+  UserNoChannelEmbed:
+    title: "You must be in a voice channel to use this command"
+    color: "Red"
+  UserNoJoinableEmbed:
+    title: "I don't have permissions to access this channel"
+    color: "Red"
+  UserNoSameChannelEmbed:
+    title: "You must be on the same channel as me"
+    color: "Red"
+  MusicPlayEmbed:
+    title: "🎧 Playing song"
+    color: "{color-default}"
+    description: "[{name}]({url}) - {formattedDuration}"
+    thumbnail:
+      url: "{thumbnail}"
+  MusicAddQueueEmbed:
+    title: "🎧 Queued song"
+    color: "Orange"
+    description: "[{name}]({url}) - {formattedDuration}"
+    thumbnail:
+      url: "{thumbnail}"
+  MusicNoSongEmbed:
+    title: "🗑 There is no song in the queue"
+    color: "Red"
+  MusicStopEmbed:
+    title: "🎧 Stoped Song"
+    description: "Stopped the current song"
+    color: "{color-default}"
+  MusicPauseEmbed:
+    title: "🎧 Paused Song"
+    description: "The current song has been paused"
+    color: "{color-default}"
+  MusicResumeEmbed:
+    title: "🎧 Resumed Song"
+    description: "The current song has been resumed"
+    color: "{color-default}"
+  MusicJoinEmbed:
+    title: "🎧 Bot Joined"
+    description: "The bot joined your voice channel"
+    color: "{color-default}"
+  MusicLeaveEmbed:
+    title: "🎧 Bot Leaved"
+    description: "The bot leaved your voice channel"
+    color: "{color-default}"
+  MusicSkipEmbed:
+    title: "🎧 Song Skipped"
+    description: "The current song has been skipped"
+    color: "{color-default}"
+  MusicNowPlayingEmbed:
+    title: "🎧 Current song"
+    description: "[{name}]({url})"
+    color: "{color-default}"
+    thumbnail:
+      url: "{thumbnail}"
+    fields:
+      - name: "🔊 | Volume"
+        value: "{volume}%"
+        inline: true
+      - name: "🎶 | Queue"
+        value: "{queue} songs"
+        inline: true
+      - name: "👥 | Requested By"
+        value: "{user-tag}"
+        inline: true
+      - name: "💬 | Uploader"
+        value: "[{uploader-name}]({uploader-url})"
+        inline: true
+      - name: "👍 | Likes"
+        value: "{likes}"
+        inline: true
+      - name: "👀 | Views"
+        value: "{views}"
+        inline: true
+      - name: "🎧 | Duration"
+        value: "```{emoji} {duration}```"
+        inline: true
+  MusicVolumeSet:
+    title: "🔊 The volume has been set to {volume}"
+    color: "{color-default}"
+  VerificationCaptchaEmbed:
+    title: "Please verify you are a human"
+    image:
+      url: "attachment://captcha.png"
+    color: "{color-default}"
+  VerificationIncorrectEmbed:
+    title: "You have not selected the correct word"
+    image:
+      url: "attachment://captcha.png"
+    color: "Red"
+  WarnBotEmbed:
+    title: "Hey, you can't warn me, what will you do without me?"
+    color: "Red"
+  WarnBadPermissionsEmbed:
+    title: "You can't use this command, beacuse you don't have permissions"
+    color: "Red"
+  WarnSuccessfullyEmbed:
+    title: "Successfully warned"
+    description: "✅ `Case #{case}` <@!{member-id}> has been warned for `{reason}`"
+    color: "{color-default}"
+  WarnRemovalFailedEmbed:
+    title: "Warning removal failed"
+    description: "📕 `Case #{case}` does not exist or has already been removed"
+    color: "Red"
+  WarnRemovalSuccessfullyEmbed:
+    title: "Successfully removed warning"
+    description: "✅ `Case #{case}` <@!{member-id}> has been removed for `{reason}`"
+    color: "{color-default}"
+  WarnsNoFoundEmbed:
+    title: "No warn's found"
+    description: "📕 `{members}` have no warn's"
+    color: "Red"
+  WarnListEmbed:
+    title: "Warn's for {name}"
+    description: "**⚠️ Case #{case}** {reason-remove}"
+    color: "{color-default}"
+    fields:
+      - name: "📦 | Case"
+        value: "Number: {case}"
+        inline: true
+      - name: "👥 | User"
+        value: "{user}"
+        inline: true
+      - name: "📆 | Date"
+        value: "{time-d} ({time-r})"
+        inline: true
+      - name: "📃 | Reason"
+        value: "{reason}"
+        inline: true
+      - name: "👮 | Moderator"
+        value: "{moderator}"
+        inline: true
+    footer:
+      text: "{bot-tag} • Page {current-page}/{total-pages}"
+      iconURL: "{bot-pfp}"
+  NukeConfirmEmbed:
+    title: "Are you sure?"
+    description: "The channel will be deleted and created again"
+    color: "{color-default}"
+  NukeCancelEmbed:
+    title: "It's okay"
+    description: "All good, you have canceled the nuke of the channel."
+    color: "Red"
+  NukeSuccessEmbed:
+    title: "The channel has been nuked by {user-tag}"
+    color: "{color-default}"
+  BanBotEmbed:
+    title: "Hey, you can't ban me, what will you do without me?"
+    color: "Red"
+  BanBadPermissionsEmbed:
+    title: "You can't use this command, beacuse you don't have permissions"
+    color: "Red"
+  BanSuccessfullyEmbed:
+    title: "Successfully banned"
+    description: "✅ `Case #{case}` <@!{member-id}> has been banned for `{reason}`"
+    color: "{color-default}"
+  BanFailedEmbed:
+    title: "Something went wrong"
+    description: "📕 {error}"
+    color: "Red"
+  BanRemovalSuccessfullyEmbed:
+    title: "Successfully unbanned"
+    description: "✅ `User` <@!{member-id}> has been unbanned for `{reason}`"
+    color: "{color-default}"
+  BanRemovalFailedEmbed:
+    title: "Ban removal failed"
+    description: "📕 `Case/User #{case}` does not exist or has already been removed"
+    color: "Red"
+  BansNoFoundEmbed:
+    title: "No ban's found"
+    description: "📕 `{members}` have no warn's"
+    color: "Red"
+  BannListEmbed:
+    title: "Ban's for {name}"
+    description: "**🔒 Case #{case}** {reason-remove}"
+    color: "{color-default}"
+    fields:
+      - name: "📦 | Case"
+        value: "Number: {case}"
+        inline: true
+      - name: "👥 | User"
+        value: "{user}"
+        inline: true
+      - name: "📆 | Date"
+        value: "{time-d} ({time-r})"
+        inline: true
+      - name: "📃 | Reason"
+        value: "{reason}"
+        inline: true
+      - name: "👮 | Moderator"
+        value: "{moderator}"
+        inline: true
+    footer:
+      text: "{bot-tag} • Page {current-page}/{total-pages}"
+      iconURL: "{bot-pfp}"
+  TemporalVoiceInterfaceEmbed:
+    title: "{bot-username} Interface"
+    color: "{color-default}"
+    image:
+      url: "https://i.imgur.com/5fo6U67.png"
+    description: |
+      You can use this interface to manage your voice channel.
+      You can also use /vc slash commands!
+    footer:
+      text: "Use the buttons below to manage your voice channel"
+  BlackJackBoardEmbed:
+    title: "Blackjack"
+    color: "{color-default}"
+    image:
+      url: "attachment://blackjack-board.png"
+    fields:
+      - name: "Options"
+        value: "Use `hit` to draw a card or `stand` to end your turn."
+  BlackJackTimeoutEmbed:
+    title: "Blackjack"
+    description: "The game has ended due to inactivity."
+    image:
+      url: "attachment://blackjack-board.png"
+    color: "Red"
+  GameInvitedEmbed:
+    title: "{user-name} has invited you for a game of {game}"
+    color: "{color-default}"
+  GameInvitedTimeoutEmbed:
+    title: "Sorry, the game invite has expired"
+    color: "{color-default}"
+  GameRejectedEmbed:
+    title: "The game has been rejected by {user-name}"
+    color: "{color-default}"
+  PollEmbed:
+    choicesFormat: "{emoji} {choice} - {percentage}% ({votes} votes)\n"
+    color: "{color-default}"
+    title: "{title}"
+    timestamp: "{timestamp}"
+    footer:
+      text: "Poll sent by {author-username}"
+      iconURL: "{author-pfp}"
+    description: "{description}"
+    fields:
+      - name: "Total"
+        value: "{votes-total} votes"
+      - name: "Choices"
+        value: "{choices}"
+      - name: "Mode"
+        value: "{mode}"
+  PollSentEmbed:
+    title: "The poll has been sent successfully"
+    color: "{color-default}"
+  GhostPingDetectedEmbed:
+    title: "Ghost Ping Detected"
+    color: "{color-default}"
+    fields:
+      - name: "Author"
+        value: "{author-username}"
+        inline: true
+      - name: "Mentioned"
+        value: "{mentioned-username}"
+        inline: true
+  GuildBoostedEmbed:
+    title: "Thank your for the boost!"
+    color: "{color-default}"
+    thumbnail:
+      url: "{user-pfp}"
+    description: "The user **{user-name}** has just boosted the server"
+  WeatherEmbed:
+    author:
+      name: "{country}, {city}"
+      iconURL: "{icon}"
+    title: "It is currently {time}, {description}"
+    description: "Temperature is {temp-c}°C, or {temp-f}°F (feels like {feels-c}°C or {feels-f}°F) with {humidity}% humidity"
+    color: "{color-default}"
+    fields:
+      - name: "Wind direction {wind-dir} ({wind-degree}°)"
+        value: "The speed is {wind-kph} kph or {wind-mph} mph"
+        inline: true
+      - name: "Visibility"
+        value: "Up to {vis-km} kilometres or {vis-miles} miles"
+        inline: true
+  WeatherInvalidEmbed:
+    title: "Location not found"
+    color: "{color-default}"
+    description: "Try looking-up the US, UK or CA postcode, or using coordinates (latitude,longitude)"
+  AfkDisableEmbed:
+    title: "Your afk status has been updated to disabled"
+    color: "{color-defult}"
+  AfkEnabledEmbed:
+    title: "Your afk status has been updated to enabled"
+    color: "{color-default}"
+  AfkInvalidTimeEmbed:
+    title: "You need use a valid time (1h, 1d, 1m, 1y)"
+    color: "Red"
+  AfkPingEmbed:
+    author:
+      name: "{user-username} is currently AFK"
+      iconURL: "{user-pfp}"
+    color: "{color-default}"
+    fields:
+      - name: "😴 Status"
+        value: "AFK"
+        inline: true
+      - name: "📄 Reason"
+        value: "{reason}"
+        inline: true
+      - name: "⏰ Since"
+        value: "<t:{time}:R>"
+        inline: true
+  AfkDetectedEmbed:
+    title: "Your afk status has been disabled"
+    color: "{color-default}"
+  AfkListEmbed:
+    author:
+      name: "{user-username}"
+      iconURL: "{user-pfp}"
+    color: "{color-default}"
+    fields:
+      - name: "😴 Status"
+        value: "AFK"
+        inline: true
+      - name: "📄 Reason"
+        value: "{reason}"
+        inline: true
+      - name: "⏰ Since"
+        value: "<t:{time}:R>"
+        inline: true
+    footer:
+      text: "{bot-tag} • Page {current-page}/{total-pages}"
+      iconURL: "{bot-pfp}"
+  SnipeListEmbed:
+    author:
+      name: "{author-username}"
+      iconURL: "{author-pfp}"
+    timestamp: "{message-timestamp}"
+    color: "{color-default}"
+    fields:
+      - name: "📄 Content"
+        value: "{message-content}"
+        inline: true
+      - name: "🖼 Attachments"
+        value: "{attachments}"
+        inline: true
+      - name: "📚 Channel"
+        value: "<#{channel-id}>"
+        inline: true
+    footer:
+      text: "{bot-tag} • Page {current-page}/{total-pages}"
+      iconURL: "{bot-pfp}"
+  HelpMainEmbed:
+    author:
+      name: "Homepage of the bot"
+      iconURL: "{bot-pfp}"
+    color: "{color-default}"
+    thumbnail:
+      iconURL: "{bot-pfp}"
+    description: |
+      Hello! I am Absolet Bot a multi-purpose bot, with a ticketing system, auto-roles, moderation and many more features.
+      Use the button below to navigate between command categories.
+
+      __**🤖 {total-commands} commands in total.**__
+  HelpCategoryEmbed:
+    color: "{color-default}"
+    author:
+      name: "Homepage of the bot"
+      iconURL: "{bot-pfp}"
+    description: |
+      Here you can find the available commands of Admin.
+      :question: | To see the help of another category, use the button below.
+    fields:
+      - name: "`{emoji}` __**{name} Commands**__"
+        value: "{commands}"
+  HelpTimeOutEmbed:
+    title: ":x: | The waiting time to respond has expired."
+    color: "Red"
+    author:
+      name: "Homepage of the bot"
+      iconURL: "{bot-pfp}"
+  InvalidEmoji:
+    title: "The emoji that you provided is not valid"
+    color: "Red"
+  EmojiCreated:
+    title: "The emoji has been added successfully"
+    color: "{color-default}"
+  EmojiCreatingError:
+    title: "{error}"
+    color: "Red"
+  LeaderboardVoiceTimeEmbed:
+    panelsFormat: "`{position}. ` {user} • {time}"
+    title: "🔊 Voice Time Leadeboard"
+    color: "{color-default}"
+    description: "{users}"
+    footer:
+      text: "{bot-tag} • Page {current-page}/{total-pages}"
+      iconURL: "{bot-pfp}"
+  LevelUpEmbed:
+    title: "✨ Level Up"
+    description: "<@!{user-id}>, you just leveled up! You are now level **{user-level}**!"
+    color: "{color-default}"
+  StarboardEmbed:
+    content: "⭐ {star-count} | <#{channel-id}>"
+    author:
+      name: "{user-username}"
+      iconURL: "{user-pfp}"
+    description: "{message-content}\n\n[Jump to message]({message-url})"
+    color: "{color-default}"
+    footer:
+      text: "Message Id: {message-id}"
+    timestamp: "{message-timestamp}"
+  CantInteractEmbed:
+    title: "You can't interact with this component"
+    color: "Red"
+  TicTacToeTurnEmbed:
+    title: "Hey, {turn-username}, it's your turn now!"
+    color: "{color-default}"
+  TicTacToeWinnerEmbed:
+    title: "🎉 Congrats {user-name}, you won the game of Tic Tac Toe"
+    color: "{color-default}"
+  TicTacToeTieEmbed:
+    title: "The game ended in a tie"
+    color: "{color-default}"
+
+Buttons:
+  TicketClose:
+    Emoji: "🔒"
+    Label: "Close"
+    Style: "Secondary"
+  TicketOpen:
+    Emoji: "🔓"
+    Label: "Open"
+    Style: "Secondary"
+  TicketClaim:
+    Emoji: "👋"
+    Label: "Claim"
+    Style: "Secondary"
+  TicketTranscript:
+    Emoji: "📑"
+    Label: "Transcript"
+    Style: "Secondary"
+  TicketDelete:
+    Emoji: "🗑"
+    Label: "Delete"
+    Style: "Secondary"
+  SuggestUpvote:
+    Emoji: "{upvote-emoji}"
+    Label: "Upvote"
+    Style: "Success"
+  SuggestDownvote:
+    Emoji: "{downvote-emoji}"
+    Label: "Downvote"
+    Style: "Danger"
+  SuggestReset:
+    Emoji: "🗑"
+    Label: "Reset"
+    Style: "Secondary"
+  Verification:
+    Emoji: "✅"
+    Label: "Verify"
+    Style: "Secondary"
+  ConfirmQuestion:
+    Emoji: "✅"
+    Label: "Confirm"
+    Style: "Success"
+  EditQuestion:
+    Emoji: "🖊"
+    Label: "Edit"
+    Style: "Secondary"
+  Resume:
+    Emoji: "▶"
+    Label: "Resume"
+    Style: "Primary"
+  Previous:
+    Emoji: "⏮"
+    Label: "Previous"
+    Style: "Success"
+  Stop:
+    Emoji: "⏹"
+    Label: "Stop"
+    Style: "Danger"
+  Pause:
+    Emoji: "⏸"
+    Label: "Pause"
+    Style: "Primary"
+  Skip:
+    Emoji: "⏭"
+    Label: "Skip"
+    Style: "Success"
+  VolumeDown:
+    Emoji: "🔉"
+    Label: "Volume Down"
+    Style: "Success"
+  VolumeUp:
+    Emoji: "🔊"
+    Label: "Volume Up"
+    Style: "Success"
+  Loop:
+    Emoji: "🔁"
+    Label: "Loop"
+    Style: "Primary"
+  ShuffleQueue:
+    Emoji: "🔀"
+    Label: "Shuffle Queue"
+    Style: "Success"
+  TempLock:
+    Emoji: "<:lock:1029831342575325225>"
+    Style: "Secondary"
+  TempUnLock:
+    Emoji: "<:unlock:1029831345884647554>"
+    Style: "Secondary"
+  TempHide:
+    Emoji: "<:hide:1029831340595626056>"
+    Style: "Secondary"
+  TempUnHide:
+    Emoji: "<:unhide:1029831344278220833>"
+    Style: "Secondary"
+  TempLimit:
+    Emoji: "<:limit:1029823585801478154>"
+    Style: "Secondary"
+  TempRename:
+    Emoji: "<:name:1029823591329579039>"
+    Style: "Secondary"
+  TempInvite:
+    Emoji: "<:invite:1029823584287338496>"
+    Style: "Secondary"
+  TempKick:
+    Emoji: "<:kick:1029823582316007555>"
+    Style: "Secondary"
+  TempPermit:
+    Emoji: "<:permit:1029823602071191563>"
+    Style: "Secondary"
+  TempBan:
+    Emoji: "<:ban:1029823553077510327>"
+    Style: "Secondary"
+  GameAccept:
+    Label: "Accept"
+    Style: "Secondary"
+  GameCancel:
+    Label: "Cancel"
+    Style: "Danger"
+  BlackJackHit:
+    Label: "Hit"
+    Style: "Secondary"
+  BlackJackStand:
+    Label: "Stand"
+    Style: "Danger"
+
+Logs:
+  MessageUpdated:
+    title: "Message Edited"
+    color: "{color-default}"
+    fields:
+      - name: "Author"
+        value: "{author} `{author-tag}`"
+      - name: "Channel"
+        value: "{channel} [Click Here]({message-url})"
+      - name: "Old Message"
+        value: "```{old-message}```"
+      - name: "New Message"
+        value: "```{new-message}```"
+    footer:
+      text: "Logged by {bot-tag}"
+  MessageDeleted:
+    title: "Message Deleted"
+    color: "{color-default}"
+    fields:
+      - name: "Author"
+        value: "{author} `{author-tag}`"
+      - name: "Channel"
+        value: "{channel}"
+      - name: "Message"
+        value: "```{message}```"
+    footer:
+      text: "Logged by {bot-tag}"
+  ChannelCreated:
+    title: "Channel Created"
+    color: "{color-default}"
+    fields:
+      - name: "Channel"
+        value: "{channel}"
+      - name: "Channel Name"
+        value: "{channel-name}"
+      - name: "Channel Type"
+        value: "{channel-type}"
+    footer:
+      text: "Logged by {bot-tag}"
+  ChannelDeleted:
+    title: "Channel Deleted"
+    color: "{color-default}"
+    fields:
+      - name: "Channel Id"
+        value: "{channel-id}"
+      - name: "Channel Name"
+        value: "{channel-name}"
+      - name: "Channel Type"
+        value: "{channel-type}"
+    footer:
+      text: "Logged by {bot-tag}"
+  ChannelUpdated:
+    title: "Channel {state} Updated" # ex: Name, Category...
+    color: "{color-default}"
+    fields:
+      - name: "Channel"
+        value: "{channel}"
+      - name: "Old {state}"
+        value: "{old-state}"
+      - name: "New {state}"
+        value: "{new-state}"
+    footer:
+      text: "Logged by {bot-tag}"
+  EmojiCreated:
+    title: "Emoji Created"
+    color: "{color-default}"
+    thumbnail:
+      url: "{emoji-url}"
+    fields:
+      - name: "Name"
+        value: "{emoji-name}"
+      - name: "Id"
+        value: "{emoji-id}"
+      - name: "Animated"
+        value: "{emoji-animated}"
+    footer:
+      text: "Logged by {bot-tag}"
+  EmojiDeleted:
+    title: "Emoji Deleted"
+    color: "{color-default}"
+    thumbnail:
+      url: "{emoji-url}"
+    fields:
+      - name: "Name"
+        value: "{emoji-name}"
+      - name: "Id"
+        value: "{emoji-id}"
+      - name: "Animated"
+        value: "{emoji-animated}"
+    footer:
+      text: "Logged by {bot-tag}"
+  EmojiUpdated:
+    title: "Emoji Updated"
+    color: "{color-default}"
+    thumbnail:
+      url: "{emoji-url}"
+    fields:
+      - name: "Old Name"
+        value: "{old-name}"
+      - name: "New Name"
+        value: "{new-name}"
+    footer:
+      text: "Logged by {bot-tag}"
+  RoleCreated:
+    title: "Role Created"
+    color: "{color-default}"
+    fields:
+      - name: "Role Name"
+        value: "{role-name}"
+      - name: "Role Id"
+        value: "{role-id}"
+      - name: "Role Color"
+        value: "{role-color}"
+    footer:
+      text: "Logged by {bot-tag}"
+  RoleDeleted:
+    title: "Role Deleted"
+    color: "{color-default}"
+    fields:
+      - name: "Role Name"
+        value: "{role-name}"
+      - name: "Role Id"
+        value: "{role-id}"
+      - name: "Role Color"
+        value: "{role-color}"
+    footer:
+      text: "Logged by {bot-tag}"
+
+Strings:
+  GiveawayContentMessage: "🎉 @everyone"
+  GiveawayContentEnded: "🎉 Giveaway Ended"
+  GiveawayContentNoWinners: "🎉 Giveaway cancelled, no valid participations."
+  GiveawayWinMessage: "Congratulations, {winners}! You won **{this.prize}**"
+  WarnRemovedMessage: "__**[{reason}]**__"
+  BanRemovedMessage: "__**[{reason}]**__"
+  TicketChannelName: "ticket-{counter}"
+  TicketQuestionNull: "None."
+  TicketModalRegexErrorValue: "• {name}\n"
+  TicketModalRegexError: |
+    These values are not correctly written, please check it.
+
+    {values}
+  WelcomeCardBackground: "https://i.imgur.com/Xvqn33j.png"
+  WelcomeCard1stLine: "{user-name}"
+  WelcomeCard2ndLine: "Welcome to {guild-name}"
+  WelcomeCard3rdLine: "Member {memberCount}"
+  BlackJackYouBustDescription: "You bust! You lose {coin} **{amount}**"
+  BlackJackYouBustImageTitle: "{user-name} busted\nDealer wins"
+  BlackJackYouWinDescription: "You win {coin} **{amount}**"
+  BlackJackYouWinBImageTitle: "Dealer busted\n{user-name} wins"
+  BlackJackYouWinImageTitle: "{user-name} wins"
+  BlackJackYouLoseDescription: "You lose {coin} **{amount}**"
+  BlackJackYouLoseImageTitle: "Dealer wins"
+  BlackJackTieDescription: "It's a tie!"
+  BlackJackTieImageTitle: "It's a tie!"
+  HelpCommandName: "`{name}`"
+  HelpCommandJoin: " | "

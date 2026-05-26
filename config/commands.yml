@@ -1,0 +1,316 @@
+Giveaway:
+  Enabled: true
+  Permissions:
+    - "Staff"
+    - "Owner"
+ReactionRoles:
+  Enabled: true
+  Permissions:
+    - "Staff"
+    - "Owner"
+Setup:
+  Enabled: true
+  Permissions:
+    - "Staff"
+    - "Owner"
+Suggestion:
+  Enabled: true
+  Permissions:
+    - "Staff"
+    - "Owner"
+TicketManage:
+  Enabled: true
+  Permissions:
+    - "Staff"
+    - "Owner"
+Verify:
+  Enabled: true
+  Permissions:
+    - "Staff"
+    - "Owner"
+Help:
+  Enabled: true
+  Permissions:
+    - "@everyone"
+Suggest:
+  Enabled: true
+  Permissions:
+    - "@everyone"
+Announce:
+  Enabled: true
+  Permissions:
+    - "Staff"
+    - "Owner"
+Ban:
+  Enabled: true
+  Permissions:
+    - "Staff"
+    - "Owner"
+Kick:
+  Enabled: true
+  Permissions:
+    - "Staff"
+    - "Owner"
+Warn:
+  Enabled: true
+  Permissions:
+    - "Staff"
+    - "Owner"
+Add:
+  Enabled: true
+  Permissions:
+    - "Staff"
+    - "Owner"
+Claim:
+  Enabled: true
+  Permissions:
+    - "Staff"
+    - "Owner"
+Close:
+  Enabled: true
+  Permissions:
+    - "Staff"
+    - "Owner"
+Open:
+  Enabled: true
+  Permissions:
+    - "Staff"
+    - "Owner"
+Remove:
+  Enabled: true
+  Permissions:
+    - "Staff"
+    - "Owner"
+Alert:
+  Enabled: true
+  Permissions:
+    - "Staff"
+    - "Owner"
+Messages:
+  Enabled: true
+  Permissions:
+    - "@everyone"
+Leaderboard:
+  Enabled: true
+  Permissions:
+    - "@everyone"
+Invites:
+  Enabled: true
+  Permissions:
+    - "@everyone"
+Rank:
+  Enabled: true
+  Permissions:
+    - "@everyone"
+CustomCommands:
+  Enabled: true
+  Permissions:
+    - "Owner"
+Role:
+  Enabled: true
+  Permissions:
+    - "Owner"
+Backup:
+  Enabled: true
+  Permissions:
+    - "Owner"
+Eval:
+  Enabled: true
+  Permissions:
+    - "Owner"
+Wordle:
+  Enabled: true
+  Permissions:
+    - "@everyone"
+Avatar:
+  Enabled: true
+  Permissions:
+    - "@everyone"
+Serverinfo:
+  Enabled: true
+  Permissions:
+    - "@everyone"
+Userinfo:
+  Enabled: true
+  Permissions:
+    - "@everyone"
+Serverip:
+  Enabled: true
+  Permissions:
+    - "@everyone"
+Dream:
+  Enabled: true
+  Permissions:
+    - "@everyone"
+Gtn:
+  Enabled: true
+  Permissions:
+    - "@everyone"
+Ship:
+  Enabled: true
+  Permissions:
+    - "@everyone"
+Work:
+  Enabled: true
+  Cooldown: "1h"
+  Permissions:
+    - "@everyone"
+Balance:
+  Enabled: true
+  Permissions:
+    - "@everyone"
+Deposit:
+  Enabled: true
+  Permissions:
+    - "@everyone"
+Withdraw:
+  Enabled: true
+  Permissions:
+    - "@everyone"
+Daily:
+  Enabled: true
+  Permissions:
+    - "@everyone"
+Weekly:
+  Enabled: true
+  Permissions:
+    - "@everyone"
+Pay:
+  Enabled: true
+  Permissions:
+    - "@everyone"
+Rob:
+  Enabled: true
+  Cooldown: "12h"
+  Permissions:
+    - "@everyone"
+Play:
+  Enabled: true
+  Permissions:
+    - "@everyone"
+Skip:
+  Enabled: true
+  Permissions:
+    - "@everyone"
+Stop:
+  Enabled: true
+  Permissions:
+    - "@everyone"
+Pause:
+  Enabled: true
+  Permissions:
+    - "@everyone"
+Resume:
+  Enabled: true
+  Permissions:
+    - "@everyone"
+Join:
+  Enabled: true
+  Permissions:
+    - "@everyone"
+Leave:
+  Enabled: true
+  Permissions:
+    - "@everyone"
+Nowplaying:
+  Enabled: true
+  Permissions:
+    - "@everyone"
+Volume:
+  Enabled: true
+  Permissions:
+    - "@everyone"
+Reload:
+  Enabled: true
+  Permissions:
+    - "Admin"
+Nuke:
+  Enabled: true
+  Permissions:
+    - "Admin"
+Clear:
+  Enabled: true
+  Permissions:
+    - "Admin"
+Manage:
+  Enabled: true
+  Permissions:
+    - "Admin"
+TicTacToe:
+  Enabled: true
+  Permissions:
+    - "@everyone"
+Rps:
+  Enabled: true
+  Permissions:
+    - "@everyone"
+Connect4:
+  Enabled: true
+  Permissions:
+    - "@everyone"
+Slots:
+  Enabled: true
+  Permissions:
+    - "@everyone"
+Blackjack:
+  Enabled: true
+  Permissions:
+    - "@everyone"
+GiveMoney:
+  Enabled: true
+  Permissions:
+    - "Admin"
+TakeMoney:
+  Enabled: true
+  Permissions:
+    - "Admin"
+Poll:
+  Enabled: true
+  Permissions:
+    - "Admin"
+Weather:
+  Enabled: true
+  Permissions:
+    - "@everyone"
+Afk:
+  Enabled: true
+  Permissions:
+    - "@everyone"
+Snipe:
+  Enabled: true
+  Permissions:
+    - "Admin"
+Say:
+  Enabled: true
+  Permissions:
+    - "Admin"
+Addemoji:
+  Enabled: true
+  Permissions:
+    - "Admin"
+Rename:
+  Enabled: true
+  Permissions:
+    - "Admin"
+GiveLevel:
+  Enabled: true
+  Permissions:
+    - "Admin"
+GiveXp:
+  Enabled: true
+  Permissions:
+    - "Admin"
+SetLevel:
+  Enabled: true
+  Permissions:
+    - "Admin"
+SetXp:
+  Enabled: true
+  Permissions:
+    - "Admin"
+SetMoney:
+  Enabled: true
+  Permissions:
+    - "Admin"
+
+# 75078BDWISOWJ0IFFD3OCFXB

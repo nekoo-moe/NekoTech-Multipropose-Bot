@@ -1,13 +1,12 @@
 GeneralSettings:
-  Token: "Your-Token-Here"
-  LicenseKey: "Black-Minecraft"
+  Token: "MTQ1OTcwNTY3MTk1OTQ0OTcxNA.GxWwLE.Pa33jnjXg1ahbN7f8KFkg8f0sAgin5NJBIZTeU"
   EmbedColor: "#E74C3C"
 
 ActivitySettings:
   Enabled: true
   Activities:
-    - ["Watching", "black-minecraft.com", "dnd"]
-    - ["Playing", "play.example.net", "dnd"]
+    - ["Watching", "heiznerd", "heiznerd"]
+    - ["Playing", "heiznerd", "heiznerd"]
   Interval: "1m"
 
 DatabaseSettings:

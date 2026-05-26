@@ -1,1 +1,13 @@
-"use strict";Object.defineProperty(exports,"__esModule",{value:!0});const discord_js_1=require("discord.js"),buttonFormat={primary:discord_js_1.ButtonStyle.Primary,secondary:discord_js_1.ButtonStyle.Secondary,success:discord_js_1.ButtonStyle.Success,danger:discord_js_1.ButtonStyle.Danger};function parseStyle(t){return buttonFormat[t.toLowerCase()]}exports.default=parseStyle;
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: !0 });
+const discord_js_1 = require("discord.js"),
+  buttonFormat = {
+    primary: discord_js_1.ButtonStyle.Primary,
+    secondary: discord_js_1.ButtonStyle.Secondary,
+    success: discord_js_1.ButtonStyle.Success,
+    danger: discord_js_1.ButtonStyle.Danger,
+  };
+function parseStyle(t) {
+  return buttonFormat[t.toLowerCase()];
+}
+exports.default = parseStyle;

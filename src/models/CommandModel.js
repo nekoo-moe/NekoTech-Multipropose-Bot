@@ -1,1 +1,11 @@
-"use strict";Object.defineProperty(exports,"__esModule",{value:!0});const mongoose_1=require("mongoose"),schema=new mongoose_1.Schema({guildId:{type:String,required:!0},commands:{type:[],required:!0}},{timestamps:!0});exports.default=(0,mongoose_1.model)("command",schema);
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: !0 });
+const mongoose_1 = require("../helpers/sqliteDb"),
+  schema = new mongoose_1.Schema(
+    {
+      guildId: { type: String, required: !0 },
+      commands: { type: [], required: !0 },
+    },
+    { timestamps: !0 },
+  );
+exports.default = (0, mongoose_1.model)("command", schema);

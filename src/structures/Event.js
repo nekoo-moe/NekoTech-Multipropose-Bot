@@ -1,1 +1,9 @@
-"use strict";Object.defineProperty(exports,"__esModule",{value:!0}),exports.Event=void 0;class Event{constructor(e,t){this.event=e,this.run=t}}exports.Event=Event;
+"use strict";
+(Object.defineProperty(exports, "__esModule", { value: !0 }),
+  (exports.Event = void 0));
+class Event {
+  constructor(e, t) {
+    ((this.event = e), (this.run = t));
+  }
+}
+exports.Event = Event;
