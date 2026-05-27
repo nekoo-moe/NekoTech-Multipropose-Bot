@@ -35,17 +35,17 @@ const tslib_1 = require("tslib"),
   ];
 exports.default = new Command_1.Command({
   name: "dream",
-  description: "Generate images using AI",
+  description: "Tạo hình ảnh bằng công nghệ trí tuệ nhân tạo AI",
   options: [
     {
       name: "prompt",
-      description: "The prompt of the image to generate",
+      description: "Mô tả nội dung bức ảnh bạn muốn vẽ",
       type: discord_js_1.ApplicationCommandOptionType.String,
       required: !0,
     },
     {
       name: "style",
-      description: "The style of the image to generate",
+      description: "Phong cách vẽ của bức ảnh",
       type: discord_js_1.ApplicationCommandOptionType.Integer,
       choices: STYLES.map((e) => e),
       required: !0,
@@ -63,7 +63,7 @@ exports.default = new Command_1.Command({
             embeds: [
               new discord_js_1.EmbedBuilder()
                 .setTitle(
-                  "Please don't use those kind of prompts, be respectful",
+                  "Vui lòng sử dụng các từ khóa chuẩn mực, lịch sự hơn!",
                 )
                 .setColor("Red"),
             ],

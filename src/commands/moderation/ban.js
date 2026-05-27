@@ -8,28 +8,28 @@ const tslib_1 = require("tslib"),
   replaceAll_1 = tslib_1.__importDefault(require("../../helpers/replaceAll"));
 exports.default = new Command_1.Command({
   name: "ban",
-  description: "Ban's manager",
+  description: "Quản lý danh sách cấm thành viên",
   options: [
     {
       name: "add",
-      description: "Adds a ban to a member",
+      description: "Cấm thành viên khỏi máy chủ",
       type: discord_js_1.ApplicationCommandOptionType.Subcommand,
       options: [
         {
           name: "member",
-          description: "The member to ban",
+          description: "Thành viên cần cấm",
           type: discord_js_1.ApplicationCommandOptionType.User,
           required: !0,
         },
         {
           name: "reason",
-          description: "The reason for the ban",
+          description: "Lý do cấm thành viên",
           type: discord_js_1.ApplicationCommandOptionType.String,
           required: !0,
         },
         {
           name: "duration",
-          description: "Number of days of messages to delete (1-7)",
+          description: "Số ngày tin nhắn cần xóa (1-7)",
           type: discord_js_1.ApplicationCommandOptionType.Integer,
           minValue: 1,
           maxValue: 7,
@@ -39,18 +39,18 @@ exports.default = new Command_1.Command({
     },
     {
       name: "remove",
-      description: "Removes a ban from a member",
+      description: "Gỡ lệnh cấm cho thành viên",
       type: discord_js_1.ApplicationCommandOptionType.Subcommand,
       options: [
         {
           name: "case",
-          description: "The case/userId to remove and unban",
+          description: "Số Case hoặc ID người dùng cần gỡ cấm",
           type: discord_js_1.ApplicationCommandOptionType.String,
           required: !0,
         },
         {
           name: "reason",
-          description: "The reason for the ban removal",
+          description: "Lý do gỡ cấm thành viên",
           type: discord_js_1.ApplicationCommandOptionType.String,
           required: !0,
         },
@@ -58,12 +58,12 @@ exports.default = new Command_1.Command({
     },
     {
       name: "list",
-      description: "Lists all bans for a member or all members",
+      description: "Danh sách cấm của một hoặc tất cả thành viên",
       type: discord_js_1.ApplicationCommandOptionType.Subcommand,
       options: [
         {
           name: "member",
-          description: "The member to list bans for",
+          description: "Thành viên cần liệt kê lịch sử cấm",
           type: discord_js_1.ApplicationCommandOptionType.User,
         },
       ],
@@ -72,7 +72,7 @@ exports.default = new Command_1.Command({
   run: ({ interaction: e, client: s }) =>
     tslib_1.__awaiter(void 0, void 0, void 0, function* () {
       var a, d, r, n;
-      const i = e.options.getString("reason") || "No reason.",
+      const i = e.options.getString("reason") || "Không có lý do.",
         t = e.options.getUser("member"),
         o = yield PunishModel_1.default.findOne({ guildId: e.guildId }),
         l = (null == o ? void 0 : o.bans) || [],
@@ -81,7 +81,7 @@ exports.default = new Command_1.Command({
         const a = e.options.getInteger("duration");
         if (!e.memberPermissions.has("BanMembers"))
           return e.reply({
-            embeds: [(0, replaceAll_1.default)(s.messages.Embeds.BanBotEmbed)],
+            embeds: [(0, replaceAll_1.default)(s.messages.Embeds.BanBadPermissionsEmbed)],
           });
         if (t.id === s.user.id)
           return e.reply({
@@ -90,11 +90,19 @@ exports.default = new Command_1.Command({
         const d = e.guild.members.cache.get(t.id);
         if (d && e.member.roles.highest.position <= d.roles.highest.position)
           return e.reply({
-            embeds: [(0, replaceAll_1.default)(s.messages.Embeds.BanBotEmbed)],
+            embeds: [
+              new discord_js_1.EmbedBuilder()
+                .setTitle("❌ Bạn không có quyền cấm thành viên này do có thứ tự vai trò (Role) bằng hoặc cao hơn bạn")
+                .setColor("Red"),
+            ],
           });
         if (d && !d.bannable)
           return e.reply({
-            embeds: [(0, replaceAll_1.default)(s.messages.Embeds.BanBotEmbed)],
+            embeds: [
+              new discord_js_1.EmbedBuilder()
+                .setTitle("🤖 Bot không đủ quyền hạn (vị trí vai trò) để cấm thành viên này")
+                .setColor("Red"),
+            ],
           });
         const r = (null == o ? void 0 : o.cases) + 1 || 1,
           n = (s) => ({
@@ -221,7 +229,7 @@ exports.default = new Command_1.Command({
               (0, replaceAll_1.default)(s.messages.Embeds.BansNoFoundEmbed, {
                 "{members}": (null == t ? void 0 : t.id)
                   ? t.tag
-                  : "All members",
+                  : "Tất cả thành viên",
               }),
             ],
           });

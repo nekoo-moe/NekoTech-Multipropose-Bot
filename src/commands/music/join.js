@@ -8,7 +8,7 @@ const tslib_1 = require("tslib"),
   replaceAll_1 = tslib_1.__importDefault(require("../../helpers/replaceAll"));
 exports.default = new Command_1.Command({
   name: "join",
-  description: "Join the bot to the voice channel",
+  description: "Yêu cầu bot tham gia vào kênh thoại của bạn",
   run: ({ client: e, interaction: i }) =>
     tslib_1.__awaiter(void 0, void 0, void 0, function* () {
       if ((0, isVoiceChannel_1.default)(i))

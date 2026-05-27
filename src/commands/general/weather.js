@@ -7,11 +7,11 @@ const tslib_1 = require("tslib"),
   WEATHER_API_KEY = "1f1da4333e824130aa2175640232107";
 exports.default = new Command_1.Command({
   name: "weather",
-  description: "Check the weather of a city",
+  description: "Kiểm tra thời tiết của một thành phố",
   options: [
     {
       name: "city",
-      description: "The city to check the weather of",
+      description: "Thành phố cần kiểm tra thời tiết",
       type: discord_js_1.ApplicationCommandOptionType.String,
       required: !0,
     },
@@ -33,7 +33,7 @@ exports.default = new Command_1.Command({
       t.followUp({
         embeds: [
           (0, replaceAll_1.default)(e.messages.Embeds.WeatherEmbed, {
-            "{time}": n.current.is_day ? "daytime" : "night-time",
+            "{time}": n.current.is_day ? "ngày" : "đêm",
             "{description}": n.current.condition.text,
             "{country}": n.location.country,
             "{city}": n.location.name,

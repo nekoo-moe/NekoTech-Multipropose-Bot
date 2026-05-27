@@ -47,11 +47,11 @@ function checkWinner(e) {
 }
 exports.default = new Command_1.Command({
   name: "tic-tac-toe",
-  description: "Play a game of Tic Tac Toe with your friends",
+  description: "Chơi cờ Caro (Tic Tac Toe) với bạn bè",
   options: [
     {
       name: "user",
-      description: "The user to play Tic Tac Toe with",
+      description: "Thành viên bạn muốn thách đấu Caro",
       type: discord_js_1.ApplicationCommandOptionType.User,
       required: !0,
     },

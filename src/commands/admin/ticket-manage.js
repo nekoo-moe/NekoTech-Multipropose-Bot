@@ -9,26 +9,26 @@ const tslib_1 = require("tslib"),
   mongoose_1 = tslib_1.__importDefault(require("../../helpers/sqliteDb"));
 exports.default = new Command_1.Command({
   name: "ticket-manage",
-  description: "Manage ticket panels",
+  description: "Quản lý các panel ticket hỗ trợ",
   options: [
     {
       name: "setup",
-      description: "Setup a ticket panel",
+      description: "Thiết lập một panel ticket mới",
       type: discord_js_1.ApplicationCommandOptionType.Subcommand,
     },
     {
       name: "list",
-      description: "List all the ticket panels",
+      description: "Danh sách tất cả các panel ticket",
       type: discord_js_1.ApplicationCommandOptionType.Subcommand,
     },
     {
       name: "send",
-      description: "Send a ticket panel.",
+      description: "Gửi panel ticket tới một kênh chat",
       type: discord_js_1.ApplicationCommandOptionType.Subcommand,
       options: [
         {
           name: "channel",
-          description: "The channel to send the ticket panel to.",
+          description: "Kênh gửi panel ticket",
           type: discord_js_1.ApplicationCommandOptionType.Channel,
           channelTypes: [discord_js_1.ChannelType.GuildText],
           required: !1,
@@ -37,12 +37,12 @@ exports.default = new Command_1.Command({
     },
     {
       name: "delete",
-      description: "Delete a ticket panel",
+      description: "Xóa một panel ticket",
       type: discord_js_1.ApplicationCommandOptionType.Subcommand,
     },
     {
       name: "edit",
-      description: "Edit a ticket panel",
+      description: "Chỉnh sửa cấu hình của một panel ticket",
       type: discord_js_1.ApplicationCommandOptionType.Subcommand,
     },
   ],
@@ -227,7 +227,7 @@ exports.default = new Command_1.Command({
                       new discord_js_1.TextInputBuilder()
                         .setStyle(discord_js_1.TextInputStyle.Short)
                         .setCustomId("modal-name")
-                        .setPlaceholder("The ticket question name")
+                        .setPlaceholder("Nhập tên câu hỏi")
                         .setLabel("✍ Tên câu hỏi")
                         .setRequired(!0)
                         .setMaxLength(44)
@@ -237,7 +237,7 @@ exports.default = new Command_1.Command({
                       new discord_js_1.TextInputBuilder()
                         .setStyle(discord_js_1.TextInputStyle.Short)
                         .setCustomId("modal-type")
-                        .setPlaceholder('You can use "Short" or "Paragraph"')
+                        .setPlaceholder('Nhập "Short" hoặc "Paragraph"')
                         .setLabel("📌 Loại (Short/Paragraph)")
                         .setRequired(!0)
                         .setMaxLength(9)
@@ -247,7 +247,7 @@ exports.default = new Command_1.Command({
                       new discord_js_1.TextInputBuilder()
                         .setStyle(discord_js_1.TextInputStyle.Short)
                         .setCustomId("modal-required")
-                        .setPlaceholder('You can use "Yes" or "No"')
+                        .setPlaceholder('Nhập "Yes" hoặc "No"')
                         .setLabel("🎯 Bắt buộc (Yes/No)")
                         .setRequired(!0)
                         .setMaxLength(3)
@@ -257,7 +257,7 @@ exports.default = new Command_1.Command({
                       new discord_js_1.TextInputBuilder()
                         .setStyle(discord_js_1.TextInputStyle.Short)
                         .setCustomId("modal-description")
-                        .setPlaceholder("Optional (*)")
+                        .setPlaceholder("Tùy chọn (*)")
                         .setLabel("📃 Mô tả")
                         .setRequired(!1)
                         .setMaxLength(100),
@@ -266,7 +266,7 @@ exports.default = new Command_1.Command({
                       new discord_js_1.TextInputBuilder()
                         .setStyle(discord_js_1.TextInputStyle.Short)
                         .setCustomId("modal-regex")
-                        .setPlaceholder("Optional (*)")
+                        .setPlaceholder("Tùy chọn (*)")
                         .setLabel("👮‍♂️ Regex")
                         .setRequired(!1),
                     ),
@@ -302,7 +302,7 @@ exports.default = new Command_1.Command({
               return (
                 s.questions.push(c),
                 yield d.reply({
-                  content: `✅ The question **${u}** has been added.`,
+                  content: `✅ Câu hỏi **${u}** đã được thêm thành công.`,
                   ephemeral: !0,
                 }),
                 void (yield e.editReply({
@@ -328,13 +328,13 @@ exports.default = new Command_1.Command({
               return void (yield e.editReply({
                 embeds: [
                   new discord_js_1.EmbedBuilder()
-                    .setTitle("🖼️ List of Ticket Questions")
+                    .setTitle("🖼️ Danh sách Câu Hỏi Ticket")
                     .setColor(t.config.GeneralSettings.EmbedColor)
                     .setDescription(
                       s.questions
                         .map(
                           (e) =>
-                            `**${e.name}** • ${e.description} • **${e.required ? "Required" : "Optional"}** • ${1 === e.type ? "Short" : "Paragraph"}`,
+                            `**${e.name}** • ${e.description} • **${e.required ? "Bắt buộc" : "Không bắt buộc"}** • ${1 === e.type ? "Ngắn (Short)" : "Dài (Paragraph)"}`,
                         )
                         .join("\n"),
                     ),
@@ -375,7 +375,7 @@ exports.default = new Command_1.Command({
                       1,
                     )
                   : yield r.followUp({
-                      content: `⛔ The question **${o.first().content}** can't be found in this ticket panel`,
+                      content: `⛔ Không tìm thấy câu hỏi **${o.first().content}** trong panel ticket này`,
                       ephemeral: !0,
                     }),
                 void (yield e.editReply({
@@ -396,9 +396,9 @@ exports.default = new Command_1.Command({
                 embeds: [
                   new discord_js_1.EmbedBuilder(r.message.embeds[0])
                     .setColor(t.config.GeneralSettings.EmbedColor)
-                    .setTitle("Select the modal option")
+                    .setTitle("Chọn tùy chọn cấu hình câu hỏi")
                     .setDescription(
-                      "Use the buttons below to remove or add questions to the modal.",
+                      "Sử dụng các nút bên dưới để thêm hoặc xóa câu hỏi trong bảng câu hỏi.",
                     ),
                 ],
                 components: n(),
@@ -467,7 +467,7 @@ exports.default = new Command_1.Command({
                   embeds: [
                     i()
                       .embeds[0].setDescription(
-                        "You must select all the roles that will be able to see this ticket when it is created",
+                        "Bạn phải chọn tất cả vai trò có thể nhìn thấy ticket này khi được tạo",
                       )
                       .setColor("Red"),
                   ],
@@ -491,7 +491,7 @@ exports.default = new Command_1.Command({
                   embeds: [
                     i()
                       .embeds[0].setDescription(
-                        "You must select the category where the tickets will be created",
+                        "Bạn phải chọn danh mục nơi các ticket sẽ được tạo ra",
                       )
                       .setColor("Red"),
                   ],
@@ -527,7 +527,7 @@ exports.default = new Command_1.Command({
                   embeds: [
                     i()
                       .embeds[0].setDescription(
-                        "You must send the id of the category where the tickets were created",
+                        "Bạn phải gửi ID của danh mục nơi tạo ticket",
                       )
                       .setColor("Red"),
                   ],
@@ -535,7 +535,7 @@ exports.default = new Command_1.Command({
                 });
             }
             "emoji" !== a ||
-            /<:[^:\s]+:\d+>|<a:[^:\s]+:\d+>|(©|®|[ -㌀]|�[퀀-�]|�[퀀-�]|�[퀀-�]|️)/g.test(
+            /<:[^:\s]+:\d+>|<a:[^:\s]+:\d+>|(©|®|[ -㌀]|[퀀-]|[퀀-]|[퀀-]|️)/g.test(
               m,
             )
               ? (null === u && (u = m), (s[a] = u), r.editReply(i()))
@@ -543,7 +543,7 @@ exports.default = new Command_1.Command({
                   embeds: [
                     i()
                       .embeds[0].setDescription(
-                        `You must send a discord emote or an emoji, **${m}** is not an emoji.`,
+                        `Bạn phải gửi một biểu tượng cảm xúc Discord hoặc emoji, **${m}** không phải là emoji hợp lệ.`,
                       )
                       .setColor("Red"),
                   ],
@@ -747,7 +747,7 @@ exports.default = new Command_1.Command({
           return e.reply({
             embeds: [
               new discord_js_1.EmbedBuilder()
-                .setTitle("This guild does not have a ticket panel.")
+                .setTitle("Máy chủ này chưa cấu hình panel ticket nào.")
                 .setColor("Red"),
             ],
           });
@@ -777,7 +777,7 @@ exports.default = new Command_1.Command({
             return {
               embeds: [
                 new discord_js_1.EmbedBuilder()
-                  .setTitle(s || "Select the option you want to edit")
+                  .setTitle(s || "Chọn thuộc tính bạn muốn chỉnh sửa")
                   .setColor(t.config.GeneralSettings.EmbedColor),
               ],
               components: [
@@ -786,7 +786,7 @@ exports.default = new Command_1.Command({
                     .setCustomId("name")
                     .setStyle(discord_js_1.ButtonStyle.Secondary)
                     .setDisabled(e)
-                    .setLabel("Name")
+                    .setLabel("Tên")
                     .setEmoji("✏"),
                   new discord_js_1.ButtonBuilder()
                     .setCustomId("emoji")
@@ -798,19 +798,19 @@ exports.default = new Command_1.Command({
                     .setCustomId("category")
                     .setStyle(discord_js_1.ButtonStyle.Secondary)
                     .setDisabled(e)
-                    .setLabel("Category")
+                    .setLabel("Danh mục")
                     .setEmoji("🏷️"),
                   new discord_js_1.ButtonBuilder()
                     .setCustomId("style")
                     .setStyle(discord_js_1.ButtonStyle.Secondary)
                     .setDisabled(e)
-                    .setLabel("Style")
+                    .setLabel("Kiểu")
                     .setEmoji("🎨"),
                   new discord_js_1.ButtonBuilder()
                     .setCustomId("roles")
                     .setStyle(discord_js_1.ButtonStyle.Secondary)
                     .setDisabled(e)
-                    .setLabel("Roles")
+                    .setLabel("Vai trò")
                     .setEmoji("🎭"),
                 ),
                 new discord_js_1.ActionRowBuilder().setComponents(
@@ -823,7 +823,7 @@ exports.default = new Command_1.Command({
                         ? void 0
                         : o.length) < 0 || e,
                     )
-                    .setLabel("Questions")
+                    .setLabel("Câu hỏi")
                     .setEmoji("📝"),
                 ),
               ],
@@ -842,13 +842,13 @@ exports.default = new Command_1.Command({
               if ("name" === o.customId || "emoji" === o.customId) {
                 yield o.showModal(
                   new discord_js_1.ModalBuilder()
-                    .setTitle(`Edit ${n.name}`)
+                    .setTitle(`Sửa ${n.name}`)
                     .setCustomId(`edit-${n.customId}`)
                     .addComponents(
                       new discord_js_1.ActionRowBuilder().addComponents(
                         new discord_js_1.TextInputBuilder()
                           .setPlaceholder(
-                            `Enter the new ${o.customId} of the panel`,
+                            `Nhập ${o.customId} mới cho panel`,
                           )
                           .setLabel(o.customId.toUpperCase())
                           .setStyle(discord_js_1.TextInputStyle.Short)
@@ -871,7 +871,7 @@ exports.default = new Command_1.Command({
                 const s = yield o.editReply({
                     embeds: [
                       new discord_js_1.EmbedBuilder()
-                        .setTitle("Select the new category for the panel")
+                        .setTitle("Chọn danh mục mới cho panel")
                         .setColor(t.config.GeneralSettings.EmbedColor),
                     ],
                     components: [
@@ -896,7 +896,7 @@ exports.default = new Command_1.Command({
                 const s = yield o.editReply({
                     embeds: [
                       new discord_js_1.EmbedBuilder()
-                        .setTitle("Select the new roles for the panel")
+                        .setTitle("Chọn vai trò mới cho panel")
                         .setColor(t.config.GeneralSettings.EmbedColor),
                     ],
                     components: [
@@ -918,7 +918,7 @@ exports.default = new Command_1.Command({
                 const s = yield o.editReply({
                     embeds: [
                       new discord_js_1.EmbedBuilder()
-                        .setTitle("Select the new style for the panel")
+                        .setTitle("Chọn kiểu màu mới cho nút ticket")
                         .setColor(t.config.GeneralSettings.EmbedColor),
                     ],
                     components: [
@@ -954,7 +954,7 @@ exports.default = new Command_1.Command({
                 const i = yield o.editReply({
                     embeds: [
                       new discord_js_1.EmbedBuilder()
-                        .setTitle("Select the ticket question to edit")
+                        .setTitle("Chọn câu hỏi ticket bạn muốn chỉnh sửa")
                         .setColor(t.config.GeneralSettings.EmbedColor),
                     ],
                     components: [
@@ -981,7 +981,7 @@ exports.default = new Command_1.Command({
                 yield l.editReply({
                   embeds: [
                     new discord_js_1.EmbedBuilder()
-                      .setTitle("Select the option you want to edit")
+                      .setTitle("Chọn thuộc tính câu hỏi muốn chỉnh sửa")
                       .setColor(t.config.GeneralSettings.EmbedColor),
                   ],
                   components: [
@@ -989,27 +989,27 @@ exports.default = new Command_1.Command({
                       new discord_js_1.ButtonBuilder()
                         .setCustomId("ex-name")
                         .setStyle(discord_js_1.ButtonStyle.Secondary)
-                        .setLabel("Name")
+                        .setLabel("Tên")
                         .setEmoji("✏️"),
                       new discord_js_1.ButtonBuilder()
                         .setCustomId("ex-type")
                         .setStyle(discord_js_1.ButtonStyle.Secondary)
-                        .setLabel("Type")
+                        .setLabel("Loại")
                         .setEmoji("📝"),
                       new discord_js_1.ButtonBuilder()
                         .setCustomId("ex-required")
                         .setStyle(discord_js_1.ButtonStyle.Secondary)
-                        .setLabel("Required")
+                        .setLabel("Bắt buộc")
                         .setEmoji("✅"),
                       new discord_js_1.ButtonBuilder()
                         .setCustomId("ex-description")
                         .setStyle(discord_js_1.ButtonStyle.Secondary)
-                        .setLabel("Description")
+                        .setLabel("Mô tả")
                         .setEmoji("📝"),
                       new discord_js_1.ButtonBuilder()
                         .setCustomId("ex-back")
                         .setStyle(discord_js_1.ButtonStyle.Secondary)
-                        .setLabel("Back")
+                        .setLabel("Quay lại")
                         .setEmoji("🔙"),
                     ),
                   ],
@@ -1028,12 +1028,12 @@ exports.default = new Command_1.Command({
                   yield c.showModal(
                     new discord_js_1.ModalBuilder()
                       .setCustomId(`question-${u.name}`)
-                      .setTitle(`Edit ${u.name}`)
+                      .setTitle(`Sửa câu hỏi ${u.name}`)
                       .addComponents(
                         new discord_js_1.ActionRowBuilder().addComponents(
                           new discord_js_1.TextInputBuilder()
                             .setPlaceholder(
-                              `Enter the new ${c.customId} of the question`,
+                              `Nhập ${c.customId} mới cho câu hỏi`,
                             )
                             .setLabel(c.customId.toUpperCase())
                             .setValue(u[c.customId])
@@ -1060,12 +1060,12 @@ exports.default = new Command_1.Command({
                         new discord_js_1.ButtonBuilder()
                           .setCustomId("true")
                           .setStyle(discord_js_1.ButtonStyle.Success)
-                          .setLabel("Yes")
+                          .setLabel("Có")
                           .setEmoji("✅"),
                         new discord_js_1.ButtonBuilder()
                           .setCustomId("false")
                           .setStyle(discord_js_1.ButtonStyle.Danger)
-                          .setLabel("No")
+                          .setLabel("Không")
                           .setEmoji("❌"),
                       ),
                     ],
@@ -1081,13 +1081,13 @@ exports.default = new Command_1.Command({
                 return (
                   (u[c.customId] = d),
                   yield s.save(),
-                  o.editReply(r(!1, "The question has been updated")),
+                  o.editReply(r(!1, "Câu hỏi đã được cập nhật thành công")),
                   a.resetTimer()
                 );
               }
               ((n[o.customId] = d),
                 yield s.save(),
-                yield e.editReply(r(!1, "The ticket panel has been updated")));
+                yield e.editReply(r(!1, "Panel ticket đã được cập nhật thành công")));
             }
           }),
         );

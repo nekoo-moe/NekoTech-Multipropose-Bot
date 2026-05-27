@@ -7,11 +7,11 @@ const tslib_1 = require("tslib"),
   replaceAll_1 = tslib_1.__importDefault(require("../../helpers/replaceAll"));
 exports.default = new Command_1.Command({
   name: "nuke",
-  description: "Delete all the messages in a channel",
+  description: "Xóa sạch toàn bộ tin nhắn bằng cách tạo lại kênh chat",
   options: [
     {
       name: "channel",
-      description: "The channel to nuke",
+      description: "Kênh chat cần dọn dẹp sạch sẽ",
       type: discord_js_1.ApplicationCommandOptionType.Channel,
       channelTypes: [discord_js_1.ChannelType.GuildText],
     },

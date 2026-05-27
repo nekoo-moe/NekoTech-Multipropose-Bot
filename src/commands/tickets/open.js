@@ -8,7 +8,7 @@ const tslib_1 = require("tslib"),
   replaceAll_1 = tslib_1.__importDefault(require("../../helpers/replaceAll"));
 exports.default = new Command_1.Command({
   name: "open",
-  description: "Open a ticket",
+  description: "Mở lại vé hỗ trợ (ticket) đã đóng",
   run: ({ interaction: e, client: s }) =>
     tslib_1.__awaiter(void 0, void 0, void 0, function* () {
       if (e.channel.type !== discord_js_1.ChannelType.GuildText) return;

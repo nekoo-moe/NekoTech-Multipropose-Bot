@@ -6,17 +6,17 @@ const tslib_1 = require("tslib"),
   querys_1 = require("../../helpers/querys");
 exports.default = new Command_1.Command({
   name: "givelevel",
-  description: "Give a user a level",
+  description: "Cấp cấp độ (level) cho một người dùng",
   options: [
     {
       name: "user",
-      description: "The user to give level",
+      description: "Người dùng muốn cấp cấp độ",
       type: discord_js_1.ApplicationCommandOptionType.User,
       required: !0,
     },
     {
       name: "amount",
-      description: "The amount of level to give",
+      description: "Số cấp độ muốn cấp",
       type: discord_js_1.ApplicationCommandOptionType.Integer,
       minValue: 1,
       required: !0,
@@ -36,7 +36,7 @@ exports.default = new Command_1.Command({
         i.reply({
           embeds: [
             new discord_js_1.EmbedBuilder()
-              .setTitle(`User **${r.username}** has been given ${o} level`)
+              .setTitle(`Người dùng **${r.username}** đã được cộng ${o} cấp độ`)
               .setColor(e.config.GeneralSettings.EmbedColor),
           ],
         })

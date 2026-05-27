@@ -9,29 +9,29 @@ const tslib_1 = require("tslib"),
   ms_1 = tslib_1.__importDefault(require("ms"));
 exports.default = new Command_1.Command({
   name: "role",
-  description: "Manage the rank system",
+  description: "Quản lý hệ thống vai trò (role) tạm thời",
   options: [
     {
       name: "add",
-      description: "Add a temporal rank to a user",
+      description: "Gán vai trò tạm thời cho một thành viên",
       type: discord_js_1.ApplicationCommandOptionType.Subcommand,
       options: [
         {
           name: "user",
-          description: "The user who will be given the role",
+          description: "Thành viên sẽ được gán vai trò",
           type: discord_js_1.ApplicationCommandOptionType.User,
           required: !0,
         },
         {
           name: "role",
-          description: "The role to give the user",
+          description: "Vai trò muốn gán cho thành viên",
           type: discord_js_1.ApplicationCommandOptionType.Role,
           required: !0,
         },
         {
           name: "time",
           description:
-            "How long the user will last with that role (10m, 1h, 1d)",
+            "Thời hạn giữ vai trò của thành viên (Ví dụ: 10m, 1h, 1d)",
           type: discord_js_1.ApplicationCommandOptionType.String,
           required: !0,
         },
@@ -39,24 +39,24 @@ exports.default = new Command_1.Command({
     },
     {
       name: "remove",
-      description: "Remove a temporary rank from a user",
+      description: "Gỡ bỏ vai trò tạm thời của một thành viên",
       type: discord_js_1.ApplicationCommandOptionType.Subcommand,
       options: [
         {
           name: "user",
-          description: "The user whose role will be removed",
+          description: "Thành viên muốn gỡ bỏ vai trò",
           type: discord_js_1.ApplicationCommandOptionType.User,
           required: !0,
         },
         {
           name: "role",
-          description: "The role to remove the user",
+          description: "Vai trò tạm thời muốn gỡ bỏ",
           type: discord_js_1.ApplicationCommandOptionType.Role,
           required: !0,
         },
         {
           name: "remove",
-          description: "will the role be removed from the user?",
+          description: "Có thực sự gỡ vai trò đó khỏi thành viên ngay lập tức không?",
           type: discord_js_1.ApplicationCommandOptionType.Boolean,
           required: !1,
         },
@@ -64,7 +64,7 @@ exports.default = new Command_1.Command({
     },
     {
       name: "list",
-      description: "List all the temporal ranks tasked",
+      description: "Danh sách các vai trò tạm thời đang được áp dụng",
       type: discord_js_1.ApplicationCommandOptionType.Subcommand,
     },
   ],

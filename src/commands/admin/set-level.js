@@ -6,17 +6,17 @@ const tslib_1 = require("tslib"),
   querys_1 = require("../../helpers/querys");
 exports.default = new Command_1.Command({
   name: "setlevel",
-  description: "Set a user's level",
+  description: "Đặt cấp độ (level) cho một người dùng",
   options: [
     {
       name: "user",
-      description: "The user to set the level of",
+      description: "Người dùng muốn đặt cấp độ",
       type: discord_js_1.ApplicationCommandOptionType.User,
       required: !0,
     },
     {
       name: "level",
-      description: "The level to set the user to",
+      description: "Cấp độ muốn đặt",
       type: discord_js_1.ApplicationCommandOptionType.Integer,
       minValue: 1,
       required: !0,
@@ -36,7 +36,7 @@ exports.default = new Command_1.Command({
         r.reply({
           embeds: [
             new discord_js_1.EmbedBuilder()
-              .setTitle(`User **${s.username}** has been set to ${t} level`)
+              .setTitle(`Cấp độ của người dùng **${s.username}** đã được đặt thành ${t}`)
               .setColor(e.config.GeneralSettings.EmbedColor),
           ],
         })

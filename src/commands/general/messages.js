@@ -7,12 +7,11 @@ const tslib_1 = require("tslib"),
   replaceAll_1 = tslib_1.__importDefault(require("../../helpers/replaceAll"));
 exports.default = new Command_1.Command({
   name: "messages",
-  description:
-    "Displays the amount of messages sent by yourself or the mentioned member.",
+  description: "Xem số lượng tin nhắn đã gửi của bạn hoặc thành viên khác",
   options: [
     {
       name: "user",
-      description: "The user you want to know the message count of",
+      description: "Thành viên bạn muốn xem số lượng tin nhắn",
       type: discord_js_1.ApplicationCommandOptionType.User,
     },
   ],

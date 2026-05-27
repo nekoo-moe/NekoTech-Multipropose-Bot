@@ -7,11 +7,11 @@ const tslib_1 = require("tslib"),
   Command_1 = require("../../structures/Command");
 exports.default = new Command_1.Command({
   name: "remove",
-  description: "Remove a user from a ticket",
+  description: "Xóa một người dùng khỏi vé hỗ trợ (ticket)",
   options: [
     {
       name: "user",
-      description: "The user to remove from the ticket",
+      description: "Người dùng cần xóa khỏi vé hỗ trợ",
       type: discord_js_1.ApplicationCommandOptionType.User,
       required: !0,
     },

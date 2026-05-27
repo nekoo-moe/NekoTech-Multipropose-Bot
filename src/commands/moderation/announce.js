@@ -5,17 +5,17 @@ const tslib_1 = require("tslib"),
   Command_1 = require("../../structures/Command");
 module.exports = new Command_1.Command({
   name: "announce",
-  description: "Send a message/embed to a channel",
+  description: "Gửi tin nhắn hoặc mã embed tới một kênh chat",
   options: [
     {
       name: "code",
-      description: "The code of the channel to send the message to",
+      description: "Mã JSON của tin nhắn hoặc mã nhúng (embed) cần gửi",
       type: discord_js_1.ApplicationCommandOptionType.String,
       required: !0,
     },
     {
       name: "channel",
-      description: "The channel to send the message to",
+      description: "Kênh chat để gửi tin nhắn tới",
       type: discord_js_1.ApplicationCommandOptionType.Channel,
       channelTypes: [
         discord_js_1.ChannelType.GuildText,

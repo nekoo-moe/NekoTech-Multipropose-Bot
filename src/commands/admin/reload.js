@@ -7,7 +7,7 @@ const tslib_1 = require("tslib"),
   js_yaml_1 = require("js-yaml");
 exports.default = new Command_1.Command({
   name: "reload",
-  description: "Reload the bot configuration files and commands",
+  description: "Nạp lại (reload) các tệp cấu hình và lệnh của bot",
   run: ({ client: e, interaction: s }) =>
     tslib_1.__awaiter(void 0, void 0, void 0, function* () {
       yield s.deferReply();

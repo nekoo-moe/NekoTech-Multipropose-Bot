@@ -81,11 +81,11 @@ function generateActionButtons(e = !1) {
 }
 exports.default = new Command_1.Command({
   name: "blackjack",
-  description: "Play a game of Blackjack",
+  description: "Chơi một ván bài Blackjack (Xì Dách)",
   options: [
     {
       name: "amount",
-      description: "The amount of money you want to bet",
+      description: "Số tiền bạn muốn đặt cược",
       type: discord_js_1.ApplicationCommandOptionType.Integer,
       required: !0,
       minValue: 0,

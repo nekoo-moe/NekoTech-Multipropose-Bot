@@ -35,7 +35,7 @@ function getButtons(e, t = [], s = !1, o) {
 }
 exports.default = new Command_1.Command({
   name: "gtn",
-  description: "Guess a number between 1 and 1000",
+  description: "Trò chơi đoán số may mắn (từ 1 đến 1000)",
   run: ({ client: e, interaction: t }) =>
     tslib_1.__awaiter(void 0, void 0, void 0, function* () {
       const s = [],

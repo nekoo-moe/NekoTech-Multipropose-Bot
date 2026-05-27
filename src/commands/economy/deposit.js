@@ -7,11 +7,11 @@ const tslib_1 = require("tslib"),
   replaceAll_1 = tslib_1.__importDefault(require("../../helpers/replaceAll"));
 exports.default = new Command_1.Command({
   name: "deposit",
-  description: "Deposit money into your bank account",
+  description: "Gửi tiền mặt vào tài khoản ngân hàng của bạn",
   options: [
     {
       name: "amount",
-      description: "The amount of money to deposit",
+      description: "Số tiền muốn gửi (để trống để gửi toàn bộ tiền mặt)",
       type: discord_js_1.ApplicationCommandOptionType.Number,
       minValue: 1,
     },

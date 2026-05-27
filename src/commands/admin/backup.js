@@ -148,7 +148,7 @@ exports.default = new Command_1.Command({
                         })
                         .join("\n\n")) && void 0 !== s
                 ? s
-                : "No channels found.";
+                : "Không tìm thấy kênh nào.";
           n.push(
             (0, replaceAll_1.default)(i.messages.Embeds.BackupListEmbed, {
               "{channels-format}": r.slice(0, 1016),

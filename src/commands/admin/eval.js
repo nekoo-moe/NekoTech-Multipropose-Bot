@@ -5,7 +5,7 @@ const tslib_1 = require("tslib"),
   discord_js_1 = require("discord.js");
 exports.default = new Command_1.Command({
   name: "eval",
-  description: "Execute a code using the discord bot",
+  description: "Thực thi mã JavaScript thông qua bot",
   run: ({ interaction: interaction, client: client }) =>
     tslib_1.__awaiter(void 0, void 0, void 0, function* () {
       yield interaction.reply({
@@ -36,7 +36,7 @@ exports.default = new Command_1.Command({
                     { name: "📤 • Output", value: "```js\n" + output + "```" },
                     {
                       name: "🛠️ • Type",
-                      value: "```js\n" + (typeof output || "Unknown") + "```",
+                      value: "```js\n" + (typeof output || "Không rõ") + "```",
                     },
                   )
                   .setColor("Green"),

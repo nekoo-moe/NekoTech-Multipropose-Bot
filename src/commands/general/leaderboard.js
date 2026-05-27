@@ -12,31 +12,31 @@ const tslib_1 = require("tslib"),
   ms_1 = tslib_1.__importDefault(require("ms"));
 exports.default = new Command_1.Command({
   name: "leaderboard",
-  description: "Check the leaderboard of the server",
+  description: "Xem bảng xếp hạng của máy chủ",
   options: [
     {
       name: "messages",
-      description: "Check the messages leaderboard.",
+      description: "Xem bảng xếp hạng số tin nhắn đã gửi",
       type: discord_js_1.ApplicationCommandOptionType.Subcommand,
     },
     {
       name: "invites",
-      description: "Check the invites leaderboard",
+      description: "Xem bảng xếp hạng số lượt mời thành viên",
       type: discord_js_1.ApplicationCommandOptionType.Subcommand,
     },
     {
       name: "levels",
-      description: "Check the levels leaderboard",
+      description: "Xem bảng xếp hạng cấp độ hoạt động",
       type: discord_js_1.ApplicationCommandOptionType.Subcommand,
     },
     {
       name: "economy",
-      description: "Check the economy leaderboard",
+      description: "Xem bảng xếp hạng phú hộ (kinh tế)",
       type: discord_js_1.ApplicationCommandOptionType.Subcommand,
     },
     {
       name: "voice-time",
-      description: "Check the voice time leaderboard",
+      description: "Xem bảng xếp hạng thời gian online trong kênh thoại (voice)",
       type: discord_js_1.ApplicationCommandOptionType.Subcommand,
     },
   ],

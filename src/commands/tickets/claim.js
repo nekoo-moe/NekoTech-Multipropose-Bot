@@ -8,7 +8,7 @@ const tslib_1 = require("tslib"),
   Command_1 = require("../../structures/Command");
 exports.default = new Command_1.Command({
   name: "claim",
-  description: "Claim a ticket",
+  description: "Nhận giải quyết/hỗ trợ vé này",
   run: ({ client: e, interaction: s }) =>
     tslib_1.__awaiter(void 0, void 0, void 0, function* () {
       var t;

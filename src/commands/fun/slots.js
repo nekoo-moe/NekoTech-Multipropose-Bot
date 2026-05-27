@@ -37,7 +37,7 @@ function generateSlotAnimation(e, n) {
 }
 exports.default = new Command_1.Command({
   name: "slots",
-  description: "Play a game of slots",
+  description: "Chơi quay máy Slots trái cây giải trí",
   run: ({ client: e, interaction: n }) =>
     tslib_1.__awaiter(void 0, void 0, void 0, function* () {
       const o = Math.floor(7 * Math.random()) + 4,
@@ -51,7 +51,7 @@ exports.default = new Command_1.Command({
             (0, discord_js_1.codeBlock)(`${s[0]}\n${i[0]} <\n${l[0]}`),
           )
           .setColor(e.config.GeneralSettings.EmbedColor)
-          .addFields({ name: "Result", value: "🔄 Spinning...", inline: !0 });
+          .addFields({ name: "Kết quả", value: "🔄 Đang quay...", inline: !0 });
       yield n.reply({ embeds: [r] });
       let a = 1;
       const d = setInterval(() => {
@@ -64,8 +64,8 @@ exports.default = new Command_1.Command({
             ),
           ),
             r.setFields({
-              name: "Result",
-              value: e ? "🎉 You won!" : "❌ You lost!",
+              name: "Kết quả",
+              value: e ? "🎉 Bạn đã thắng!" : "❌ Bạn đã thua cuộc!",
               inline: !0,
             }),
             n.editReply({ embeds: [r] }));

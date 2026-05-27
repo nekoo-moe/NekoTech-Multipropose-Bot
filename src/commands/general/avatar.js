@@ -6,11 +6,11 @@ const tslib_1 = require("tslib"),
   replaceAll_1 = tslib_1.__importDefault(require("../../helpers/replaceAll"));
 exports.default = new Command_1.Command({
   name: "avatar",
-  description: "Get the avatar of a user",
+  description: "Lấy ảnh đại diện (avatar) của thành viên",
   options: [
     {
       name: "user",
-      description: "The user to get the avatar of",
+      description: "Thành viên bạn muốn xem ảnh đại diện",
       type: discord_js_1.ApplicationCommandOptionType.User,
     },
   ],

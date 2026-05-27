@@ -89,11 +89,11 @@ function getPlayerDisc(e, t) {
 }
 exports.default = new Command_1.Command({
   name: "connect4",
-  description: "Play a game of Connect 4 with your friends",
+  description: "Chơi game nối 4 (Connect 4) với bạn bè",
   options: [
     {
       name: "user",
-      description: "The user to play Connect 4 with",
+      description: "Thành viên bạn muốn thách đấu",
       type: discord_js_1.ApplicationCommandOptionType.User,
       required: !0,
     },
@@ -111,7 +111,7 @@ exports.default = new Command_1.Command({
         return t.editReply({
           embeds: [
             new discord_js_1.EmbedBuilder()
-              .setTitle(`The game has been rejected by ${n.username}`)
+              .setTitle(`Trận đấu đã bị từ chối bởi ${n.username}`)
               .setColor("Red"),
           ],
           components: [],
@@ -121,14 +121,14 @@ exports.default = new Command_1.Command({
         i = !1;
       yield o.deferUpdate();
       const d = (yield t.editReply({
-        content: `It's ${s.toString()}'s turn`,
+        content: `Đến lượt của ${s.toString()}`,
         embeds: [
           new discord_js_1.EmbedBuilder()
             .setTitle("Trò chơi Cờ Connect 4")
             .setDescription(getBoardAsString(r))
             .addFields({
-              name: "Status",
-              value: `${getPlayerDisc(t, s.id)} | It's ${s.toString()}'s turn`,
+              name: "Trạng thái",
+              value: `${getPlayerDisc(t, s.id)} | Đến lượt của ${s.toString()}`,
             })
             .setColor(e.config.GeneralSettings.EmbedColor),
         ],
@@ -143,38 +143,38 @@ exports.default = new Command_1.Command({
           const { customId: a } = o;
           if (o.user.id !== s.id)
             return void o.reply({
-              content: "❌ You are not allowed to make a move in this turn.",
+              content: "❌ Bạn không thể đi nước cờ này, đang là lượt của đối thủ.",
               ephemeral: !0,
             });
           if (i)
             return void o.reply({
-              content: "❌ The game is already over.",
+              content: "❌ Trò chơi đã kết thúc.",
               ephemeral: !0,
             });
           const l = parseInt(a.split("connect4-")[1]);
           if (isNaN(l) || l < 0 || l >= 7)
             return void o.reply({
-              content: "❌ Invalid move. Please select a valid column.",
+              content: "❌ Nước đi không hợp lệ. Vui lòng chọn một cột phù hợp.",
               ephemeral: !0,
             });
           if (isColumnFull(r, l))
             return void o.reply({
               content:
-                "❌ The selected column is already full. Please choose another column.",
+                "❌ Cột này đã đầy. Vui lòng chọn cột khác.",
               ephemeral: !0,
             });
           const c = dropDisc(r, l, s.id === t.user.id ? "🔴" : "🟡");
           return checkWin(r, c, l)
             ? ((i = !0),
               yield o.update({
-                content: `🎉 ${s.toString()} wins!`,
+                content: `🎉 ${s.toString()} đã chiến thắng!`,
                 embeds: [
                   new discord_js_1.EmbedBuilder()
                     .setTitle("Trò chơi Cờ Connect 4")
                     .setDescription(getBoardAsString(r))
                     .addFields({
-                      name: "Status",
-                      value: `${getPlayerDisc(t, s.id)} | ${s.toString()} won the Connect 4 Game`,
+                      name: "Trạng thái",
+                      value: `${getPlayerDisc(t, s.id)} | ${s.toString()} đã thắng trò chơi Connect 4`,
                     })
                     .setColor(e.config.GeneralSettings.EmbedColor),
                 ],
@@ -184,14 +184,14 @@ exports.default = new Command_1.Command({
             : checkDraw(r)
               ? ((i = !0),
                 yield o.update({
-                  content: "It's a draw!",
+                  content: "Kết quả hòa!",
                   embeds: [
                     new discord_js_1.EmbedBuilder()
                       .setTitle("Trò chơi Cờ Connect 4")
                       .setDescription(getBoardAsString(r))
                       .addFields({
-                        name: "Status",
-                        value: "The Game tied! No one won the Game!",
+                        name: "Trạng thái",
+                        value: "Trận đấu hòa! Không ai giành chiến thắng!",
                       })
                       .setColor(e.config.GeneralSettings.EmbedColor),
                   ],
@@ -200,14 +200,14 @@ exports.default = new Command_1.Command({
                 d.stop())
               : ((s = s.id === t.user.id ? n : t.user),
                 void (yield o.update({
-                  content: `It's ${s.toString()}'s turn`,
+                  content: `Đến lượt của ${s.toString()}`,
                   embeds: [
                     new discord_js_1.EmbedBuilder()
                       .setTitle("Trò chơi Cờ Connect 4")
                       .setDescription(getBoardAsString(r))
                       .addFields({
-                        name: "Status",
-                        value: `${getPlayerDisc(t, s.id)} | It's ${s.toString()}'s turn`,
+                        name: "Trạng thái",
+                        value: `${getPlayerDisc(t, s.id)} | Đến lượt của ${s.toString()}`,
                       })
                       .setColor(e.config.GeneralSettings.EmbedColor),
                   ],
@@ -218,7 +218,7 @@ exports.default = new Command_1.Command({
         d.on("end", () => {
           i ||
             t.editReply({
-              content: "The game has ended due to inactivity.",
+              content: "Trò chơi đã kết thúc do quá thời gian chờ.",
               embeds: [
                 new discord_js_1.EmbedBuilder()
                   .setTitle("Trò chơi Cờ Connect 4")

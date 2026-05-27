@@ -7,11 +7,11 @@ const tslib_1 = require("tslib"),
   getUser_1 = tslib_1.__importDefault(require("../../helpers/getUser"));
 exports.default = new Command_1.Command({
   name: "invites",
-  description: "Display your invitations or the mentioned member ones.",
+  description: "Xem số lượt mời thành viên của bạn hoặc người dùng khác",
   options: [
     {
       name: "user",
-      description: "The user your want yo know the invites of.",
+      description: "Thành viên bạn muốn xem số lượt mời",
       type: discord_js_1.ApplicationCommandOptionType.User,
     },
   ],

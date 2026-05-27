@@ -7,11 +7,11 @@ const tslib_1 = require("tslib"),
   canvacord_1 = require("canvacord");
 exports.default = new Command_1.Command({
   name: "rank",
-  description: "Check the rank of a user in the server.",
+  description: "Xem thẻ cấp độ (rank card) của bạn hoặc thành viên khác",
   options: [
     {
       name: "user",
-      description: "The user to check the rank of.",
+      description: "Thành viên bạn muốn xem cấp độ",
       type: discord_js_1.ApplicationCommandOptionType.User,
       required: !1,
     },
@@ -49,7 +49,7 @@ exports.default = new Command_1.Command({
         t = yield s.build();
       e.followUp({
         files: [new discord_js_1.AttachmentBuilder(t, { name: "rank.png" })],
-        content: `> **Viewing rank card • [**  ${r.tag}  **] •**`,
+        content: `> **Thẻ cấp độ của • [**  ${r.tag}  **] •**`,
       });
     }),
 });

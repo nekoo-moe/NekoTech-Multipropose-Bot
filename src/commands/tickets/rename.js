@@ -7,11 +7,11 @@ const tslib_1 = require("tslib"),
   replaceAll_1 = tslib_1.__importDefault(require("../../helpers/replaceAll"));
 exports.default = new Command_1.Command({
   name: "rename",
-  description: "Rename a ticket channel.",
+  description: "Đổi tên kênh hỗ trợ (ticket).",
   options: [
     {
       name: "name",
-      description: "The new name of the ticket channel.",
+      description: "Tên mới cho kênh hỗ trợ.",
       type: discord_js_1.ApplicationCommandOptionType.String,
       required: !0,
     },

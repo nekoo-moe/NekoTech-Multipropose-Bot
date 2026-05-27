@@ -9,7 +9,7 @@ const tslib_1 = require("tslib"),
   querys_1 = require("../../helpers/querys");
 exports.default = new Command_1.Command({
   name: "serverinfo",
-  description: "Get information about the server",
+  description: "Xem thông tin chi tiết về máy chủ này",
   run: ({ interaction: e, client: i }) =>
     tslib_1.__awaiter(void 0, void 0, void 0, function* () {
       const { guild: r } = e,
@@ -35,7 +35,7 @@ exports.default = new Command_1.Command({
             "{total-members}": s.size,
             "{online-percentage}": Math.floor((100 * l) / o),
             "{robotsCount}": s.filter((e) => e.user.bot).size,
-            "{boost-tier}": r.premiumTier || "None",
+            "{boost-tier}": r.premiumTier || "Không có",
             "{boosters}": s.filter((e) => e.premiumSinceTimestamp).size,
             "{roles}": r.roles.cache.size,
             "{emojis}": r.emojis.cache.size,

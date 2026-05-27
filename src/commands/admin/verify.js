@@ -8,11 +8,11 @@ const tslib_1 = require("tslib"),
   querys_1 = require("../../helpers/querys");
 exports.default = new Command_1.Command({
   name: "verify",
-  description: "Send the verification embed",
+  description: "Gửi bảng điều khiển xác minh thành viên",
   options: [
     {
       name: "channel",
-      description: "The channel to send the embed in",
+      description: "Kênh gửi bảng điều khiển xác minh",
       type: discord_js_1.ApplicationCommandOptionType.Channel,
       required: !1,
     },

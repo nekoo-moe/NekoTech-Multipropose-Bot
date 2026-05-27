@@ -5,11 +5,11 @@ const tslib_1 = require("tslib"),
   Command_1 = require("../../structures/Command");
 exports.default = new Command_1.Command({
   name: "clear",
-  description: "Delete a number of messages from the channel",
+  description: "Xóa một số lượng tin nhắn trong kênh chat",
   options: [
     {
       name: "amount",
-      description: "Number of messages to delete",
+      description: "Số lượng tin nhắn cần xóa",
       type: discord_js_1.ApplicationCommandOptionType.Number,
       required: !0,
     },

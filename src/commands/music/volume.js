@@ -9,11 +9,11 @@ const tslib_1 = require("tslib"),
   replaceAll_1 = tslib_1.__importDefault(require("../../helpers/replaceAll"));
 exports.default = new Command_1.Command({
   name: "volume",
-  description: "Change the volume of the current song",
+  description: "Điều chỉnh âm lượng của bot",
   options: [
     {
       name: "volume",
-      description: "The volume to set",
+      description: "Mức âm lượng cần thiết lập",
       type: discord_js_1.ApplicationCommandOptionType.Integer,
       required: !0,
     },
@@ -22,8 +22,15 @@ exports.default = new Command_1.Command({
     tslib_1.__awaiter(void 0, void 0, void 0, function* () {
       const i = t.options.getInteger("volume");
       if (!(0, isVoiceChannel_1.default)(t)) return;
+      const r = e.distube.getQueue(t.guildId);
+      if (!r || !r.songs.length)
+        return t.reply({
+          embeds: [
+            (0, replaceAll_1.default)(e.messages.Embeds.MusicNoSongEmbed),
+          ],
+        });
       return (
-        e.distube.getQueue(t.guildId).setVolume(i),
+        r.setVolume(i),
         t.reply({
           embeds: [
             (0, replaceAll_1.default)(e.messages.Embeds.MusicVolumeSet, {

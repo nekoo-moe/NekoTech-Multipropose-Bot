@@ -872,20 +872,20 @@ Embeds:
     author:
       name: "{country}, {city}"
       iconURL: "{icon}"
-    title: "It is currently {time}, {description}"
-    description: "Temperature is {temp-c}°C, or {temp-f}°F (feels like {feels-c}°C or {feels-f}°F) with {humidity}% humidity"
+    title: "Hiện tại là ban {time}, {description}"
+    description: "Nhiệt độ là {temp-c}°C, hoặc {temp-f}°F (cảm giác như {feels-c}°C hoặc {feels-f}°F) với độ ẩm {humidity}%"
     color: "{color-default}"
     fields:
-      - name: "Wind direction {wind-dir} ({wind-degree}°)"
-        value: "The speed is {wind-kph} kph or {wind-mph} mph"
+      - name: "Hướng gió {wind-dir} ({wind-degree}°)"
+        value: "Tốc độ gió là {wind-kph} km/h hoặc {wind-mph} mph"
         inline: true
-      - name: "Visibility"
-        value: "Up to {vis-km} kilometres or {vis-miles} miles"
+      - name: "Tầm nhìn"
+        value: "Lên tới {vis-km} km hoặc {vis-miles} dặm"
         inline: true
   WeatherInvalidEmbed:
-    title: "Location not found"
+    title: "Không tìm thấy vị trí"
     color: "{color-default}"
-    description: "Try looking-up the US, UK or CA postcode, or using coordinates (latitude,longitude)"
+    description: "Hãy thử tra cứu mã bưu điện US, UK hoặc CA, hoặc sử dụng tọa độ (vĩ độ, kinh độ)"
   AfkDisableEmbed:
     title: "Trạng thái treo máy (AFK) của bạn đã được tắt"
     color: "{color-default}"

@@ -48,11 +48,11 @@ function getRPSChoiceEmoji(e) {
 }
 exports.default = new Command_1.Command({
   name: "rps",
-  description: "Play a game of Rock Paper Scissors with your friends",
+  description: "Chơi kéo búa bao (oẳn tù tì) với bạn bè",
   options: [
     {
       name: "user",
-      description: "The user to play Rock Paper Scissors with",
+      description: "Thành viên bạn muốn thách đấu oẳn tù tì",
       type: discord_js_1.ApplicationCommandOptionType.User,
       required: !0,
     },

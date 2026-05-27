@@ -7,17 +7,17 @@ const tslib_1 = require("tslib"),
   replaceAll_1 = tslib_1.__importDefault(require("../../helpers/replaceAll"));
 exports.default = new Command_1.Command({
   name: "pay",
-  description: "Give another member your money",
+  description: "Chuyển tiền của bạn cho thành viên khác",
   options: [
     {
       name: "user",
-      description: "The user to pay money to",
+      description: "Thành viên bạn muốn chuyển tiền",
       type: discord_js_1.ApplicationCommandOptionType.User,
       required: !0,
     },
     {
       name: "amount",
-      description: "The amount of money to pay",
+      description: "Số tiền muốn chuyển",
       type: discord_js_1.ApplicationCommandOptionType.Number,
       required: !0,
       minValue: 1,

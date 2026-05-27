@@ -6,7 +6,7 @@ const tslib_1 = require("tslib"),
   replaceAll_1 = tslib_1.__importDefault(require("../../helpers/replaceAll"));
 exports.default = new Command_1.Command({
   name: "daily",
-  description: "Claim your daily salary",
+  description: "Nhận phần quà điểm danh hàng ngày",
   run: ({ interaction: e, client: l }) =>
     tslib_1.__awaiter(void 0, void 0, void 0, function* () {
       var i, a, d;

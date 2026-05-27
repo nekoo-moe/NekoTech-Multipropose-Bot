@@ -6,17 +6,17 @@ const tslib_1 = require("tslib"),
   replaceAll_1 = tslib_1.__importDefault(require("../../helpers/replaceAll"));
 exports.default = new Command_1.Command({
   name: "addemoji",
-  description: "Adds an emoji to the server",
+  description: "Thêm emoji vào máy chủ",
   options: [
     {
       name: "emoji",
-      description: "The emoji you want to add",
+      description: "Emoji bạn muốn thêm",
       type: discord_js_1.ApplicationCommandOptionType.String,
       required: !0,
     },
     {
       name: "name",
-      description: "The name of the emoji",
+      description: "Tên của emoji",
       type: discord_js_1.ApplicationCommandOptionType.String,
     },
   ],

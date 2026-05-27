@@ -10,11 +10,11 @@ const tslib_1 = require("tslib"),
   replaceAll_1 = tslib_1.__importDefault(require("../../helpers/replaceAll"));
 exports.default = new Command_1.Command({
   name: "snipe",
-  description: "Get the messages deleted in a specific channel",
+  description: "Xem các tin nhắn đã bị xóa gần đây trong một kênh",
   options: [
     {
       name: "channel",
-      description: "The channel to get the deleted messages from",
+      description: "Kênh muốn xem các tin nhắn đã bị xóa",
       type: discord_js_1.ApplicationCommandOptionType.Channel,
       channelTypes: [discord_js_1.ChannelType.GuildText],
       required: !1,

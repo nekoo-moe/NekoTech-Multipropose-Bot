@@ -13,37 +13,37 @@ exports.default = new Command_1.Command({
   options: [
     {
       name: "add",
-      description: "Add a role to the panel",
+      description: "Thêm một vai trò (role) vào panel reaction-roles",
       type: discord_js_1.ApplicationCommandOptionType.Subcommand,
       options: [
         {
           name: "category",
           description:
-            "The category to which the role will be added ex: countries, notifications",
+            "Danh mục để thêm vai trò vào, ví dụ: countries, notifications",
           type: discord_js_1.ApplicationCommandOptionType.String,
           required: !0,
         },
         {
           name: "role",
-          description: "The role to add",
+          description: "Vai trò muốn thêm",
           type: discord_js_1.ApplicationCommandOptionType.Role,
           required: !0,
         },
         {
           name: "emoji",
-          description: "The emoji of the reaction role.",
+          description: "Emoji đại diện cho nút bấm",
           type: discord_js_1.ApplicationCommandOptionType.String,
           required: !0,
         },
         {
           name: "label",
-          description: "The label of the reaction role.",
+          description: "Nhãn hiển thị trên nút bấm",
           type: discord_js_1.ApplicationCommandOptionType.String,
           required: !0,
         },
         {
           name: "style",
-          description: "The style of the button.",
+          description: "Kiểu nút bấm (màu sắc)",
           type: discord_js_1.ApplicationCommandOptionType.String,
           choices: [
             { name: "Primary", value: "1" },
@@ -57,53 +57,53 @@ exports.default = new Command_1.Command({
     },
     {
       name: "list",
-      description: "List all the reaction panels",
+      description: "Danh sách tất cả các reaction roles",
       type: discord_js_1.ApplicationCommandOptionType.Subcommand,
     },
     {
       name: "send",
-      description: "Send a reaction panel.",
+      description: "Gửi bảng điều khiển reaction roles vào kênh",
       type: discord_js_1.ApplicationCommandOptionType.Subcommand,
       options: [
         {
           name: "category",
-          description: "The category to send in the channel",
+          description: "Danh mục reaction roles cần gửi",
           type: discord_js_1.ApplicationCommandOptionType.String,
           required: !0,
         },
         {
           name: "title",
-          description: "The title of the embed",
+          description: "Tiêu đề của khung tin nhắn (embed)",
           type: discord_js_1.ApplicationCommandOptionType.String,
           required: !0,
         },
         {
           name: "description",
-          description: "The description of the embed",
+          description: "Mô tả của khung tin nhắn (embed)",
           type: discord_js_1.ApplicationCommandOptionType.String,
           required: !0,
         },
         {
           name: "channel",
-          description: "The channel to send the reaction panel to.",
+          description: "Kênh gửi bảng điều khiển reaction roles",
           type: discord_js_1.ApplicationCommandOptionType.Channel,
           channelTypes: [discord_js_1.ChannelType.GuildText],
         },
         {
           name: "display-label",
-          description: "Show the name will be displayed on the button",
+          description: "Hiển thị nhãn tên trên nút bấm (True/False)",
           type: discord_js_1.ApplicationCommandOptionType.Boolean,
         },
       ],
     },
     {
       name: "delete",
-      description: "Delete a reaction panel",
+      description: "Xóa một reaction role",
       type: discord_js_1.ApplicationCommandOptionType.Subcommand,
       options: [
         {
           name: "role",
-          description: "The panel role of the panel to delete",
+          description: "Vai trò của reaction role cần xóa",
           type: discord_js_1.ApplicationCommandOptionType.Role,
           required: !0,
         },
@@ -225,7 +225,7 @@ exports.default = new Command_1.Command({
           return e.followUp({
             embeds: [
               new discord_js_1.EmbedBuilder()
-                .setTitle("This guild does not have a reaction role panel.")
+                .setTitle("Máy chủ này chưa cấu hình panel reaction role nào.")
                 .setColor("Red"),
             ],
           });

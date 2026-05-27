@@ -6,17 +6,17 @@ const tslib_1 = require("tslib"),
   querys_1 = require("../../helpers/querys");
 exports.default = new Command_1.Command({
   name: "setxp",
-  description: "Set the XP of a user",
+  description: "Đặt điểm kinh nghiệm (XP) cho một người dùng",
   options: [
     {
       name: "user",
-      description: "The user to set the XP of",
+      description: "Người dùng muốn đặt XP",
       type: discord_js_1.ApplicationCommandOptionType.User,
       required: !0,
     },
     {
       name: "amount",
-      description: "The amount of XP to set",
+      description: "Số điểm XP muốn đặt",
       type: discord_js_1.ApplicationCommandOptionType.Integer,
       minValue: 0,
       required: !0,
@@ -36,7 +36,7 @@ exports.default = new Command_1.Command({
         t.reply({
           embeds: [
             new discord_js_1.EmbedBuilder()
-              .setTitle(`User **${r.username}** has been set to ${s} XP`)
+              .setTitle(`Điểm XP của người dùng **${r.username}** đã được đặt thành ${s}`)
               .setColor(e.config.GeneralSettings.EmbedColor),
           ],
         })

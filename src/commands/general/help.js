@@ -15,7 +15,7 @@ const tslib_1 = require("tslib"),
   };
 exports.default = new Command_1.Command({
   name: "help",
-  description: "Show help menu",
+  description: "Xem menu hướng dẫn và danh sách các lệnh của bot",
   run: ({ interaction: e, client: t }) =>
     tslib_1.__awaiter(void 0, void 0, void 0, function* () {
       const o = {},
@@ -57,7 +57,7 @@ exports.default = new Command_1.Command({
           filter: (t) =>
             t.user.id === e.user.id ||
             (t.reply({
-              content: ":x: | You cannot interact with this command.",
+              content: ":x: | Bạn không thể tương tác với menu hướng dẫn của người khác.",
               ephemeral: !0,
             }),
             !1),

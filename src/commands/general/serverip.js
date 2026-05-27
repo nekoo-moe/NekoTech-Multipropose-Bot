@@ -7,11 +7,11 @@ const tslib_1 = require("tslib"),
   axios_1 = tslib_1.__importDefault(require("axios"));
 exports.default = new Command_1.Command({
   name: "serverip",
-  description: "Fetches information about a Minecraft server",
+  description: "Xem thông tin chi tiết về một máy chủ game Minecraft",
   options: [
     {
       name: "hostname",
-      description: "The ip address (with or without port) or domain to fetch",
+      description: "Địa chỉ IP hoặc tên miền của máy chủ Minecraft",
       type: discord_js_1.ApplicationCommandOptionType.String,
       required: !0,
     },

@@ -8,22 +8,22 @@ const tslib_1 = require("tslib"),
   replaceAll_1 = tslib_1.__importDefault(require("../../helpers/replaceAll"));
 exports.default = new Command_1.Command({
   name: "warn",
-  description: "Warn's manager",
+  description: "Quản lý cảnh cáo thành viên",
   options: [
     {
       name: "add",
-      description: "Adds a warning to a member",
+      description: "Cảnh cáo một thành viên",
       type: discord_js_1.ApplicationCommandOptionType.Subcommand,
       options: [
         {
           name: "member",
-          description: "The member to warn",
+          description: "Thành viên cần cảnh cáo",
           type: discord_js_1.ApplicationCommandOptionType.User,
           required: !0,
         },
         {
           name: "reason",
-          description: "The reason for the warning",
+          description: "Lý do cảnh cáo",
           type: discord_js_1.ApplicationCommandOptionType.String,
           required: !0,
         },
@@ -31,18 +31,18 @@ exports.default = new Command_1.Command({
     },
     {
       name: "remove",
-      description: "Removes a warning from a member",
+      description: "Gỡ cảnh cáo cho thành viên",
       type: discord_js_1.ApplicationCommandOptionType.Subcommand,
       options: [
         {
           name: "case",
-          description: "The case to remove",
+          description: "Số mã Case cần gỡ cảnh cáo",
           type: discord_js_1.ApplicationCommandOptionType.Integer,
           required: !0,
         },
         {
           name: "reason",
-          description: "The reason for the warning removal",
+          description: "Lý do gỡ cảnh cáo",
           type: discord_js_1.ApplicationCommandOptionType.String,
           required: !0,
         },
@@ -50,12 +50,12 @@ exports.default = new Command_1.Command({
     },
     {
       name: "list",
-      description: "Lists all warnings for a member or all members",
+      description: "Liệt kê danh sách cảnh cáo của thành viên hoặc toàn bộ máy chủ",
       type: discord_js_1.ApplicationCommandOptionType.Subcommand,
       options: [
         {
           name: "member",
-          description: "The member to list warnings for",
+          description: "Thành viên cần xem lịch sử cảnh cáo",
           type: discord_js_1.ApplicationCommandOptionType.User,
         },
       ],
@@ -157,7 +157,7 @@ exports.default = new Command_1.Command({
               (0, replaceAll_1.default)(e.messages.Embeds.WarnsNoFoundEmbed, {
                 "{members}": (null == d ? void 0 : d.id)
                   ? d.user.tag
-                  : "All members",
+                  : "Tất cả thành viên",
               }),
             ],
           });

@@ -8,11 +8,11 @@ const tslib_1 = require("tslib"),
   Command_1 = require("../../structures/Command");
 exports.default = new Command_1.Command({
   name: "play",
-  description: "Add a song to the queue and plays it.",
+  description: "Thêm một bài hát vào hàng đợi và phát nhạc",
   options: [
     {
       name: "song",
-      description: "The song to play",
+      description: "Tên bài hát hoặc liên kết (link) nhạc cần phát",
       type: discord_js_1.ApplicationCommandOptionType.String,
       required: !0,
     },

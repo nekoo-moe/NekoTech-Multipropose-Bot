@@ -6,28 +6,28 @@ const tslib_1 = require("tslib"),
   querys_1 = require("../../helpers/querys");
 exports.default = new Command_1.Command({
   name: "givemoney",
-  description: "Give money to someone",
+  description: "Cấp tiền cho một người dùng",
   options: [
     {
       name: "user",
-      description: "The user to give money to",
+      description: "Người dùng được cấp tiền",
       type: discord_js_1.ApplicationCommandOptionType.User,
       required: !0,
     },
     {
       name: "amount",
-      description: "The amount of money to give",
+      description: "Số tiền cần cấp",
       type: discord_js_1.ApplicationCommandOptionType.Integer,
       required: !0,
       minValue: 1,
     },
     {
       name: "where",
-      description: "Where to give the money",
+      description: "Nơi nhận tiền",
       type: discord_js_1.ApplicationCommandOptionType.String,
       choices: [
-        { name: "Bank", value: "bank" },
-        { name: "Wallet", value: "money" },
+        { name: "Ngân hàng", value: "bank" },
+        { name: "Ví tiền mặt", value: "money" },
       ],
       required: !1,
     },
@@ -46,7 +46,7 @@ exports.default = new Command_1.Command({
         o.reply({
           embeds: [
             new discord_js_1.EmbedBuilder()
-              .setTitle(`User **${i.username}** has been given ${n} money`)
+              .setTitle(`Người dùng **${i.username}** đã được cấp thêm ${n} xu`)
               .setColor(e.config.GeneralSettings.EmbedColor),
           ],
         })

@@ -82,7 +82,7 @@ function manageStatsChannels({ client: e, interaction: n }) {
           embeds: [
             new discord_js_1.EmbedBuilder()
               .setTitle(
-                "I can't find this server in my db, use the command /setup",
+                "Không tìm thấy máy chủ này trong cơ sở dữ liệu, vui lòng dùng lệnh /setup",
               )
               .setColor("Red"),
           ],
@@ -233,21 +233,21 @@ function manageStatsChannels({ client: e, interaction: n }) {
 }
 exports.default = new Command_1.Command({
   name: "manage",
-  description: "Manage the discord bot configurations",
+  description: "Quản lý cấu hình của Discord bot",
   options: [
     {
       name: "voice-channels",
-      description: "Manage the temporary voice channels",
+      description: "Quản lý các kênh thoại tạm thời",
       type: discord_js_1.ApplicationCommandOptionType.SubcommandGroup,
       options: [
         {
           name: "send",
-          description: "Send the temporary voice channels panel",
+          description: "Gửi bảng điều khiển kênh thoại tạm thời",
           type: discord_js_1.ApplicationCommandOptionType.Subcommand,
           options: [
             {
               name: "channel",
-              description: "The channel",
+              description: "Kênh muốn gửi bảng điều khiển",
               type: discord_js_1.ApplicationCommandOptionType.Channel,
               channelTypes: [discord_js_1.ChannelType.GuildText],
               required: !1,
@@ -256,34 +256,34 @@ exports.default = new Command_1.Command({
         },
         {
           name: "setup",
-          description: "Create a Generator and a interface channel",
+          description: "Tạo kênh Generator và kênh giao diện",
           type: discord_js_1.ApplicationCommandOptionType.Subcommand,
         },
         {
           name: "delete",
-          description: "Delete the current generator channel",
+          description: "Xóa kênh generator hiện tại",
           type: discord_js_1.ApplicationCommandOptionType.Subcommand,
         },
       ],
     },
     {
       name: "stats",
-      description: "Manage the status system",
+      description: "Quản lý hệ thống kênh thống kê",
       type: discord_js_1.ApplicationCommandOptionType.SubcommandGroup,
       options: [
         {
           name: "setup",
-          description: "Sets the bot up with some base counters",
+          description: "Thiết lập các kênh thống kê đếm số lượng cơ bản",
           type: discord_js_1.ApplicationCommandOptionType.Subcommand,
           options: [
             {
               name: "channel",
               description:
-                "The type of channels you want to use for the counters",
+                "Loại kênh bạn muốn sử dụng để hiển thị số lượng thống kê",
               type: discord_js_1.ApplicationCommandOptionType.Integer,
               choices: [
-                { name: "voice channel (recommended)", value: 2 },
-                { name: "text channel", value: 0 },
+                { name: "Kênh thoại (Khuyên dùng)", value: 2 },
+                { name: "Kênh chữ", value: 0 },
               ],
               required: !0,
             },
@@ -291,19 +291,19 @@ exports.default = new Command_1.Command({
         },
         {
           name: "edit",
-          description: "Edit the channel name for use new placeholders",
+          description: "Chỉnh sửa tên kênh để dùng các biến đếm mới",
           type: discord_js_1.ApplicationCommandOptionType.Subcommand,
           options: [
             {
               name: "channel",
-              description: "The channel to edit",
+              description: "Kênh cần chỉnh sửa",
               type: discord_js_1.ApplicationCommandOptionType.Channel,
               required: !0,
             },
             {
               name: "name",
               description:
-                "The new channel name ({all-members}, {members}, {bots})",
+                "Tên kênh mới ({all-members}, {members}, {bots})",
               type: discord_js_1.ApplicationCommandOptionType.String,
               required: !0,
             },
@@ -311,12 +311,12 @@ exports.default = new Command_1.Command({
         },
         {
           name: "delete",
-          description: "Delete a statistics channel from the database",
+          description: "Xóa một kênh thống kê khỏi cơ sở dữ liệu",
           type: discord_js_1.ApplicationCommandOptionType.Subcommand,
           options: [
             {
               name: "channel",
-              description: "The channel to be removed",
+              description: "Kênh thống kê muốn xóa",
               type: discord_js_1.ApplicationCommandOptionType.Channel,
               required: !0,
             },
@@ -324,7 +324,7 @@ exports.default = new Command_1.Command({
         },
         {
           name: "check",
-          description: "Fix the common-errors for the statistics channels",
+          description: "Kiểm tra và sửa các lỗi thường gặp của kênh thống kê",
           type: discord_js_1.ApplicationCommandOptionType.Subcommand,
         },
       ],

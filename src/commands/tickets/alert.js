@@ -6,7 +6,7 @@ const tslib_1 = require("tslib"),
   replaceAll_1 = tslib_1.__importDefault(require("../../helpers/replaceAll"));
 exports.default = new Command_1.Command({
   name: "alert",
-  description: "Alert a user about their ticket",
+  description: "Cảnh báo/Nhắc nhở người dùng về vé hỗ trợ của họ",
   run: ({ interaction: e, client: l }) =>
     tslib_1.__awaiter(void 0, void 0, void 0, function* () {
       const t = yield TicketModel_1.default.findOne({

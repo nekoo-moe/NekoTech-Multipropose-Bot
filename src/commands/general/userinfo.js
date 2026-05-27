@@ -7,11 +7,11 @@ const tslib_1 = require("tslib"),
   FormatStatus = { desktop: "💻", mobile: "📱", web: "🌎" };
 exports.default = new Command_1.Command({
   name: "userinfo",
-  description: "Shows information about a member",
+  description: "Xem thông tin chi tiết về một thành viên",
   options: [
     {
       name: "user",
-      description: "The user to get the avatar of",
+      description: "Người dùng cần xem thông tin",
       type: discord_js_1.ApplicationCommandOptionType.User,
     },
   ],
@@ -22,14 +22,14 @@ exports.default = new Command_1.Command({
           (null === (r = e.options.getUser("user")) || void 0 === r
             ? void 0
             : r.id) || e.user.id,
-        o = yield e.guild.members.fetch({ withPresences: !0, user: i }),
-        a = Object.keys(
-          (null === (t = o.presence) || void 0 === t
-            ? void 0
-            : t.clientStatus) || {},
-        )
-          .map((e) => FormatStatus[e])
-          .join(" ");
+      o = yield e.guild.members.fetch({ withPresences: !0, user: i }),
+      a = Object.keys(
+        (null === (t = o.presence) || void 0 === t
+          ? void 0
+          : t.clientStatus) || {},
+      )
+        .map((e) => FormatStatus[e])
+        .join(" ");
       e.reply({
         embeds: [
           (0, replaceAll_1.default)(s.messages.Embeds.UserInfoEmbed, {
@@ -37,7 +37,7 @@ exports.default = new Command_1.Command({
             "{user-roles}": o.roles.cache.map((e) => e.toString()).join(" "),
             "{joinedTimestamp}": Math.floor(o.joinedTimestamp / 1e3),
             "{user-avatar}": o.user.displayAvatarURL({ size: 4096 }),
-            "{user-platforms}": a || "**Offline**",
+            "{user-platforms}": a || "**Ngoại tuyến**",
             "{highestRole}": o.roles.highest.id,
             "{user-name}": o.user.username,
             "{user-tag}": o.user.tag,

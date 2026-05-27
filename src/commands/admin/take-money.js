@@ -6,28 +6,28 @@ const tslib_1 = require("tslib"),
   querys_1 = require("../../helpers/querys");
 exports.default = new Command_1.Command({
   name: "take-money",
-  description: "Take money from ",
+  description: "Khấu trừ tiền của một người dùng",
   options: [
     {
       name: "user",
-      description: "The user to take money from",
+      description: "Người dùng bị trừ tiền",
       type: discord_js_1.ApplicationCommandOptionType.User,
       required: !0,
     },
     {
       name: "amount",
-      description: "The amount of money to take",
+      description: "Số tiền muốn trừ",
       type: discord_js_1.ApplicationCommandOptionType.Integer,
       required: !0,
       minValue: 1,
     },
     {
       name: "where",
-      description: "Where to take the money from",
+      description: "Nơi khấu trừ tiền",
       type: discord_js_1.ApplicationCommandOptionType.String,
       choices: [
-        { name: "Bank", value: "bank" },
-        { name: "Wallet", value: "money" },
+        { name: "Ngân hàng", value: "bank" },
+        { name: "Ví tiền mặt", value: "money" },
       ],
       required: !0,
     },
@@ -47,7 +47,7 @@ exports.default = new Command_1.Command({
           embeds: [
             new discord_js_1.EmbedBuilder()
               .setTitle(
-                `The user ${r.username} has had ${t} removed from the ${n}`,
+                `Người dùng **${r.username}** đã bị khấu trừ ${t} xu từ ${n === "bank" ? "ngân hàng" : "ví tiền mặt"}`,
               )
               .setColor(e.config.GeneralSettings.EmbedColor),
           ],

@@ -11,11 +11,11 @@ const tslib_1 = require("tslib"),
   querys_1 = require("../../helpers/querys");
 exports.default = new Command_1.Command({
   name: "suggest",
-  description: "Send a suggestion to the staff team",
+  description: "Gửi ý kiến đóng góp/góp ý của bạn cho ban quản trị",
   options: [
     {
       name: "query",
-      description: "Your suggestion",
+      description: "Nội dung góp ý của bạn",
       type: discord_js_1.ApplicationCommandOptionType.String,
       required: !0,
     },

@@ -8,7 +8,7 @@ const tslib_1 = require("tslib"),
   replaceAll_1 = tslib_1.__importDefault(require("../../helpers/replaceAll"));
 exports.default = new Command_1.Command({
   name: "leave",
-  description: "Leave the bot of the current voice channel",
+  description: "Yêu cầu bot rời khỏi kênh thoại hiện tại",
   run: ({ client: e, interaction: i }) =>
     tslib_1.__awaiter(void 0, void 0, void 0, function* () {
       const t = e.distube.getQueue(i.guildId);

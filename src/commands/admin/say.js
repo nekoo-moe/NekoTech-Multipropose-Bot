@@ -5,11 +5,11 @@ const tslib_1 = require("tslib"),
   Command_1 = require("../../structures/Command");
 exports.default = new Command_1.Command({
   name: "say",
-  description: "Send a message using the bot",
+  description: "Gửi một tin nhắn thông qua bot",
   options: [
     {
       name: "message",
-      description: "The message to send",
+      description: "Nội dung tin nhắn muốn gửi",
       type: discord_js_1.ApplicationCommandOptionType.String,
       required: !0,
     },

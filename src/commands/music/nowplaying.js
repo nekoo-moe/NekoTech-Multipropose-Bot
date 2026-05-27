@@ -5,7 +5,7 @@ const tslib_1 = require("tslib"),
   replaceAll_1 = tslib_1.__importDefault(require("../../helpers/replaceAll"));
 exports.default = new Command_1.Command({
   name: "nowplaying",
-  description: "Get the current song",
+  description: "Xem thông tin bài hát đang phát",
   run: ({ client: e, interaction: l }) =>
     tslib_1.__awaiter(void 0, void 0, void 0, function* () {
       var r;

@@ -7,22 +7,22 @@ const tslib_1 = require("tslib"),
   PunishModel_1 = tslib_1.__importDefault(require("../../models/PunishModel"));
 module.exports = new Command_1.Command({
   name: "kick",
-  description: "Kicks manager",
+  description: "Quản lý trục xuất thành viên",
   options: [
     {
       name: "add",
-      description: "Kick a member from the server",
+      description: "Trục xuất thành viên khỏi máy chủ",
       type: discord_js_1.ApplicationCommandOptionType.Subcommand,
       options: [
         {
           name: "member",
-          description: "The member to kick",
+          description: "Thành viên cần trục xuất",
           type: discord_js_1.ApplicationCommandOptionType.User,
           required: !0,
         },
         {
           name: "reason",
-          description: "The reason for the kick",
+          description: "Lý do trục xuất",
           type: discord_js_1.ApplicationCommandOptionType.String,
           required: !0,
         },
@@ -30,18 +30,18 @@ module.exports = new Command_1.Command({
     },
     {
       name: "remove",
-      description: "Remove a kick from a member",
+      description: "Xóa án phạt trục xuất khỏi lịch sử",
       type: discord_js_1.ApplicationCommandOptionType.Subcommand,
       options: [
         {
           name: "case",
-          description: "The case to remove",
+          description: "Số mã Case cần xóa",
           type: discord_js_1.ApplicationCommandOptionType.Integer,
           required: !0,
         },
         {
           name: "reason",
-          description: "The reason for the kick removal",
+          description: "Lý do xóa lịch sử trục xuất",
           type: discord_js_1.ApplicationCommandOptionType.String,
           required: !0,
         },
@@ -49,12 +49,12 @@ module.exports = new Command_1.Command({
     },
     {
       name: "list",
-      description: "Lists all kicks for a member or all members",
+      description: "Liệt kê lịch sử trục xuất của thành viên hoặc toàn bộ máy chủ",
       type: discord_js_1.ApplicationCommandOptionType.Subcommand,
       options: [
         {
           name: "member",
-          description: "The member to list kicks for",
+          description: "Thành viên cần xem lịch sử trục xuất",
           type: discord_js_1.ApplicationCommandOptionType.User,
         },
       ],
@@ -94,7 +94,7 @@ module.exports = new Command_1.Command({
             embeds: [
               new discord_js_1.EmbedBuilder()
                 .setTitle(
-                  "❌ Bạn không có quyền sử dụng lệnh này",
+                  "❌ Bạn không có quyền trục xuất thành viên có vai trò cao hơn hoặc bằng bạn",
                 )
                 .setColor("Red"),
             ],
@@ -104,7 +104,7 @@ module.exports = new Command_1.Command({
             embeds: [
               new discord_js_1.EmbedBuilder()
                 .setTitle(
-                  "You can't use this command, beacuse you don't have permissions",
+                  "🤖 Bot không đủ quyền hạn (vị trí vai trò) để trục xuất thành viên này",
                 )
                 .setColor("Red"),
             ],
@@ -138,7 +138,7 @@ module.exports = new Command_1.Command({
                 new discord_js_1.EmbedBuilder()
                   .setTitle("Đã trục xuất thành công")
                   .setDescription(
-                    `✅ \`Case #${o}\` ${a} has been kicked for \`${l}\``,
+                    `✅ \`Case #${o}\` ${a} đã bị trục xuất vì lý do \`${l}\``,
                   )
                   .setColor(e.config.GeneralSettings.EmbedColor),
               ],
@@ -258,7 +258,7 @@ module.exports = new Command_1.Command({
               )
               .setColor(e.config.GeneralSettings.EmbedColor)
               .setFooter({
-                text: `Page ${c + 1} of ${l.length} - ${i.guild.name}`,
+                text: `Trang ${c + 1}/${l.length} - ${i.guild.name}`,
                 iconURL: e.user.displayAvatarURL(),
               });
           (u.removeReason &&

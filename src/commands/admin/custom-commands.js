@@ -18,21 +18,21 @@ function format(e) {
 }
 exports.default = new Command_1.Command({
   name: "custom-commands",
-  description: "Make custom commands for your server",
+  description: "Tạo lệnh tùy chỉnh cho máy chủ của bạn",
   options: [
     {
       name: "create",
-      description: "Create a custom command",
+      description: "Tạo một lệnh tùy chỉnh mới",
       type: discord_js_1.ApplicationCommandOptionType.Subcommand,
     },
     {
       name: "delete",
-      description: "Delete a custom command",
+      description: "Xóa một lệnh tùy chỉnh",
       type: discord_js_1.ApplicationCommandOptionType.Subcommand,
       options: [
         {
           name: "name",
-          description: "The name of the command",
+          description: "Tên của lệnh cần xóa",
           type: discord_js_1.ApplicationCommandOptionType.String,
           required: !0,
         },
@@ -40,7 +40,7 @@ exports.default = new Command_1.Command({
     },
     {
       name: "list",
-      description: "List all custom commands",
+      description: "Danh sách tất cả các lệnh tùy chỉnh",
       type: discord_js_1.ApplicationCommandOptionType.Subcommand,
     },
   ],

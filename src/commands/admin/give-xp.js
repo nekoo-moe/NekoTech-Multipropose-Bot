@@ -6,17 +6,17 @@ const tslib_1 = require("tslib"),
   querys_1 = require("../../helpers/querys");
 exports.default = new Command_1.Command({
   name: "givexp",
-  description: "Give XP to a user",
+  description: "Cấp điểm kinh nghiệm (XP) cho một người dùng",
   options: [
     {
       name: "user",
-      description: "The user to give XP to",
+      description: "Người dùng được nhận XP",
       type: discord_js_1.ApplicationCommandOptionType.User,
       required: !0,
     },
     {
       name: "amount",
-      description: "The amount of XP to give",
+      description: "Số lượng XP muốn cấp",
       type: discord_js_1.ApplicationCommandOptionType.Integer,
       minValue: 1,
       required: !0,
@@ -36,7 +36,7 @@ exports.default = new Command_1.Command({
         r.reply({
           embeds: [
             new discord_js_1.EmbedBuilder()
-              .setTitle(`User **${i.username}** has been given ${t} XP`)
+              .setTitle(`Người dùng **${i.username}** đã được cộng ${t} XP`)
               .setColor(e.config.GeneralSettings.EmbedColor),
           ],
         })

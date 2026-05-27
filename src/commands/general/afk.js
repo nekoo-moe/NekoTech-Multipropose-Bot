@@ -8,16 +8,16 @@ const tslib_1 = require("tslib"),
   querys_1 = require("../../helpers/querys");
 exports.default = new Command_1.Command({
   name: "afk",
-  description: "Manage your status as AFK",
+  description: "Quản lý trạng thái treo máy (AFK) của bạn",
   options: [
     {
       name: "enable",
-      description: "Enable your status as AFK",
+      description: "Bật trạng thái treo máy (AFK)",
       type: discord_js_1.ApplicationCommandOptionType.Subcommand,
       options: [
         {
           name: "reason",
-          description: "Reason for your AFK",
+          description: "Lý do treo máy (AFK)",
           type: discord_js_1.ApplicationCommandOptionType.String,
           required: !0,
         },
@@ -25,12 +25,12 @@ exports.default = new Command_1.Command({
     },
     {
       name: "disable",
-      description: "Disable your status as AFK",
+      description: "Tắt trạng thái treo máy (AFK)",
       type: discord_js_1.ApplicationCommandOptionType.Subcommand,
     },
     {
       name: "list",
-      description: "List all AFK users",
+      description: "Danh sách tất cả thành viên đang AFK",
       type: discord_js_1.ApplicationCommandOptionType.Subcommand,
     },
   ],

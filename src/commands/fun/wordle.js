@@ -13,7 +13,7 @@ const tslib_1 = require("tslib"),
   __1 = require("../..");
 exports.default = new Command_1.Command({
   name: "wordle",
-  description: "Play the wordle game",
+  description: "Chơi game đoán từ Wordle giải trí",
   run: ({ interaction: e }) =>
     tslib_1.__awaiter(void 0, void 0, void 0, function* () {
       const s = new Wordle(e);

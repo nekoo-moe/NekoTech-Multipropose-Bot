@@ -14,17 +14,17 @@ function ship() {
 }
 exports.default = new Command_1.Command({
   name: "ship",
-  description: "Find out how much 2 people love each other",
+  description: "Xem mức độ đẹp đôi, tình cảm giữa 2 thành viên",
   options: [
     {
       name: "one",
-      description: "The first user",
+      description: "Thành viên thứ nhất",
       type: discord_js_1.ApplicationCommandOptionType.User,
       required: !0,
     },
     {
       name: "two",
-      description: "The second user",
+      description: "Thành viên thứ hai (để trống để chọn bản thân bạn)",
       type: discord_js_1.ApplicationCommandOptionType.User,
       required: !1,
     },

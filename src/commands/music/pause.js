@@ -8,7 +8,7 @@ const tslib_1 = require("tslib"),
   replaceAll_1 = tslib_1.__importDefault(require("../../helpers/replaceAll"));
 exports.default = new Command_1.Command({
   name: "pause",
-  description: "Pauses the current song",
+  description: "Tạm dừng phát nhạc",
   run: ({ client: e, interaction: s }) =>
     tslib_1.__awaiter(void 0, void 0, void 0, function* () {
       var l;

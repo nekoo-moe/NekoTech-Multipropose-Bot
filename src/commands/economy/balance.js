@@ -7,11 +7,11 @@ const tslib_1 = require("tslib"),
   replaceAll_1 = tslib_1.__importDefault(require("../../helpers/replaceAll"));
 exports.default = new Command_1.Command({
   name: "balance",
-  description: "Check the balance of a user",
+  description: "Xem số dư tài khoản của bạn hoặc người dùng khác",
   options: [
     {
       name: "user",
-      description: "The user to check the balance of",
+      description: "Người dùng bạn muốn xem số dư",
       type: discord_js_1.ApplicationCommandOptionType.User,
     },
   ],
