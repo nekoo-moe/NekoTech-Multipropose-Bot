@@ -57,8 +57,8 @@ exports.default = new Command_1.Command({
             emoji: null,
             category: null,
             roles: [],
-            style: null,
-            label: null,
+            style: 1,
+            label: true,
             questions: [],
           },
           o = yield (0, querys_1.guilds)().get(e.guildId),
@@ -627,9 +627,13 @@ exports.default = new Command_1.Command({
                 ),
             ),
           );
-        const r = (0, replaceAll_1.default)(
-          t.messages.Embeds.CreateTicketEmbed,
-          {
+        let r;
+        let c = null;
+        if (n.ticketConfig.customEmbed) {
+          const custom = n.ticketConfig.customEmbed;
+          c = custom.content || null;
+          const embedData = custom.embeds ? custom.embeds[0] : custom;
+          r = (0, replaceAll_1.default)(embedData, {
             "{panels}": n.ticketConfig.panels
               .map((e) =>
                 (0, replaceAll_1.default)(
@@ -638,9 +642,23 @@ exports.default = new Command_1.Command({
                 ),
               )
               .join("\n"),
-          },
-        );
-        (yield i.send({ embeds: [r], components: l }),
+          });
+        } else {
+          r = (0, replaceAll_1.default)(
+            t.messages.Embeds.CreateTicketEmbed,
+            {
+              "{panels}": n.ticketConfig.panels
+                .map((e) =>
+                  (0, replaceAll_1.default)(
+                    t.messages.Embeds.CreateTicketEmbed.panelsFormat,
+                    { "{emoji}": e.emoji, "{name}": e.name },
+                  ),
+                )
+                .join("\n"),
+            },
+          );
+        }
+        (yield i.send({ content: c, embeds: [r], components: l }),
           yield e.followUp({
             embeds: [
               new discord_js_1.EmbedBuilder()

@@ -135,6 +135,30 @@ exports.default = new Command_1.Command({
                   });
                 }),
             },
+            {
+              name: "Thiết Kế Embed Gửi Panel",
+              description: "Định cấu hình giao diện (Embed) cho tin nhắn gửi panel tạo ticket. Gửi mã JSON từ web embed.strider.top",
+              type: Dashboard_1.CategoryTypes.WebsiteEmbed,
+              style: discord_js_1.ButtonStyle.Success,
+              emoji: "🎨",
+              fetch: () =>
+                tslib_1.__awaiter(void 0, void 0, void 0, function* () {
+                  return {
+                    data: {
+                      content: "Bản xem trước Embed hiện tại của bạn:",
+                      embeds: [
+                        i.ticketConfig.customEmbed ? (i.ticketConfig.customEmbed.embeds ? i.ticketConfig.customEmbed.embeds[0] : i.ticketConfig.customEmbed) : t.messages.Embeds.CreateTicketEmbed,
+                      ],
+                    },
+                  };
+                }),
+              save: (e) =>
+                tslib_1.__awaiter(void 0, void 0, void 0, function* () {
+                  yield i.updateOne({
+                    $set: { "ticketConfig.customEmbed": e },
+                  });
+                }),
+            },
           ],
         },
         {

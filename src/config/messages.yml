@@ -299,13 +299,13 @@ Embeds:
       iconURL: "{bot-pfp}"
   UserInvitesEmbed:
     title: "{user-tag}"
-    description: "{user-tag} currently has **{total}** invites. (**{join}** join, **{left}** left, **{fake}** fake, **{bonus}** bonus)"
+    description: "{user-tag} hiện đang có **{total}** lượt mời. (**{join}** tham gia, **{left}** rời đi, **{fake}** ảo, **{bonus}** cộng thêm)"
     color: "{color-default}"
     footer:
       text: "{bot-tag}"
       iconURL: "{bot-pfp}"
   LeaderboardInvitesEmbed:
-    panelsFormat: "`{position}. ` {user} • **{total}** invites. (**{join}** join, **{left}** left, **{fake}** fake, **{bonus}** bonus)"
+    panelsFormat: "`{position}. ` {user} • **{total}** lượt mời. (**{join}** tham gia, **{left}** rời đi, **{fake}** ảo, **{bonus}** cộng thêm)"
     title: "🌟 Bảng Xếp Hạng Mời Thành Viên"
     description: "{users}"
     color: "{color-default}"

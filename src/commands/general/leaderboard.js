@@ -58,7 +58,7 @@ exports.default = new Command_1.Command({
         const t = i
             .sort((e, s) => s.messages - e.messages)
             .map((e, s) =>
-              Object.assign(Object.assign({}, e.toJSON()), { position: s + 1 }),
+              Object.assign(Object.assign({}, typeof e.toJSON === "function" ? e.toJSON() : e), { position: s + 1 }),
             ),
           o = Math.ceil(t.length / 10),
           l = [];

@@ -29,9 +29,9 @@ class Dashboard {
     var t, s;
     return tslib_1.__awaiter(this, void 0, void 0, function* () {
       this.cache.startEmbed = new discord_js_1.EmbedBuilder()
-        .setTitle(`🏠 ${this.client.user.username} Configuration Menu`)
+        .setTitle(`🏠 Menu Cấu Hình ${this.client.user.username}`)
         .setDescription(
-          `Welcome to the **${this.client.user.username}** Settings menu!\n\t\t\t\tUse the selection menu below to find and configure ${this.client.user.username}'s settings.`,
+          `Chào mừng bạn đến với menu Cài đặt của **${this.client.user.username}**!\n\t\t\t\tHãy sử dụng menu lựa chọn bên dưới để tìm và định cấu hình các thiết lập của ${this.client.user.username}.`,
         )
         .setColor(this.client.config.GeneralSettings.EmbedColor)
         .addFields(
@@ -66,7 +66,7 @@ class Dashboard {
                 new discord_js_1.EmbedBuilder()
                   .setTitle(`${e.emoji || ""} ${e.name}`)
                   .setDescription(
-                    e.description || "This category doesn't have a description",
+                    e.description || "Danh mục này chưa có mô tả",
                   )
                   .setColor(__1.client.config.GeneralSettings.EmbedColor)
                   .addFields(
@@ -96,7 +96,7 @@ class Dashboard {
           new discord_js_1.ActionRowBuilder().addComponents(
             new discord_js_1.StringSelectMenuBuilder()
               .setCustomId("category_select")
-              .setPlaceholder("🔎 Select a category to configure")
+              .setPlaceholder("🔎 Chọn một danh mục để cấu hình")
               .setDisabled(e)
               .addOptions(
                 this.options.map((e) => ({
@@ -130,7 +130,7 @@ class Dashboard {
                       new discord_js_1.ActionRowBuilder().addComponents(
                         new discord_js_1.StringSelectMenuBuilder()
                           .setCustomId("category_select_preview")
-                          .setPlaceholder("🔎 Select a option to preview")
+                          .setPlaceholder("🔎 Chọn một tùy chọn để xem trước")
                           .setDisabled(s)
                           .addOptions(
                             e.map((e) => ({
@@ -179,7 +179,7 @@ class Dashboard {
                         r
                           .embed()
                           .setDescription(
-                            `The **${a.name}** value has been updated correctly.`,
+                            `Giá trị **${a.name}** đã được cập nhật chính xác.`,
                           )
                           .setColor("Green"),
                       ],
@@ -192,7 +192,7 @@ class Dashboard {
                       r
                         .embed()
                         .setDescription(
-                          `The ${a.name} value could not update correctly`,
+                          `Không thể cập nhật giá trị ${a.name} một cách chính xác`,
                         )
                         .setColor("Red"),
                     ],
@@ -206,7 +206,7 @@ class Dashboard {
                 r
                   .embed()
                   .setDescription(
-                    "Use the buttons below to be able to toggle if you want to enable or disable",
+                    "Sử dụng các nút bên dưới để chuyển đổi trạng thái Bật hoặc Tắt",
                   )
                   .setColor(__1.client.config.GeneralSettings.EmbedColor),
               ],
@@ -215,12 +215,12 @@ class Dashboard {
                   new discord_js_1.ButtonBuilder()
                     .setStyle(discord_js_1.ButtonStyle.Success)
                     .setCustomId("ex-yes")
-                    .setLabel("Yes")
+                    .setLabel("Bật (Có)")
                     .setEmoji("☑️"),
                   new discord_js_1.ButtonBuilder()
                     .setStyle(discord_js_1.ButtonStyle.Danger)
                     .setCustomId("ex-no")
-                    .setLabel("No")
+                    .setLabel("Tắt (Không)")
                     .setEmoji("🇽"),
                 ),
               ],
@@ -240,7 +240,7 @@ class Dashboard {
                 r
                   .embed()
                   .setDescription(
-                    "Use the buttons below to select from the options",
+                    "Sử dụng các nút bên dưới để chọn một trong các tùy chọn",
                   )
                   .setColor(__1.client.config.GeneralSettings.EmbedColor),
               ],
@@ -271,7 +271,7 @@ class Dashboard {
                 r
                   .embed()
                   .setDescription(
-                    "Use the buttons below to select from the options",
+                    "Sử dụng menu lựa chọn bên dưới để chọn kênh chat",
                   )
                   .setColor(__1.client.config.GeneralSettings.EmbedColor),
               ],
@@ -300,7 +300,7 @@ class Dashboard {
                 r
                   .embed()
                   .setDescription(
-                    "Use the buttons below to select from the options",
+                    "Sử dụng menu lựa chọn bên dưới để chọn vai trò (Role)",
                   )
                   .setColor(__1.client.config.GeneralSettings.EmbedColor),
               ],
@@ -325,7 +325,7 @@ class Dashboard {
                 r
                   .embed()
                   .setDescription(
-                    "Use the buttons below to select from the options",
+                    "Sử dụng menu lựa chọn bên dưới để chọn các vai trò (Roles)",
                   )
                   .setColor(__1.client.config.GeneralSettings.EmbedColor),
               ],
@@ -340,7 +340,7 @@ class Dashboard {
                   new discord_js_1.ButtonBuilder()
                     .setCustomId("ex-roles-select-none")
                     .setStyle(discord_js_1.ButtonStyle.Danger)
-                    .setLabel("None")
+                    .setLabel("Không chọn vai trò nào")
                     .setEmoji("⛔"),
                 ),
               ],
@@ -370,7 +370,7 @@ class Dashboard {
                 embeds: [
                   r
                     .embed()
-                    .setDescription(`The ${a.name} must be a valid number`)
+                    .setDescription(`Giá trị ${a.name} phải là một số hợp lệ`)
                     .setColor("Red"),
                 ],
               }),
@@ -399,7 +399,7 @@ class Dashboard {
                     r
                       .embed()
                       .setDescription(
-                        "We can't parse the embed that you send, make sure that you are using our [website](https://embed.strider.top)",
+                        "Không thể phân tích cú pháp mã nhúng (embed) bạn đã gửi, hãy đảm bảo rằng bạn đang sử dụng [trang web của chúng tôi](https://embed.strider.top)",
                       )
                       .setColor("Red"),
                   ],

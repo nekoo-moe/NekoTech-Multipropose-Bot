@@ -344,6 +344,34 @@ class SQLiteModel {
     const matches = docs.filter(d => matchQuery(d, query));
     return matches.length;
   }
+
+  async findOneAndUpdate(query, update, options = {}) {
+    const docs = this._loadAll();
+    const index = docs.findIndex(d => matchQuery(d, query));
+    let docToReturn = null;
+    const definition = this.schema ? this.schema.definition : null;
+    
+    if (index !== -1) {
+      const originalDoc = docs[index];
+      const updatedDoc = applyUpdate(originalDoc, update);
+      this._saveRow(updatedDoc._id, updatedDoc);
+      
+      const docData = options.new ? updatedDoc : originalDoc;
+      const defsApplied = definition ? applySchemaDefaults(docData, definition) : docData;
+      docToReturn = new SQLiteDocument(this, defsApplied);
+    } else if (options.upsert) {
+      let newDoc = { _id: query._id || require('crypto').randomUUID() };
+      for (const [k, v] of Object.entries(query)) {
+        if (!k.startsWith('$')) newDoc[k] = v;
+      }
+      newDoc = applyUpdate(newDoc, update);
+      this._saveRow(newDoc._id, newDoc);
+      
+      const defsApplied = definition ? applySchemaDefaults(newDoc, definition) : newDoc;
+      docToReturn = new SQLiteDocument(this, defsApplied);
+    }
+    return docToReturn;
+  }
 }
 
 // Dummy Schema constructor
@@ -388,7 +416,8 @@ function createModel(tableName, schema) {
   // Delegate all methods of modelInstance to DocumentConstructor
   const methods = [
     'findOne', 'find', 'create', 'updateOne', 'deleteOne', 
-    'deleteMany', 'countDocuments', '_loadAll', '_saveRow'
+    'deleteMany', 'countDocuments', '_loadAll', '_saveRow',
+    'findOneAndUpdate'
   ];
   
   for (const method of methods) {
