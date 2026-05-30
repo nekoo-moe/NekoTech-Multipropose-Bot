@@ -13,9 +13,9 @@ exports.default = new Event_1.Event("guildTicketDeleted", (e, t) =>
       .send({
         embeds: [
           new discord_js_1.EmbedBuilder()
-            .setTitle("Support System")
+            .setTitle("Hệ Thống Hỗ Trợ")
             .setDescription(
-              "Please use the menu below to select a rating that you give to our staff",
+              "Vui lòng sử dụng menu bên dưới để đánh giá chất lượng hỗ trợ của nhân viên chúng tôi",
             )
             .setColor(__1.client.config.GeneralSettings.EmbedColor),
         ],
@@ -30,7 +30,7 @@ exports.default = new Event_1.Event("guildTicketDeleted", (e, t) =>
       }),
       o = s.values[0];
     (yield s.reply({
-      content: `<@!${e.id}> Thanks for the **${o} Star(s)** review.`,
+      content: `<@!${e.id}> Cảm ơn bạn đã đánh giá **${o} Sao** cho nhân viên của chúng tôi.`,
       ephemeral: !0,
     }),
       yield i.edit({ components: generateComponents(!0) }),
@@ -51,7 +51,7 @@ const generateComponents = (e = !1) => [
       .setDisabled(e)
       .setOptions(
         ratingValues.map((e, t) => ({
-          label: `${e} Star${0 !== t ? "s" : ""}`,
+          label: `${t + 1} Sao`,
           value: `${t + 1}`,
           emoji: "⭐",
         })),

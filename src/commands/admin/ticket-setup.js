@@ -7,16 +7,14 @@ const querys_1 = require("../../helpers/querys");
 const sqliteDb_1 = tslib_1.__importDefault(require("../../helpers/sqliteDb"));
 
 // ─── Progress bar helper ────────────────────────────────────────────────────
-// Bước 1/3: ━━━●──────
-// Bước 2/3: ━━━━━━●───
-// Bước 3/3: ━━━━━━━━━●
 function buildProgressBar(step) {
   const bars = [
-    "━━━●──────",
-    "━━━━━━●───",
-    "━━━━━━━━━●",
+    "━━●────────",
+    "━━━━━●─────",
+    "━━━━━━━━●──",
+    "━━━━━━━━━━●",
   ];
-  return `${bars[step - 1]}  Bước ${step}/3`;
+  return `${bars[step - 1]}  Bước ${step}/4`;
 }
 
 // ─── Step 1 embed builder ───────────────────────────────────────────────────
@@ -175,13 +173,71 @@ function buildStep2Buttons(wizardState, hasExistingPanels, disabled = false) {
   return [row1, row2];
 }
 
-// ─── Step 3 embed builder ───────────────────────────────────────────────────
+// ─── Step 3 embed builder (Embed setup) ─────────────────────────────────────
 function buildStep3Embed(wizardState, client) {
+  const ce = wizardState.ticketConfig.customEmbed;
+  const fields = [
+    {
+      name: "📌 Tiêu đề",
+      value: ce && ce.title ? `✅ ${ce.title}` : "⬜ Dùng mặc định",
+      inline: true,
+    },
+    {
+      name: "🎨 Màu sắc",
+      value: ce && ce.color ? `✅ ${ce.color}` : "⬜ Dùng mặc định",
+      inline: true,
+    },
+    {
+      name: "🦶 Footer",
+      value: ce && ce.footer && ce.footer.text ? `✅ ${ce.footer.text}` : "⬜ Dùng mặc định",
+      inline: true,
+    },
+    {
+      name: "📝 Nội dung (Description)",
+      value: ce && ce.description ? `✅ ${ce.description.substring(0, 80)}${ce.description.length > 80 ? "..." : ""}` : "⬜ Dùng mặc định",
+      inline: false,
+    },
+  ];
+  return new discord_js_1.EmbedBuilder()
+    .setTitle(`✏️ Chỉnh Embed Ticket  ${buildProgressBar(3)}`)
+    .setDescription(
+      "Tùy chỉnh embed **Phiếu Hỗ Trợ** hiển thị khi gửi panel ticket.\n" +
+      "Để trống = dùng nội dung mặc định từ `messages.yml`.\n\n" +
+      "Dùng `{panels}` trong description để hiển thị danh sách panel."
+    )
+    .setColor(client.config.GeneralSettings.EmbedColor)
+    .addFields(fields);
+}
+
+// ─── Step 3 buttons builder ──────────────────────────────────────────────────
+function buildStep3Buttons(wizardState, disabled = false) {
+  const row1 = new discord_js_1.ActionRowBuilder().addComponents(
+    new discord_js_1.ButtonBuilder()
+      .setCustomId("wiz3-edit").setLabel("✏️ Chỉnh sửa embed")
+      .setStyle(discord_js_1.ButtonStyle.Primary).setDisabled(disabled),
+    new discord_js_1.ButtonBuilder()
+      .setCustomId("wiz3-preview").setLabel("👁️ Xem trước")
+      .setStyle(discord_js_1.ButtonStyle.Secondary).setDisabled(disabled),
+    new discord_js_1.ButtonBuilder()
+      .setCustomId("wiz3-reset").setLabel("🔄 Đặt lại mặc định")
+      .setStyle(discord_js_1.ButtonStyle.Danger).setDisabled(disabled),
+    new discord_js_1.ButtonBuilder()
+      .setCustomId("wiz3-next").setLabel("➡️ Tiếp theo")
+      .setStyle(discord_js_1.ButtonStyle.Success).setDisabled(disabled),
+    new discord_js_1.ButtonBuilder()
+      .setCustomId("wiz-cancel").setLabel("❌ Hủy")
+      .setStyle(discord_js_1.ButtonStyle.Danger).setDisabled(disabled),
+  );
+  return [row1];
+}
+
+// ─── Step 4 embed builder (Send panel) ──────────────────────────────────────
+function buildStep4Embed(wizardState, client) {
   const p = wizardState.panel;
   const panelName = p.name || "(panel đã chọn)";
   const panelEmoji = p.emoji || "";
   return new discord_js_1.EmbedBuilder()
-    .setTitle(`📤 Gửi Panel  ${buildProgressBar(3)}`)
+    .setTitle(`📤 Gửi Panel  ${buildProgressBar(4)}`)
     .setDescription("Chọn kênh để gửi panel ticket.")
     .setColor(client.config.GeneralSettings.EmbedColor)
     .addFields(
@@ -198,17 +254,17 @@ function buildStep3Embed(wizardState, client) {
     );
 }
 
-// ─── Step 3 buttons builder ─────────────────────────────────────────────────
-function buildStep3Buttons(wizardState, disabled = false) {
+// ─── Step 4 buttons builder ──────────────────────────────────────────────────
+function buildStep4Buttons(wizardState, disabled = false) {
   const components = [
     new discord_js_1.ButtonBuilder()
-      .setCustomId("wiz3-channel").setLabel("📢 Chọn kênh")
+      .setCustomId("wiz4-channel").setLabel("📢 Chọn kênh")
       .setStyle(discord_js_1.ButtonStyle.Secondary).setDisabled(disabled),
   ];
   if (wizardState.targetChannel) {
     components.push(
       new discord_js_1.ButtonBuilder()
-        .setCustomId("wiz3-confirm").setLabel("✅ Xác nhận gửi")
+        .setCustomId("wiz4-confirm").setLabel("✅ Xác nhận gửi")
         .setStyle(discord_js_1.ButtonStyle.Success).setDisabled(disabled),
     );
   }
@@ -258,14 +314,19 @@ exports.default = new Command_1.Command({
   run: ({ interaction: e, client: t }) =>
     tslib_1.__awaiter(void 0, void 0, void 0, function* () {
       try {
-        // ── Wizard state ──────────────────────────────────────────────────────
+        // ── Fetch guild data & pre-load existing config ───────────────────────
+        const guildData = yield (0, querys_1.guilds)().get(e.guildId);
+        const existingTc = guildData?.ticketConfig || {};
+
+        // ── Wizard state — pre-populated with existing DB values ──────────────
         const wizardState = {
           step: 1,
           ticketConfig: {
-            maxTickets: null,
-            transcriptChannel: null,
-            autoSaveTranscript: null,
-            messageType: null,
+            maxTickets: existingTc.maxTickets ?? null,
+            transcriptChannel: existingTc.transcriptChannel ?? null,
+            autoSaveTranscript: existingTc.autoSaveTranscript ?? null,
+            messageType: existingTc.messageType ?? null,
+            customEmbed: existingTc.customEmbed ?? null,
           },
           panel: {
             customId: new sqliteDb_1.default.Types.ObjectId().toString(),
@@ -280,9 +341,7 @@ exports.default = new Command_1.Command({
           targetChannel: null,
         };
 
-        // ── Fetch guild data ──────────────────────────────────────────────────
-        const guildData = yield (0, querys_1.guilds)().get(e.guildId);
-        const hasExistingPanels = !!(guildData.ticketConfig && guildData.ticketConfig.panels && guildData.ticketConfig.panels.length > 0);
+        const hasExistingPanels = !!(existingTc.panels && existingTc.panels.length > 0);
 
         // ── Send step 1 ───────────────────────────────────────────────────────
         const msg = yield e.reply({
@@ -306,6 +365,8 @@ exports.default = new Command_1.Command({
             if (tc.transcriptChannel !== null) updates["ticketConfig.transcriptChannel"] = tc.transcriptChannel;
             if (tc.autoSaveTranscript !== null) updates["ticketConfig.autoSaveTranscript"] = tc.autoSaveTranscript;
             if (tc.messageType !== null) updates["ticketConfig.messageType"] = tc.messageType;
+            // customEmbed: save even if null (null = reset to default)
+            updates["ticketConfig.customEmbed"] = tc.customEmbed;
             if (Object.keys(updates).length > 0) {
               yield guildData.updateOne({ $set: updates });
             }
@@ -614,6 +675,16 @@ exports.default = new Command_1.Command({
                 }
                 return;
               }
+
+              // ── Embed setup ───────────────────────────────────────────────
+              if (id === "wiz-embedSetup") {
+                wizardState.step = 4;
+                yield btn.update({
+                  embeds: [buildStep4Embed(wizardState, t)],
+                  components: buildStep4Buttons(),
+                });
+                return;
+              }
             }
 
             // ════════════════════════════════════════════════════════════════
@@ -802,18 +873,173 @@ exports.default = new Command_1.Command({
             }
 
             // ════════════════════════════════════════════════════════════════
-            // STEP 3 handlers
+            // STEP 3 handlers — Embed setup
             // ════════════════════════════════════════════════════════════════
             if (wizardState.step === 3) {
 
+              // ── Next → step 4 ─────────────────────────────────────────────
+              if (id === "wiz3-next") {
+                yield saveStep1();
+                wizardState.step = 4;
+                yield btn.update({
+                  embeds: [buildStep4Embed(wizardState, t)],
+                  components: buildStep4Buttons(wizardState),
+                });
+                return;
+              }
+
+              // ── Reset to default ──────────────────────────────────────────
+              if (id === "wiz3-reset") {
+                wizardState.ticketConfig.customEmbed = null;
+                yield saveStep1();
+                yield btn.update({
+                  embeds: [buildStep3Embed(wizardState, t)],
+                  components: buildStep3Buttons(wizardState),
+                });
+                return;
+              }
+
+              // ── Preview ───────────────────────────────────────────────────
+              if (id === "wiz3-preview") {
+                const replaceAll = require("../../helpers/replaceAll").default;
+                const freshGuildData = yield (0, querys_1.guilds)().get(e.guildId);
+                const panels = freshGuildData.ticketConfig.panels || [];
+                const panelListStr = panels.length
+                  ? panels.map(p => replaceAll(t.messages.Embeds.CreateTicketEmbed.panelsFormat, { "{emoji}": p.emoji, "{name}": p.name })).join("\n")
+                  : "(chưa có panel nào)";
+
+                let previewEmbed;
+                const ce = wizardState.ticketConfig.customEmbed;
+                if (ce) {
+                  const raw = ce.embeds ? ce.embeds[0] : ce;
+                  previewEmbed = replaceAll(raw, { "{panels}": panelListStr });
+                } else {
+                  previewEmbed = replaceAll(t.messages.Embeds.CreateTicketEmbed, { "{panels}": panelListStr });
+                }
+
+                try {
+                  yield e.followUp({
+                    content: "👁️ **Xem trước embed (chỉ bạn thấy):**",
+                    embeds: [previewEmbed],
+                    ephemeral: true,
+                  });
+                } catch (_) {}
+                yield btn.update({
+                  embeds: [buildStep3Embed(wizardState, t)],
+                  components: buildStep3Buttons(wizardState),
+                });
+                return;
+              }
+
+              // ── Edit embed via modal ──────────────────────────────────────
+              if (id === "wiz3-edit") {
+                const ce = wizardState.ticketConfig.customEmbed;
+                const currentTitle = ce && ce.title ? ce.title : t.messages.Embeds.CreateTicketEmbed.title || "";
+                const currentDesc = ce && ce.description ? ce.description : t.messages.Embeds.CreateTicketEmbed.description || "";
+                const currentColor = ce && ce.color ? ce.color : t.messages.Embeds.CreateTicketEmbed.color || "";
+                const currentFooter = ce && ce.footer && ce.footer.text ? ce.footer.text : (t.messages.Embeds.CreateTicketEmbed.footer && t.messages.Embeds.CreateTicketEmbed.footer.text) || "";
+
+                const ts = Date.now();
+                yield btn.showModal(
+                  new discord_js_1.ModalBuilder()
+                    .setCustomId(`wiz3-embed-modal-${ts}`)
+                    .setTitle("Chỉnh Sửa Embed Phiếu Hỗ Trợ")
+                    .setComponents(
+                      new discord_js_1.ActionRowBuilder().addComponents(
+                        new discord_js_1.TextInputBuilder()
+                          .setCustomId("embed-title")
+                          .setLabel("📌 Tiêu đề (để trống = mặc định)")
+                          .setStyle(discord_js_1.TextInputStyle.Short)
+                          .setRequired(false)
+                          .setMaxLength(256)
+                          .setValue(currentTitle),
+                      ),
+                      new discord_js_1.ActionRowBuilder().addComponents(
+                        new discord_js_1.TextInputBuilder()
+                          .setCustomId("embed-description")
+                          .setLabel("📝 Nội dung (dùng {panels} cho danh sách)")
+                          .setStyle(discord_js_1.TextInputStyle.Paragraph)
+                          .setRequired(false)
+                          .setMaxLength(4000)
+                          .setValue(currentDesc.trim()),
+                      ),
+                      new discord_js_1.ActionRowBuilder().addComponents(
+                        new discord_js_1.TextInputBuilder()
+                          .setCustomId("embed-color")
+                          .setLabel("🎨 Màu sắc (hex, vd: #E74C3C)")
+                          .setStyle(discord_js_1.TextInputStyle.Short)
+                          .setRequired(false)
+                          .setMaxLength(20)
+                          .setValue(currentColor),
+                      ),
+                      new discord_js_1.ActionRowBuilder().addComponents(
+                        new discord_js_1.TextInputBuilder()
+                          .setCustomId("embed-footer")
+                          .setLabel("🦶 Footer (để trống = mặc định)")
+                          .setStyle(discord_js_1.TextInputStyle.Short)
+                          .setRequired(false)
+                          .setMaxLength(2048)
+                          .setValue(currentFooter),
+                      ),
+                    ),
+                );
+
+                try {
+                  const modal = yield e.awaitModalSubmit({
+                    filter: i => i.user.id === e.user.id && i.customId === `wiz3-embed-modal-${ts}`,
+                    time: 300_000,
+                  });
+                  if (!modal) return;
+
+                  const newTitle = modal.fields.getTextInputValue("embed-title").trim();
+                  const newDesc = modal.fields.getTextInputValue("embed-description").trim();
+                  const newColor = modal.fields.getTextInputValue("embed-color").trim();
+                  const newFooterText = modal.fields.getTextInputValue("embed-footer").trim();
+
+                  const customEmbed = Object.assign(
+                    {},
+                    t.messages.Embeds.CreateTicketEmbed,
+                    {
+                      title: newTitle || t.messages.Embeds.CreateTicketEmbed.title,
+                      description: newDesc || t.messages.Embeds.CreateTicketEmbed.description,
+                      color: newColor || t.messages.Embeds.CreateTicketEmbed.color,
+                      footer: {
+                        text: newFooterText || (t.messages.Embeds.CreateTicketEmbed.footer && t.messages.Embeds.CreateTicketEmbed.footer.text) || "",
+                        iconURL: (t.messages.Embeds.CreateTicketEmbed.footer && t.messages.Embeds.CreateTicketEmbed.footer.iconURL) || "",
+                      },
+                    },
+                  );
+
+                  wizardState.ticketConfig.customEmbed = customEmbed;
+                  yield saveStep1();
+
+                  yield modal.update({
+                    embeds: [buildStep3Embed(wizardState, t)],
+                    components: buildStep3Buttons(wizardState),
+                  });
+                } catch (_) {
+                  yield e.editReply({
+                    embeds: [buildStep3Embed(wizardState, t)],
+                    components: buildStep3Buttons(wizardState),
+                  }).catch(() => {});
+                }
+                return;
+              }
+            }
+
+            // ════════════════════════════════════════════════════════════════
+            // STEP 4 handlers — Send panel
+            // ════════════════════════════════════════════════════════════════
+            if (wizardState.step === 4) {
+
               // ── Channel select ────────────────────────────────────────────
-              if (id === "wiz3-channel") {
+              if (id === "wiz4-channel") {
                 const reply = yield btn.update({
-                  embeds: [buildStep3Embed(wizardState, t).setDescription("Chọn kênh để gửi panel ticket:").setColor("Blue")],
+                  embeds: [buildStep4Embed(wizardState, t).setDescription("Chọn kênh để gửi panel ticket:").setColor("Blue")],
                   components: [
                     new discord_js_1.ActionRowBuilder().addComponents(
                       new discord_js_1.ChannelSelectMenuBuilder()
-                        .setCustomId("wiz3-ch-select")
+                        .setCustomId("wiz4-ch-select")
                         .setChannelTypes(discord_js_1.ChannelType.GuildText)
                         .setMaxValues(1),
                     ),
@@ -828,25 +1054,25 @@ exports.default = new Command_1.Command({
                   });
                   wizardState.targetChannel = sel.values[0];
                   yield sel.update({
-                    embeds: [buildStep3Embed(wizardState, t)],
-                    components: buildStep3Buttons(wizardState),
+                    embeds: [buildStep4Embed(wizardState, t)],
+                    components: buildStep4Buttons(wizardState),
                   });
                 } catch (_) {
                   yield e.editReply({
-                    embeds: [buildStep3Embed(wizardState, t)],
-                    components: buildStep3Buttons(wizardState),
+                    embeds: [buildStep4Embed(wizardState, t)],
+                    components: buildStep4Buttons(wizardState),
                   });
                 }
                 return;
               }
 
               // ── Confirm send ──────────────────────────────────────────────
-              if (id === "wiz3-confirm") {
+              if (id === "wiz4-confirm") {
                 const targetCh = e.guild.channels.cache.get(wizardState.targetChannel);
                 if (!targetCh) {
                   yield btn.update({
-                    embeds: [buildStep3Embed(wizardState, t).setDescription("❌ Kênh không hợp lệ. Vui lòng chọn lại.").setColor("Red")],
-                    components: buildStep3Buttons(wizardState),
+                    embeds: [buildStep4Embed(wizardState, t).setDescription("❌ Kênh không hợp lệ. Vui lòng chọn lại.").setColor("Red")],
+                    components: buildStep4Buttons(wizardState),
                   });
                   return;
                 }

@@ -46,6 +46,7 @@ exports.default = new Event_1.Event("interactionCreate", (e) =>
       return;
     const { ticketConfig: o } = d,
       r = o.panels.find((e) => e.customId === l);
+    if (!r) return;
     if (
       (yield TicketModel_1.default.find({ ownerId: e.user.id })).length >=
       d.ticketConfig.maxTickets
@@ -111,7 +112,7 @@ exports.default = new Event_1.Event("interactionCreate", (e) =>
               s = __1.client.messages.Strings.TicketQuestionNull;
             (t &&
               e.regex &&
-              !(null === (i = e.regex) || void 0 === i ? void 0 : i.test(t)) &&
+              !(null === (i = (() => { try { const rx = e.regex; if (rx instanceof RegExp) return rx; if (rx && typeof rx === "object" && rx.source) return new RegExp(rx.source, rx.flags || ""); return null; } catch(_) { return null; } })()) || void 0 === i ? void 0 : i.test(t)) &&
               o.push(e.name),
               (a[e.name] = t || s),
               (c[e.name] = t || s));

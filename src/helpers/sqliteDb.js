@@ -127,36 +127,58 @@ function applyUpdate(doc, update) {
 // Helper to recursively apply Mongoose schema defaults to documents
 function applySchemaDefaults(data, definition) {
   if (!definition) return data;
+  // Guard: if definition is a primitive constructor or not a plain object, skip
+  if (typeof definition !== 'object' || Array.isArray(definition)) return data;
+  // If it's a Schema instance, use its .definition property
+  const def = (definition && definition.definition) ? definition.definition : definition;
+  if (!def || typeof def !== 'object' || Array.isArray(def)) return data;
+
   const result = data ? { ...data } : {};
   
-  for (const [key, prop] of Object.entries(definition)) {
-    if (prop && typeof prop === 'object' && !Array.isArray(prop) && !prop.type) {
-      // It's a nested group of fields (e.g. afk or welcomeSettings)
+  for (const [key, prop] of Object.entries(def)) {
+    if (!prop || typeof prop !== 'object') continue;
+    if (Array.isArray(prop)) continue;
+
+    // Resolve prop: if it's a Schema instance, treat as nested schema
+    const resolvedProp = (prop && prop.definition) ? { type: prop } : prop;
+
+    if (!resolvedProp.type) {
+      // It's a nested group of plain fields
       const existing = result[key];
-      result[key] = applySchemaDefaults(existing, prop);
-    } else if (prop && typeof prop === 'object') {
+      result[key] = applySchemaDefaults(existing, resolvedProp);
+    } else {
+      // prop has a .type — check if type is a JS built-in or Schema instance
+      const propType = resolvedProp.type;
+      const isBuiltinType =
+        propType === Object || propType === String ||
+        propType === Number || propType === Boolean || propType === Array ||
+        propType === 'mixed' || propType === 'objectId' ||
+        Array.isArray(propType) || typeof propType === 'string';
+
       if (result[key] === undefined) {
-        if (prop.default !== undefined) {
-          result[key] = typeof prop.default === 'function' ? prop.default() : JSON.parse(JSON.stringify(prop.default));
-        } else if (prop.type && typeof prop.type === 'object' && !Array.isArray(prop.type) && !prop.type.type) {
-          // If the type is a nested schema definition without a direct type key
-          const nestedDef = (prop.type && prop.type.definition) ? prop.type.definition : prop.type;
+        if (resolvedProp.default !== undefined) {
+          result[key] = typeof resolvedProp.default === 'function'
+            ? resolvedProp.default()
+            : JSON.parse(JSON.stringify(resolvedProp.default));
+        } else if (!isBuiltinType && typeof propType === 'object' && !Array.isArray(propType)) {
+          const nestedDef = propType.definition ? propType.definition : propType;
           result[key] = applySchemaDefaults(undefined, nestedDef);
         }
       } else if (result[key] && typeof result[key] === 'object' && !Array.isArray(result[key])) {
-        // If it exists and prop has default defined as an object, merge missing keys
-        if (prop.default !== undefined && typeof prop.default === 'object' && !Array.isArray(prop.default)) {
-          const defaults = typeof prop.default === 'function' ? prop.default() : prop.default;
-          for (const [defK, defV] of Object.entries(defaults)) {
-            if (result[key][defK] === undefined) {
-              result[key][defK] = JSON.parse(JSON.stringify(defV));
+        // Merge missing keys from default if default is a plain object
+        if (resolvedProp.default !== undefined && typeof resolvedProp.default === 'object' && !Array.isArray(resolvedProp.default)) {
+          const defaults = typeof resolvedProp.default === 'function' ? resolvedProp.default() : resolvedProp.default;
+          if (defaults && typeof defaults === 'object') {
+            for (const [defK, defV] of Object.entries(defaults)) {
+              if (result[key][defK] === undefined) {
+                result[key][defK] = JSON.parse(JSON.stringify(defV));
+              }
             }
           }
         }
-        
-        // Also apply nested defaults if the type is a nested schema definition
-        if (prop.type && typeof prop.type === 'object' && !prop.type.type) {
-          const nestedDef = (prop.type && prop.type.definition) ? prop.type.definition : prop.type;
+        // Recurse into nested schema definitions (not builtins)
+        if (!isBuiltinType && typeof propType === 'object' && !Array.isArray(propType)) {
+          const nestedDef = propType.definition ? propType.definition : propType;
           result[key] = applySchemaDefaults(result[key], nestedDef);
         }
       }

@@ -1,4 +1,4 @@
-"use strict";
+    "use strict";
 Object.defineProperty(exports, "__esModule", { value: !0 });
 const tslib_1 = require("tslib"),
   discord_js_1 = require("discord.js"),
