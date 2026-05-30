@@ -10,6 +10,7 @@ exports.default = new Command_1.Command({
   description: "Quản lý và thiết lập các sự kiện Giveaway (Quà tặng)",
   run: ({ interaction: e, client: t }) =>
     tslib_1.__awaiter(void 0, void 0, void 0, function* () {
+      try {
       const s = (e = !1) => [
         new discord_js_1.ActionRowBuilder().addComponents(
           new discord_js_1.ButtonBuilder()
@@ -608,5 +609,17 @@ exports.default = new Command_1.Command({
           });
         }
       });
+      } catch (error) {
+        console.error("[giveaway] Error:", error);
+        const errorEmbed = new discord_js_1.EmbedBuilder()
+          .setTitle("❌ Đã xảy ra lỗi")
+          .setDescription("Có lỗi xảy ra khi thực thi lệnh này. Vui lòng thử lại sau.")
+          .setColor("Red");
+        if (e.replied || e.deferred) {
+          e.followUp({ embeds: [errorEmbed], ephemeral: true }).catch(() => {});
+        } else {
+          e.reply({ embeds: [errorEmbed], ephemeral: true }).catch(() => {});
+        }
+      }
     }),
 });

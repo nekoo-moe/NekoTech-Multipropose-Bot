@@ -103,7 +103,7 @@ Embeds:
     author:
       name: "{user-tag}"
       iconURL: "{user-pfp}"
-    description: "Our staff is waiting for an answer on your [{channel-name}]({channel-url}) ticket"
+    description: "Nhân viên của chúng tôi đang chờ phản hồi từ bạn trong ticket [{channel-name}]({channel-url})"
     color: "{color-default}"
   TicketAlertCorrectEmbed:
     title: "Đã gửi cảnh báo nhắc nhở đến thành viên {user-tag}"
@@ -124,10 +124,10 @@ Embeds:
     color: "#2F3136"
     description: "{description}"
   ReactionRoleAddedEmbed:
-    description: "**The role {role} has been added to your account**"
+    description: "**Role {role} đã được thêm vào tài khoản của bạn**"
     color: "{color-default}"
   ReactionRoleRemovedEmbed:
-    description: "**The role {role} has been removed to your account**"
+    description: "**Role {role} đã được xóa khỏi tài khoản của bạn**"
     color: "{color-default}"
   GiveawayEmbed:
     title: "🎁 Sự Kiện Quà Tặng (Giveaway)"
@@ -186,7 +186,7 @@ Embeds:
 
           **Hãy bấm biểu tượng :tada: bên dưới để tham gia sự kiện!**
   GiveawayEndEmbed:
-    title: ":gift: Giveaway Ended"
+    title: ":gift: Giveaway Đã Kết Thúc"
     image:
       url: "{image}"
     color: "#2F3136"
@@ -220,7 +220,7 @@ Embeds:
     description: '>>> "{suggestion}" '
     color: "Orange"
     fields:
-      - name: "Updated on the {updated-date}"
+      - name: "Cập nhật lúc {updated-date}"
         value: |
           >>> Đang chờ quản trị viên duyệt
           Trạng thái: Đang chờ duyệt
@@ -238,7 +238,7 @@ Embeds:
     description: '>>> "{suggestion}" '
     color: "Green"
     fields:
-      - name: "Updated on the {updated-date}"
+      - name: "Cập nhật lúc {updated-date}"
         value: |
           >>> Được chấp nhận bởi {staff-username}
           {response}
@@ -256,7 +256,7 @@ Embeds:
     description: '>>> "{suggestion}" '
     color: "Red"
     fields:
-      - name: "Updated on the {updated-date}"
+      - name: "Cập nhật lúc {updated-date}"
         value: |
           >>> Bị từ chối bởi {staff-username}
           {response}
@@ -290,7 +290,7 @@ Embeds:
       text: "{bot-tag}"
       iconURL: "{bot-pfp}"
   LeaderboardMessagesEmbed:
-    panelsFormat: "`{position}. ` {user} • **{messages}** messages sent."
+    panelsFormat: "`{position}. ` {user} • **{messages}** tin nhắn đã gửi."
     title: "🌟 Bảng Xếp Hạng Chat (Tin Nhắn)"
     description: "{users}"
     color: "{color-default}"
@@ -323,20 +323,20 @@ Embeds:
   TemporalRankAddEmbed:
     title: "👑 Đã Gán Vai Trò Tạm Thời"
     description: |
-      The role <@&{role-id}> has been added to {user-tag}
+      Role <@&{role-id}> đã được gán cho {user-tag}
       Hạn dùng đến ngày: <t:{timestamp}:R>
     color: "{color-default}"
   TemporalRankListEmbed:
     title: "👑 Các Vai Trò Tạm Thời"
     color: "{color-default}"
     fields:
-      - name: "User"
+      - name: "Người Dùng"
         value: "<@!{user-id}> (**{user-tag}**)"
         inline: true
       - name: "Role"
         value: "<@&{role-id}>"
         inline: true
-      - name: "Expires At"
+      - name: "Hết Hạn Lúc"
         value: "<t:{timestamp}:R>"
         inline: true
     footer:
@@ -344,28 +344,28 @@ Embeds:
       iconURL: "{bot-pfp}"
   TemporalRankRemoveEmbed:
     title: "👑 Đã Thu Hồi Vai Trò Tạm Thời"
-    description: "Removed from my pending tasks remove the role <@&{role-id}> from {user-tag}"
+    description: "Đã xóa khỏi danh sách chờ: thu hồi role <@&{role-id}> từ {user-tag}"
     color: "{color-default}"
   BackupCreatedEmbed:
     title: "🔑 Đã Tạo Bản Sao Lưu"
     color: "{color-default}"
     description: "Bản sao lưu máy chủ đã được tạo thành công!"
     fields:
-      - name: "Backup Id"
+      - name: "ID Backup"
         value: "{backup-id}"
   BackupListEmbed:
     title: "🔑 Danh Sách Các Bản Sao Lưu"
     color: "{color-default}"
     fields:
-      - name: "Preview"
+      - name: "Xem Trước"
         value: "```{channels-format}```"
-      - name: "Backup Id"
+      - name: "ID Backup"
         value: "{backup-id}"
         inline: true
-      - name: "Created At"
+      - name: "Tạo Lúc"
         value: "<t:{timestamp}:R>"
         inline: true
-      - name: "Emojis"
+      - name: "Emoji"
         value: "{emojis-count}"
         inline: true
     footer:
@@ -417,18 +417,18 @@ Embeds:
     fields:
       - name: "Ngày Tạo Tài Khoản"
         value: "Created on <t:{createdTimestamp}:F> (<t:{createdTimestamp}:R>)"
-      - name: "Members"
+      - name: "Thành Viên"
         value: |
-          👥 {online-members} online out of {total-members} ({online-percentage}%)
-          🤖 {robotsCount} robots in the server
-      - name: "Boosters"
-        value: "🌟 Tier {boost-tier} with {boosters} boosters"
-      - name: "Another"
+          👥 {online-members} trực tuyến trên tổng {total-members} ({online-percentage}%)
+          🤖 {robotsCount} bot trong máy chủ
+      - name: "Người Boost"
+        value: "🌟 Cấp {boost-tier} với {boosters} người boost"
+      - name: "Thông Tin Khác"
         value: |
-          🎫 {ticketRating}/5.00 ticket rating
-          🧰 {channels} channels
-          😃 {emojis} emojis
-          🎨 {roles} roles
+          🎫 {ticketRating}/5.00 đánh giá ticket
+          🧰 {channels} kênh
+          😃 {emojis} emoji
+          🎨 {roles} vai trò
   UserInfoEmbed:
     title: "{user-tag}"
     description: "{user-platforms}"
@@ -474,7 +474,7 @@ Embeds:
     color: "{color-default}"
   GuessTheNumberWrongSelect:
     title: "SAI RỒI"
-    description: "**{selected}** is not correct, please try again. You have **{tries}** tries remaining."
+    description: "**{selected}** không chính xác, hãy thử lại. Bạn còn **{tries}** lượt thử."
     color: "Red"
   GuessTheNumberOutChances:
     title: "Hết lượt đoán mất rồi!"
@@ -482,7 +482,7 @@ Embeds:
     color: "Red"
   GuessTheNumberOutTime:
     title: "Hết thời gian!"
-    description: "You were unable to complete this game within 30 seconds therefore,\nit has ended. The correct number was **{number}**"
+    description: "Bạn đã không thể hoàn thành trò chơi trong thời gian quy định,\ntrò chơi đã kết thúc. Con số chính xác là **{number}**"
     color: "Red"
   ShipWrongMentionEmbed:
     title: "Bạn cần đề cập (tag) một thành viên hợp lệ (không tag bot, không tự tag bản thân)"
@@ -722,19 +722,19 @@ Embeds:
     description: "**⚠️ Case #{case}** {reason-remove}"
     color: "{color-default}"
     fields:
-      - name: "📦 | Case"
+      - name: "📦 | Vụ Việc"
         value: "Number: {case}"
         inline: true
-      - name: "👥 | User"
+      - name: "👥 | Người Dùng"
         value: "{user}"
         inline: true
-      - name: "📆 | Date"
+      - name: "📆 | Ngày"
         value: "{time-d} ({time-r})"
         inline: true
-      - name: "📃 | Reason"
+      - name: "📃 | Lý Do"
         value: "{reason}"
         inline: true
-      - name: "👮 | Moderator"
+      - name: "👮 | Người Kiểm Duyệt"
         value: "{moderator}"
         inline: true
     footer:
@@ -782,19 +782,19 @@ Embeds:
     description: "**🔒 Case #{case}** {reason-remove}"
     color: "{color-default}"
     fields:
-      - name: "📦 | Case"
+      - name: "📦 | Vụ Việc"
         value: "Number: {case}"
         inline: true
-      - name: "👥 | User"
+      - name: "👥 | Người Dùng"
         value: "{user}"
         inline: true
-      - name: "📆 | Date"
+      - name: "📆 | Ngày"
         value: "{time-d} ({time-r})"
         inline: true
-      - name: "📃 | Reason"
+      - name: "📃 | Lý Do"
         value: "{reason}"
         inline: true
-      - name: "👮 | Moderator"
+      - name: "👮 | Người Kiểm Duyệt"
         value: "{moderator}"
         inline: true
     footer:
@@ -929,13 +929,13 @@ Embeds:
       iconURL: "{user-pfp}"
     color: "{color-default}"
     fields:
-      - name: "😴 Status"
-        value: "AFK"
+      - name: "😴 Trạng Thái"
+        value: "Đang Treo Máy (AFK)"
         inline: true
-      - name: "📄 Reason"
+      - name: "📄 Lý Do"
         value: "{reason}"
         inline: true
-      - name: "⏰ Since"
+      - name: "⏰ Từ Lúc"
         value: "<t:{time}:R>"
         inline: true
     footer:
@@ -948,13 +948,13 @@ Embeds:
     timestamp: "{message-timestamp}"
     color: "{color-default}"
     fields:
-      - name: "📄 Content"
+      - name: "📄 Nội Dung"
         value: "{message-content}"
         inline: true
-      - name: "🖼 Attachments"
+      - name: "🖼 Tệp Đính Kèm"
         value: "{attachments}"
         inline: true
-      - name: "📚 Channel"
+      - name: "📚 Kênh"
         value: "<#{channel-id}>"
         inline: true
     footer:
@@ -1008,20 +1008,20 @@ Embeds:
       iconURL: "{bot-pfp}"
   LevelUpEmbed:
     title: "✨ Level Up"
-    description: "<@!{user-id}>, you just leveled up! You are now level **{user-level}**!"
+    description: "<@!{user-id}>, bạn vừa lên cấp! Bạn hiện đang ở cấp **{user-level}**!"
     color: "{color-default}"
   StarboardEmbed:
     content: "⭐ {star-count} | <#{channel-id}>"
     author:
       name: "{user-username}"
       iconURL: "{user-pfp}"
-    description: "{message-content}\n\n[Jump to message]({message-url})"
+    description: "{message-content}\n\n[Nhảy đến tin nhắn]({message-url})"
     color: "{color-default}"
     footer:
       text: "Message Id: {message-id}"
     timestamp: "{message-timestamp}"
   CantInteractEmbed:
-    title: "You can't interact with this component"
+    title: "Bạn không thể tương tác với thành phần này"
     color: "Red"
   TicTacToeTurnEmbed:
     title: "Này {turn-username}, đã đến lượt đi của bạn rồi!"
@@ -1159,131 +1159,131 @@ Buttons:
 
 Logs:
   MessageUpdated:
-    title: "Message Edited"
+    title: "Tin Nhắn Đã Được Chỉnh Sửa"
     color: "{color-default}"
     fields:
-      - name: "Author"
+      - name: "Tác Giả"
         value: "{author} `{author-tag}`"
-      - name: "Channel"
+      - name: "Kênh"
         value: "{channel} [Click Here]({message-url})"
-      - name: "Old Message"
+      - name: "Tin Nhắn Cũ"
         value: "```{old-message}```"
-      - name: "New Message"
+      - name: "Tin Nhắn Mới"
         value: "```{new-message}```"
     footer:
-      text: "Logged by {bot-tag}"
+      text: "Ghi lại bởi {bot-tag}"
   MessageDeleted:
-    title: "Message Deleted"
+    title: "Tin Nhắn Đã Bị Xóa"
     color: "{color-default}"
     fields:
-      - name: "Author"
+      - name: "Tác Giả"
         value: "{author} `{author-tag}`"
-      - name: "Channel"
+      - name: "Kênh"
         value: "{channel}"
-      - name: "Message"
+      - name: "Nội Dung Tin Nhắn"
         value: "```{message}```"
     footer:
-      text: "Logged by {bot-tag}"
+      text: "Ghi lại bởi {bot-tag}"
   ChannelCreated:
-    title: "Channel Created"
+    title: "Kênh Đã Được Tạo"
     color: "{color-default}"
     fields:
-      - name: "Channel"
+      - name: "Kênh"
         value: "{channel}"
-      - name: "Channel Name"
+      - name: "Tên Kênh"
         value: "{channel-name}"
-      - name: "Channel Type"
+      - name: "Loại Kênh"
         value: "{channel-type}"
     footer:
-      text: "Logged by {bot-tag}"
+      text: "Ghi lại bởi {bot-tag}"
   ChannelDeleted:
-    title: "Channel Deleted"
+    title: "Kênh Đã Bị Xóa"
     color: "{color-default}"
     fields:
-      - name: "Channel Id"
+      - name: "ID Kênh"
         value: "{channel-id}"
-      - name: "Channel Name"
+      - name: "Tên Kênh"
         value: "{channel-name}"
-      - name: "Channel Type"
+      - name: "Loại Kênh"
         value: "{channel-type}"
     footer:
-      text: "Logged by {bot-tag}"
+      text: "Ghi lại bởi {bot-tag}"
   ChannelUpdated:
-    title: "Channel {state} Updated" # ex: Name, Category...
+    title: "Kênh {state} Đã Được Cập Nhật" # ex: Name, Category...
     color: "{color-default}"
     fields:
-      - name: "Channel"
+      - name: "Kênh"
         value: "{channel}"
-      - name: "Old {state}"
+      - name: "Cũ {state}"
         value: "{old-state}"
-      - name: "New {state}"
+      - name: "Mới {state}"
         value: "{new-state}"
     footer:
-      text: "Logged by {bot-tag}"
+      text: "Ghi lại bởi {bot-tag}"
   EmojiCreated:
-    title: "Emoji Created"
+    title: "Emoji Đã Được Tạo"
     color: "{color-default}"
     thumbnail:
       url: "{emoji-url}"
     fields:
-      - name: "Name"
+      - name: "Tên"
         value: "{emoji-name}"
-      - name: "Id"
+      - name: "ID"
         value: "{emoji-id}"
-      - name: "Animated"
+      - name: "Có Hiệu Ứng"
         value: "{emoji-animated}"
     footer:
-      text: "Logged by {bot-tag}"
+      text: "Ghi lại bởi {bot-tag}"
   EmojiDeleted:
-    title: "Emoji Deleted"
+    title: "Emoji Đã Bị Xóa"
     color: "{color-default}"
     thumbnail:
       url: "{emoji-url}"
     fields:
-      - name: "Name"
+      - name: "Tên"
         value: "{emoji-name}"
-      - name: "Id"
+      - name: "ID"
         value: "{emoji-id}"
-      - name: "Animated"
+      - name: "Có Hiệu Ứng"
         value: "{emoji-animated}"
     footer:
-      text: "Logged by {bot-tag}"
+      text: "Ghi lại bởi {bot-tag}"
   EmojiUpdated:
-    title: "Emoji Updated"
+    title: "Emoji Đã Được Cập Nhật"
     color: "{color-default}"
     thumbnail:
       url: "{emoji-url}"
     fields:
-      - name: "Old Name"
+      - name: "Tên Cũ"
         value: "{old-name}"
-      - name: "New Name"
+      - name: "Tên Mới"
         value: "{new-name}"
     footer:
-      text: "Logged by {bot-tag}"
+      text: "Ghi lại bởi {bot-tag}"
   RoleCreated:
-    title: "Role Created"
+    title: "Role Đã Được Tạo"
     color: "{color-default}"
     fields:
-      - name: "Role Name"
+      - name: "Tên Role"
         value: "{role-name}"
-      - name: "Role Id"
+      - name: "ID Role"
         value: "{role-id}"
-      - name: "Role Color"
+      - name: "Màu Role"
         value: "{role-color}"
     footer:
-      text: "Logged by {bot-tag}"
+      text: "Ghi lại bởi {bot-tag}"
   RoleDeleted:
-    title: "Role Deleted"
+    title: "Role Đã Bị Xóa"
     color: "{color-default}"
     fields:
-      - name: "Role Name"
+      - name: "Tên Role"
         value: "{role-name}"
-      - name: "Role Id"
+      - name: "ID Role"
         value: "{role-id}"
-      - name: "Role Color"
+      - name: "Màu Role"
         value: "{role-color}"
     footer:
-      text: "Logged by {bot-tag}"
+      text: "Ghi lại bởi {bot-tag}"
 
 Strings:
   GiveawayContentMessage: "🎉 @everyone"
@@ -1296,21 +1296,21 @@ Strings:
   TicketQuestionNull: "None."
   TicketModalRegexErrorValue: "• {name}\n"
   TicketModalRegexError: |
-    These values are not correctly written, please check it.
+    Các giá trị này không được viết đúng định dạng, vui lòng kiểm tra lại.
 
     {values}
   WelcomeCardBackground: "https://i.imgur.com/Xvqn33j.png"
   WelcomeCard1stLine: "{user-name}"
-  WelcomeCard2ndLine: "Welcome to {guild-name}"
-  WelcomeCard3rdLine: "Member {memberCount}"
-  BlackJackYouBustDescription: "You bust! You lose {coin} **{amount}**"
-  BlackJackYouBustImageTitle: "{user-name} busted\nDealer wins"
-  BlackJackYouWinDescription: "You win {coin} **{amount}**"
-  BlackJackYouWinBImageTitle: "Dealer busted\n{user-name} wins"
-  BlackJackYouWinImageTitle: "{user-name} wins"
-  BlackJackYouLoseDescription: "You lose {coin} **{amount}**"
-  BlackJackYouLoseImageTitle: "Dealer wins"
-  BlackJackTieDescription: "It's a tie!"
-  BlackJackTieImageTitle: "It's a tie!"
+  WelcomeCard2ndLine: "Chào mừng đến {guild-name}"
+  WelcomeCard3rdLine: "Thành viên thứ {memberCount}"
+  BlackJackYouBustDescription: "Bạn quá 21! Bạn thua {coin} **{amount}**"
+  BlackJackYouBustImageTitle: "{user-name} quá 21\nNhà cái thắng"
+  BlackJackYouWinDescription: "Bạn thắng {coin} **{amount}**"
+  BlackJackYouWinBImageTitle: "Nhà cái quá 21\n{user-name} thắng"
+  BlackJackYouWinImageTitle: "{user-name} thắng"
+  BlackJackYouLoseDescription: "Bạn thua {coin} **{amount}**"
+  BlackJackYouLoseImageTitle: "Nhà cái thắng"
+  BlackJackTieDescription: "Hòa rồi!"
+  BlackJackTieImageTitle: "Hòa rồi!"
   HelpCommandName: "`{name}`"
   HelpCommandJoin: " | "

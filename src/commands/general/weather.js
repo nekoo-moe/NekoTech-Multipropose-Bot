@@ -18,6 +18,7 @@ exports.default = new Command_1.Command({
   ],
   run: ({ client: e, interaction: t }) =>
     tslib_1.__awaiter(void 0, void 0, void 0, function* () {
+      try {
       yield t.deferReply();
       const i = t.options.getString("city"),
         r = yield fetch(
@@ -52,5 +53,17 @@ exports.default = new Command_1.Command({
           }),
         ],
       });
+      } catch (error) {
+        console.error("[weather] Error:", error);
+        const errorEmbed = new discord_js_1.EmbedBuilder()
+          .setTitle("❌ Đã xảy ra lỗi")
+          .setDescription("Có lỗi xảy ra khi thực thi lệnh này. Vui lòng thử lại sau.")
+          .setColor("Red");
+        if (t.replied || t.deferred) {
+          t.followUp({ embeds: [errorEmbed], ephemeral: true }).catch(() => {});
+        } else {
+          t.reply({ embeds: [errorEmbed], ephemeral: true }).catch(() => {});
+        }
+      }
     }),
 });

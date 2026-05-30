@@ -40,40 +40,53 @@ exports.default = new Command_1.Command({
   description: "Chơi quay máy Slots trái cây giải trí",
   run: ({ client: e, interaction: n }) =>
     tslib_1.__awaiter(void 0, void 0, void 0, function* () {
-      const o = Math.floor(7 * Math.random()) + 4,
-        t = generateRandomReels(o),
-        s = generateSlotAnimation(generateRandomReels(o), o),
-        i = generateSlotAnimation(t, o),
-        l = generateSlotAnimation(generateRandomReels(o), o),
-        r = new discord_js_1.EmbedBuilder()
-          .setTitle("Máy Slots giải trí")
-          .setDescription(
-            (0, discord_js_1.codeBlock)(`${s[0]}\n${i[0]} <\n${l[0]}`),
-          )
-          .setColor(e.config.GeneralSettings.EmbedColor)
-          .addFields({ name: "Kết quả", value: "🔄 Đang quay...", inline: !0 });
-      yield n.reply({ embeds: [r] });
-      let a = 1;
-      const d = setInterval(() => {
-        if ((a++, a === i.length)) {
-          clearInterval(d);
-          const e = checkWinningCombinations(t);
-          (r.setDescription(
-            (0, discord_js_1.codeBlock)(
-              `${s[a - 1]}\n${i[a - 1]} <\n${l[a - 1]}`,
+      try {
+        const o = Math.floor(7 * Math.random()) + 4,
+          t = generateRandomReels(o),
+          s = generateSlotAnimation(generateRandomReels(o), o),
+          i = generateSlotAnimation(t, o),
+          l = generateSlotAnimation(generateRandomReels(o), o),
+          r = new discord_js_1.EmbedBuilder()
+            .setTitle("Máy Slots giải trí")
+            .setDescription(
+              (0, discord_js_1.codeBlock)(`${s[0]}\n${i[0]} <\n${l[0]}`),
+            )
+            .setColor(e.config.GeneralSettings.EmbedColor)
+            .addFields({ name: "Kết quả", value: "🔄 Đang quay...", inline: !0 });
+        yield n.reply({ embeds: [r] });
+        let a = 1;
+        const d = setInterval(() => {
+          if ((a++, a === i.length)) {
+            clearInterval(d);
+            const e = checkWinningCombinations(t);
+            (r.setDescription(
+              (0, discord_js_1.codeBlock)(
+                `${s[a - 1]}\n${i[a - 1]} <\n${l[a - 1]}`,
+              ),
             ),
-          ),
-            r.setFields({
-              name: "Kết quả",
-              value: e ? "🎉 Bạn đã thắng!" : "❌ Bạn đã thua cuộc!",
-              inline: !0,
-            }),
-            n.editReply({ embeds: [r] }));
-        } else
-          (r.setDescription(
-            (0, discord_js_1.codeBlock)(`${s[a]}\n${i[a]} <\n${l[a]}`),
-          ),
-            n.editReply({ embeds: [r] }));
-      }, 1e3);
+              r.setFields({
+                name: "Kết quả",
+                value: e ? "🎉 Bạn đã thắng!" : "❌ Bạn đã thua cuộc!",
+                inline: !0,
+              }),
+              n.editReply({ embeds: [r] }));
+          } else
+            (r.setDescription(
+              (0, discord_js_1.codeBlock)(`${s[a]}\n${i[a]} <\n${l[a]}`),
+            ),
+              n.editReply({ embeds: [r] }));
+        }, 1e3);
+      } catch (error) {
+        console.error("[slots] Error:", error);
+        const errorEmbed = new discord_js_1.EmbedBuilder()
+          .setTitle("❌ Đã xảy ra lỗi")
+          .setDescription("Có lỗi xảy ra khi thực thi lệnh này. Vui lòng thử lại sau.")
+          .setColor("Red");
+        if (n.replied || n.deferred) {
+          n.followUp({ embeds: [errorEmbed], ephemeral: true }).catch(() => {});
+        } else {
+          n.reply({ embeds: [errorEmbed], ephemeral: true }).catch(() => {});
+        }
+      }
     }),
 });

@@ -93,157 +93,178 @@ exports.default = new Command_1.Command({
   ],
   run: ({ client: e, interaction: a }) =>
     tslib_1.__awaiter(void 0, void 0, void 0, function* () {
-      const t = generateDeck(),
-        n = a.options.getInteger("amount"),
-        r = [drawCard(t), drawCard(t)],
-        s = [drawCard(t), drawCard(t)],
-        {
-          BlackJackYouWinDescription: l,
-          BlackJackYouWinBImageTitle: i,
-          BlackJackYouWinImageTitle: o,
-          BlackJackYouLoseDescription: d,
-          BlackJackYouLoseImageTitle: u,
-          BlackJackTieDescription: c,
-          BlackJackTieImageTitle: m,
-          BlackJackYouBustDescription: p,
-          BlackJackYouBustImageTitle: g,
-        } = e.messages.Strings,
-        y = yield (0, querys_1.guilds)().get(a.guildId),
-        _ = yield (0, querys_1.users)()
-          .economy()
-          .get({ userId: a.user.id, guildId: a.guildId });
-      if (
-        !(0, messageUtils_1.userHaveMoney)({
-          user: _,
-          from: "money",
-          interaction: a,
-          amount: n,
-        })
-      )
-        return;
-      const f = yield (0, generateBlacjackBoard_1.default)({
-          playerHand: r,
-          playerName: a.user.username,
-          dealerHand: [s[0], defaultCard],
-          dealerImage: e.user.displayAvatarURL(imageQuery),
-          playerImage: a.user.displayAvatarURL(imageQuery),
-        }),
-        k = new discord_js_1.EmbedBuilder(
-          (0, replaceAll_1.default)(e.messages.Embeds.BlackJackBoardEmbed),
-        );
-      yield a.reply({
-        embeds: [k],
-        components: generateActionButtons(),
-        files: [f],
-      });
-      const B = a.channel.createMessageComponentCollector({
-        filter: (e) => e.user.id === a.user.id,
-        componentType: discord_js_1.ComponentType.Button,
-        time: 6e4,
-      });
-      (B.on("collect", (f) =>
-        tslib_1.__awaiter(void 0, void 0, void 0, function* () {
-          const v = f.customId;
-          if ("hit" !== v) {
-            if ("stand" === v) {
-              for (; getHandValue(s) < 17; ) {
-                const e = drawCard(t);
-                s.push(e);
-              }
-              let p = "";
-              const g = getHandValue(r),
-                v = getHandValue(s);
-              if (v > 21 || g > v) {
-                const e = n * y.economyConfig.blackjackReward;
-                ((k.data.description = (0, replaceAll_1.default)(l, {
-                  "{amount}": e,
-                  "{coin}": y.economyConfig.coin,
-                })),
-                  (_.balance.money += e),
-                  (p = (0, replaceAll_1.default)(v > 21 ? i : o, {
-                    "{user-name}": a.user.username,
-                  })));
-              } else
-                g < v
-                  ? ((k.data.description = (0, replaceAll_1.default)(d, {
-                      "{amount}": n,
+      try {
+        const t = generateDeck(),
+          n = a.options.getInteger("amount"),
+          r = [drawCard(t), drawCard(t)],
+          s = [drawCard(t), drawCard(t)],
+          {
+            BlackJackYouWinDescription: l,
+            BlackJackYouWinBImageTitle: i,
+            BlackJackYouWinImageTitle: o,
+            BlackJackYouLoseDescription: d,
+            BlackJackYouLoseImageTitle: u,
+            BlackJackTieDescription: c,
+            BlackJackTieImageTitle: m,
+            BlackJackYouBustDescription: p,
+            BlackJackYouBustImageTitle: g,
+          } = e.messages.Strings,
+          y = yield (0, querys_1.guilds)().get(a.guildId),
+          _ = yield (0, querys_1.users)()
+            .economy()
+            .get({ userId: a.user.id, guildId: a.guildId });
+        if (
+          !(0, messageUtils_1.userHaveMoney)({
+            user: _,
+            from: "money",
+            interaction: a,
+            amount: n,
+          })
+        )
+          return;
+        const f = yield (0, generateBlacjackBoard_1.default)({
+            playerHand: r,
+            playerName: a.user.username,
+            dealerHand: [s[0], defaultCard],
+            dealerImage: e.user.displayAvatarURL(imageQuery),
+            playerImage: a.user.displayAvatarURL(imageQuery),
+          }),
+          k = new discord_js_1.EmbedBuilder(
+            (0, replaceAll_1.default)(e.messages.Embeds.BlackJackBoardEmbed),
+          );
+        yield a.reply({
+          embeds: [k],
+          components: generateActionButtons(),
+          files: [f],
+        });
+        const B = a.channel.createMessageComponentCollector({
+          filter: (e) => e.user.id === a.user.id,
+          componentType: discord_js_1.ComponentType.Button,
+          time: 6e4,
+        });
+        (B.on("collect", (f) =>
+          tslib_1.__awaiter(void 0, void 0, void 0, function* () {
+            try {
+              const v = f.customId;
+              if ("hit" !== v) {
+                if ("stand" === v) {
+                  for (; getHandValue(s) < 17; ) {
+                    const e = drawCard(t);
+                    s.push(e);
+                  }
+                  let p = "";
+                  const g = getHandValue(r),
+                    v = getHandValue(s);
+                  if (v > 21 || g > v) {
+                    const e = n * y.economyConfig.blackjackReward;
+                    ((k.data.description = (0, replaceAll_1.default)(l, {
+                      "{amount}": e,
                       "{coin}": y.economyConfig.coin,
                     })),
-                    (_.balance.money -= n),
-                    (p = u))
-                  : ((k.data.description = c), (p = m));
-              const b = yield (0, generateBlacjackBoard_1.default)({
-                playerHand: r,
-                dealerHand: s,
-                playerName: a.user.username,
-                dealerImage: e.user.displayAvatarURL(),
-                playerImage: a.user.displayAvatarURL(imageQuery),
-                isFinished: !0,
-                title: p,
-              });
-              return (
-                yield f.update({
-                  embeds: [k],
-                  components: generateActionButtons(!0),
-                  files: [b],
-                }),
-                B.stop()
-              );
+                      (_.balance.money += e),
+                      (p = (0, replaceAll_1.default)(v > 21 ? i : o, {
+                        "{user-name}": a.user.username,
+                      })));
+                  } else
+                    g < v
+                      ? ((k.data.description = (0, replaceAll_1.default)(d, {
+                          "{amount}": n,
+                          "{coin}": y.economyConfig.coin,
+                        })),
+                        (_.balance.money -= n),
+                        (p = u))
+                      : ((k.data.description = c), (p = m));
+                  const b = yield (0, generateBlacjackBoard_1.default)({
+                    playerHand: r,
+                    dealerHand: s,
+                    playerName: a.user.username,
+                    dealerImage: e.user.displayAvatarURL(),
+                    playerImage: a.user.displayAvatarURL(imageQuery),
+                    isFinished: !0,
+                    title: p,
+                  });
+                  return (
+                    yield f.update({
+                      embeds: [k],
+                      components: generateActionButtons(!0),
+                      files: [b],
+                    }),
+                    B.stop()
+                  );
+                }
+              } else {
+                let l = "";
+                const i = drawCard(t);
+                if ((r.push(i), getHandValue(r) > 21)) {
+                  ((k.data.description = (0, replaceAll_1.default)(p, {
+                    "{amount}": n,
+                    "{coin}": y.economyConfig.coin,
+                  })),
+                    (l = (0, replaceAll_1.default)(g, {
+                      "{user-name}": a.user.username,
+                    })),
+                    (_.balance.money -= n));
+                  const t = yield (0, generateBlacjackBoard_1.default)({
+                    playerHand: r,
+                    dealerHand: s,
+                    playerName: a.user.username,
+                    dealerImage: e.user.displayAvatarURL(imageQuery),
+                    playerImage: a.user.displayAvatarURL(imageQuery),
+                    isFinished: !0,
+                    title: l,
+                  });
+                  return (
+                    yield f.update({
+                      embeds: [k],
+                      components: generateActionButtons(!0),
+                      files: [t],
+                    }),
+                    B.stop()
+                  );
+                }
+                const o = yield (0, generateBlacjackBoard_1.default)({
+                  playerHand: r,
+                  playerName: a.user.username,
+                  dealerHand: [s[0], defaultCard],
+                  dealerImage: e.user.displayAvatarURL(imageQuery),
+                  playerImage: a.user.displayAvatarURL(imageQuery),
+                });
+                yield f.update({ embeds: [k], files: [o] });
+              }
+            } catch (error) {
+              console.error("[blackjack:collect] Error:", error);
             }
-          } else {
-            let l = "";
-            const i = drawCard(t);
-            if ((r.push(i), getHandValue(r) > 21)) {
-              ((k.data.description = (0, replaceAll_1.default)(p, {
-                "{amount}": n,
-                "{coin}": y.economyConfig.coin,
-              })),
-                (l = (0, replaceAll_1.default)(g, {
-                  "{user-name}": a.user.username,
-                })),
-                (_.balance.money -= n));
-              const t = yield (0, generateBlacjackBoard_1.default)({
-                playerHand: r,
-                dealerHand: s,
-                playerName: a.user.username,
-                dealerImage: e.user.displayAvatarURL(imageQuery),
-                playerImage: a.user.displayAvatarURL(imageQuery),
-                isFinished: !0,
-                title: l,
-              });
-              return (
-                yield f.update({
-                  embeds: [k],
-                  components: generateActionButtons(!0),
-                  files: [t],
-                }),
-                B.stop()
-              );
-            }
-            const o = yield (0, generateBlacjackBoard_1.default)({
-              playerHand: r,
-              playerName: a.user.username,
-              dealerHand: [s[0], defaultCard],
-              dealerImage: e.user.displayAvatarURL(imageQuery),
-              playerImage: a.user.displayAvatarURL(imageQuery),
-            });
-            yield f.update({ embeds: [k], files: [o] });
-          }
-        }),
-      ),
-        B.on("end", (t, n) =>
-          tslib_1.__awaiter(void 0, void 0, void 0, function* () {
-            (yield _.save(),
-              "time" === n &&
-                a.editReply({
-                  embeds: [
-                    (0, replaceAll_1.default)(
-                      e.messages.Embeds.BlackJackTimeoutEmbed,
-                    ),
-                  ],
-                  components: generateActionButtons(!0),
-                }));
           }),
-        ));
+        ),
+          B.on("end", (t, n) =>
+            tslib_1.__awaiter(void 0, void 0, void 0, function* () {
+              try {
+                (yield _.save(),
+                  "time" === n &&
+                    a.editReply({
+                      embeds: [
+                        (0, replaceAll_1.default)(
+                          e.messages.Embeds.BlackJackTimeoutEmbed,
+                        ),
+                      ],
+                      components: generateActionButtons(!0),
+                    }));
+              } catch (error) {
+                console.error("[blackjack:end] Error:", error);
+              }
+            }),
+          ));
+      } catch (error) {
+        console.error("[blackjack] Error:", error);
+        const errorEmbed = new discord_js_1.EmbedBuilder()
+          .setTitle("❌ Đã xảy ra lỗi")
+          .setDescription("Có lỗi xảy ra khi thực thi lệnh này. Vui lòng thử lại sau.")
+          .setColor("Red");
+        if (a.replied || a.deferred) {
+          a.followUp({ embeds: [errorEmbed], ephemeral: true }).catch(() => {});
+        } else {
+          a.reply({ embeds: [errorEmbed], ephemeral: true }).catch(() => {});
+        }
+      }
     }),
 });

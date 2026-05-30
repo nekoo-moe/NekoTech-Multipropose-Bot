@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: !0 });
 const tslib_1 = require("tslib"),
+  discord_js_1 = require("discord.js"),
   calculateReviews_1 = tslib_1.__importDefault(
     require("../../helpers/calculateReviews"),
   ),
@@ -12,6 +13,7 @@ exports.default = new Command_1.Command({
   description: "Xem thông tin chi tiết về máy chủ này",
   run: ({ interaction: e, client: i }) =>
     tslib_1.__awaiter(void 0, void 0, void 0, function* () {
+      try {
       const { guild: r } = e,
         s = yield e.guild.members.fetch({ withPresences: !0 }),
         t = yield (0, querys_1.guilds)().get(e.guildId),
@@ -46,5 +48,17 @@ exports.default = new Command_1.Command({
           }),
         ],
       });
+      } catch (error) {
+        console.error("[serverinfo] Error:", error);
+        const errorEmbed = new discord_js_1.EmbedBuilder()
+          .setTitle("❌ Đã xảy ra lỗi")
+          .setDescription("Có lỗi xảy ra khi thực thi lệnh này. Vui lòng thử lại sau.")
+          .setColor("Red");
+        if (e.replied || e.deferred) {
+          e.followUp({ embeds: [errorEmbed], ephemeral: true }).catch(() => {});
+        } else {
+          e.reply({ embeds: [errorEmbed], ephemeral: true }).catch(() => {});
+        }
+      }
     }),
 });

@@ -38,72 +38,85 @@ exports.default = new Command_1.Command({
   description: "Trò chơi đoán số may mắn (từ 1 đến 1000)",
   run: ({ client: e, interaction: t }) =>
     tslib_1.__awaiter(void 0, void 0, void 0, function* () {
-      const s = [],
-        o = randomNumbers(),
-        n = o[Math.floor(Math.random() * o.length)],
-        r = yield t.reply({
-          embeds: [
-            (0, replaceAll_1.default)(e.messages.Embeds.GuessTheNumberMain),
-          ],
-          components: getButtons(o),
-          fetchReply: !0,
-        }),
-        d = r.createMessageComponentCollector({
-          filter: (e) => e.user.id === t.user.id,
-          time: 6e4,
-        });
-      (d.on("collect", (t) =>
-        tslib_1.__awaiter(void 0, void 0, void 0, function* () {
-          const l = parseInt(t.customId);
-          return (
-            s.push(l),
-            yield t.deferUpdate(),
-            l === n
-              ? (yield r.edit({
-                  embeds: [
-                    (0, replaceAll_1.default)(
-                      e.messages.Embeds.GuessTheNumberSuccess,
-                      { "{number}": n, "{tries}": s.length },
-                    ),
-                  ],
-                  components: getButtons(o, s, !0, n),
-                }),
-                d.stop("win"))
-              : s.length >= 10
-                ? (r.edit({
+      try {
+        const s = [],
+          o = randomNumbers(),
+          n = o[Math.floor(Math.random() * o.length)],
+          r = yield t.reply({
+            embeds: [
+              (0, replaceAll_1.default)(e.messages.Embeds.GuessTheNumberMain),
+            ],
+            components: getButtons(o),
+            fetchReply: !0,
+          }),
+          d = r.createMessageComponentCollector({
+            filter: (e) => e.user.id === t.user.id,
+            time: 6e4,
+          });
+        (d.on("collect", (t) =>
+          tslib_1.__awaiter(void 0, void 0, void 0, function* () {
+            const l = parseInt(t.customId);
+            return (
+              s.push(l),
+              yield t.deferUpdate(),
+              l === n
+                ? (yield r.edit({
                     embeds: [
                       (0, replaceAll_1.default)(
-                        e.messages.Embeds.GuessTheNumberOutChances,
-                        { "{number}": n },
+                        e.messages.Embeds.GuessTheNumberSuccess,
+                        { "{number}": n, "{tries}": s.length },
                       ),
                     ],
-                    components: getButtons(o, s, !0),
+                    components: getButtons(o, s, !0, n),
                   }),
-                  d.stop())
-                : (d.resetTimer(),
-                  void r.edit({
-                    embeds: [
-                      (0, replaceAll_1.default)(
-                        e.messages.Embeds.GuessTheNumberWrongSelect,
-                        { "{selected}": t.customId, "{tries}": 10 - s.length },
-                      ),
-                    ],
-                    components: getButtons(o, s),
-                  }))
-          );
-        }),
-      ),
-        d.once("end", (t, d) => {
-          "time" === d &&
-            r.edit({
-              embeds: [
-                (0, replaceAll_1.default)(
-                  e.messages.Embeds.GuessTheNumberOutTime,
-                  { "{number}": n },
-                ),
-              ],
-              components: getButtons(o, s, !0),
-            });
-        }));
+                  d.stop("win"))
+                : s.length >= 10
+                  ? (r.edit({
+                      embeds: [
+                        (0, replaceAll_1.default)(
+                          e.messages.Embeds.GuessTheNumberOutChances,
+                          { "{number}": n },
+                        ),
+                      ],
+                      components: getButtons(o, s, !0),
+                    }),
+                    d.stop())
+                  : (d.resetTimer(),
+                    void r.edit({
+                      embeds: [
+                        (0, replaceAll_1.default)(
+                          e.messages.Embeds.GuessTheNumberWrongSelect,
+                          { "{selected}": t.customId, "{tries}": 10 - s.length },
+                        ),
+                      ],
+                      components: getButtons(o, s),
+                    }))
+            );
+          }),
+        ),
+          d.once("end", (t, d) => {
+            "time" === d &&
+              r.edit({
+                embeds: [
+                  (0, replaceAll_1.default)(
+                    e.messages.Embeds.GuessTheNumberOutTime,
+                    { "{number}": n },
+                  ),
+                ],
+                components: getButtons(o, s, !0),
+              });
+          }));
+      } catch (error) {
+        console.error("[gtn] Error:", error);
+        const errorEmbed = new discord_js_1.EmbedBuilder()
+          .setTitle("❌ Đã xảy ra lỗi")
+          .setDescription("Có lỗi xảy ra khi thực thi lệnh này. Vui lòng thử lại sau.")
+          .setColor("Red");
+        if (t.replied || t.deferred) {
+          t.followUp({ embeds: [errorEmbed], ephemeral: true }).catch(() => {});
+        } else {
+          t.reply({ embeds: [errorEmbed], ephemeral: true }).catch(() => {});
+        }
+      }
     }),
 });

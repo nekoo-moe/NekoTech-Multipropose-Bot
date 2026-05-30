@@ -24,6 +24,7 @@ exports.default = new Command_1.Command({
   ],
   run: ({ client: e, interaction: t }) =>
     tslib_1.__awaiter(void 0, void 0, void 0, function* () {
+      try {
       const r = t.options.getUser("user"),
         s = t.options.getInteger("amount"),
         o = yield (0, querys_1.users)()
@@ -41,5 +42,17 @@ exports.default = new Command_1.Command({
           ],
         })
       );
+      } catch (error) {
+        console.error("[set-xp] Error:", error);
+        const errorEmbed = new discord_js_1.EmbedBuilder()
+          .setTitle("❌ Đã xảy ra lỗi")
+          .setDescription("Có lỗi xảy ra khi thực thi lệnh này. Vui lòng thử lại sau.")
+          .setColor("Red");
+        if (t.replied || t.deferred) {
+          t.followUp({ embeds: [errorEmbed], ephemeral: true }).catch(() => {});
+        } else {
+          t.reply({ embeds: [errorEmbed], ephemeral: true }).catch(() => {});
+        }
+      }
     }),
 });

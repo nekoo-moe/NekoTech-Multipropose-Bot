@@ -22,6 +22,7 @@ exports.default = new Command_1.Command({
   ],
   run: ({ client: e, interaction: t }) =>
     tslib_1.__awaiter(void 0, void 0, void 0, function* () {
+      try {
       const n = t.options.getChannel("channel") || t.channel,
         a = yield snipeManager_1.default.getSnipes(n.id),
         i = [];
@@ -47,5 +48,17 @@ exports.default = new Command_1.Command({
         time: 12e4,
         ephemeral: !0,
       });
+      } catch (error) {
+        console.error("[snipe] Error:", error);
+        const errorEmbed = new discord_js_1.EmbedBuilder()
+          .setTitle("❌ Đã xảy ra lỗi")
+          .setDescription("Có lỗi xảy ra khi thực thi lệnh này. Vui lòng thử lại sau.")
+          .setColor("Red");
+        if (t.replied || t.deferred) {
+          t.followUp({ embeds: [errorEmbed], ephemeral: true }).catch(() => {});
+        } else {
+          t.reply({ embeds: [errorEmbed], ephemeral: true }).catch(() => {});
+        }
+      }
     }),
 });

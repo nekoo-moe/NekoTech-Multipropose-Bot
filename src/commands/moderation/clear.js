@@ -16,27 +16,40 @@ exports.default = new Command_1.Command({
   ],
   run: ({ client: e, interaction: o }) =>
     tslib_1.__awaiter(void 0, void 0, void 0, function* () {
-      const s = o.options.getNumber("amount");
       try {
-        const r = yield o.channel.bulkDelete(s);
-        yield o.reply({
-          embeds: [
-            new discord_js_1.EmbedBuilder()
-              .setTitle(`✅ Đã xóa thành công ${r.size} tin nhắn`)
-              .setColor(e.config.GeneralSettings.EmbedColor),
-          ],
-        });
-      } catch (e) {
-        yield o.reply({
-          embeds: [
-            new discord_js_1.EmbedBuilder()
-              .setTitle(
-                (null == e ? void 0 : e.message) ||
-                  "❌ Đã xảy ra lỗi khi xóa tin nhắn",
-              )
-              .setColor("Red"),
-          ],
-        });
+        const s = o.options.getNumber("amount");
+        try {
+          const r = yield o.channel.bulkDelete(s);
+          yield o.reply({
+            embeds: [
+              new discord_js_1.EmbedBuilder()
+                .setTitle(`✅ Đã xóa thành công ${r.size} tin nhắn`)
+                .setColor(e.config.GeneralSettings.EmbedColor),
+            ],
+          });
+        } catch (e) {
+          yield o.reply({
+            embeds: [
+              new discord_js_1.EmbedBuilder()
+                .setTitle(
+                  (null == e ? void 0 : e.message) ||
+                    "❌ Đã xảy ra lỗi khi xóa tin nhắn",
+                )
+                .setColor("Red"),
+            ],
+          });
+        }
+      } catch (error) {
+        console.error("[clear] Error:", error);
+        const errorEmbed = new discord_js_1.EmbedBuilder()
+          .setTitle("❌ Đã xảy ra lỗi")
+          .setDescription("Có lỗi xảy ra khi thực thi lệnh này. Vui lòng thử lại sau.")
+          .setColor("Red");
+        if (o.replied || o.deferred) {
+          o.followUp({ embeds: [errorEmbed], ephemeral: !0 }).catch(() => {});
+        } else {
+          o.reply({ embeds: [errorEmbed], ephemeral: !0 }).catch(() => {});
+        }
       }
     }),
 });

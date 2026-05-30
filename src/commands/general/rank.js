@@ -18,6 +18,7 @@ exports.default = new Command_1.Command({
   ],
   run: ({ interaction: e }) =>
     tslib_1.__awaiter(void 0, void 0, void 0, function* () {
+      try {
       yield e.deferReply();
       const r = e.options.getUser("user") || e.user;
       let d = yield UserModel_1.default.findOne({
@@ -45,11 +46,37 @@ exports.default = new Command_1.Command({
           .setUsername(r.username)
           .setCurrentXP(d.xp)
           .setLevel(d.level)
-          .setStatus("online"),
+          .setStatus("online");
+      let t;
+      try {
         t = yield s.build();
+      } catch (renderError) {
+        console.error("[rank] Canvas render error:", renderError);
+        return e.followUp({
+          embeds: [
+            new discord_js_1.EmbedBuilder()
+              .setTitle("❌ Lỗi tạo ảnh rank card")
+              .setDescription("Không thể tạo ảnh rank card. Vui lòng thử lại sau.")
+              .setColor("Red"),
+          ],
+          ephemeral: true,
+        });
+      }
       e.followUp({
         files: [new discord_js_1.AttachmentBuilder(t, { name: "rank.png" })],
         content: `> **Thẻ cấp độ của • [**  ${r.tag}  **] •**`,
       });
+      } catch (error) {
+        console.error("[rank] Error:", error);
+        const errorEmbed = new discord_js_1.EmbedBuilder()
+          .setTitle("❌ Đã xảy ra lỗi")
+          .setDescription("Có lỗi xảy ra khi thực thi lệnh này. Vui lòng thử lại sau.")
+          .setColor("Red");
+        if (e.replied || e.deferred) {
+          e.followUp({ embeds: [errorEmbed], ephemeral: true }).catch(() => {});
+        } else {
+          e.reply({ embeds: [errorEmbed], ephemeral: true }).catch(() => {});
+        }
+      }
     }),
 });

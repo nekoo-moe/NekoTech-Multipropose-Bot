@@ -100,133 +100,146 @@ exports.default = new Command_1.Command({
   ],
   run: ({ client: e, interaction: t }) =>
     tslib_1.__awaiter(void 0, void 0, void 0, function* () {
-      const n = t.options.getUser("user"),
-        o = yield (0, messageUtils_1.approve)({
-          author: t.user,
-          game: "Trò chơi Cờ Connect 4",
-          interaction: t,
-          user: n,
-        });
-      if (!o)
-        return t.editReply({
+      try {
+        const n = t.options.getUser("user"),
+          o = yield (0, messageUtils_1.approve)({
+            author: t.user,
+            game: "Trò chơi Cờ Connect 4",
+            interaction: t,
+            user: n,
+          });
+        if (!o)
+          return t.editReply({
+            embeds: [
+              new discord_js_1.EmbedBuilder()
+                .setTitle(`Trận đấu đã bị từ chối bởi ${n.username}`)
+                .setColor("Red"),
+            ],
+            components: [],
+          });
+        const r = createEmptyBoard();
+        let s = t.user,
+          i = !1;
+        yield o.deferUpdate();
+        const d = (yield t.editReply({
+          content: `Đến lượt của ${s.toString()}`,
           embeds: [
             new discord_js_1.EmbedBuilder()
-              .setTitle(`Trận đấu đã bị từ chối bởi ${n.username}`)
-              .setColor("Red"),
+              .setTitle("Trò chơi Cờ Connect 4")
+              .setDescription(getBoardAsString(r))
+              .addFields({
+                name: "Trạng thái",
+                value: `${getPlayerDisc(t, s.id)} | Đến lượt của ${s.toString()}`,
+              })
+              .setColor(e.config.GeneralSettings.EmbedColor),
           ],
-          components: [],
+          components: generateComponentsBoard(),
+        })).createMessageComponentCollector({
+          componentType: discord_js_1.ComponentType.Button,
+          time: 6e4,
         });
-      const r = createEmptyBoard();
-      let s = t.user,
-        i = !1;
-      yield o.deferUpdate();
-      const d = (yield t.editReply({
-        content: `Đến lượt của ${s.toString()}`,
-        embeds: [
-          new discord_js_1.EmbedBuilder()
-            .setTitle("Trò chơi Cờ Connect 4")
-            .setDescription(getBoardAsString(r))
-            .addFields({
-              name: "Trạng thái",
-              value: `${getPlayerDisc(t, s.id)} | Đến lượt của ${s.toString()}`,
-            })
-            .setColor(e.config.GeneralSettings.EmbedColor),
-        ],
-        components: generateComponentsBoard(),
-      })).createMessageComponentCollector({
-        componentType: discord_js_1.ComponentType.Button,
-        time: 6e4,
-      });
-      (d.on("collect", (o) =>
-        tslib_1.__awaiter(void 0, void 0, void 0, function* () {
-          d.resetTimer();
-          const { customId: a } = o;
-          if (o.user.id !== s.id)
-            return void o.reply({
-              content: "❌ Bạn không thể đi nước cờ này, đang là lượt của đối thủ.",
-              ephemeral: !0,
-            });
-          if (i)
-            return void o.reply({
-              content: "❌ Trò chơi đã kết thúc.",
-              ephemeral: !0,
-            });
-          const l = parseInt(a.split("connect4-")[1]);
-          if (isNaN(l) || l < 0 || l >= 7)
-            return void o.reply({
-              content: "❌ Nước đi không hợp lệ. Vui lòng chọn một cột phù hợp.",
-              ephemeral: !0,
-            });
-          if (isColumnFull(r, l))
-            return void o.reply({
-              content:
-                "❌ Cột này đã đầy. Vui lòng chọn cột khác.",
-              ephemeral: !0,
-            });
-          const c = dropDisc(r, l, s.id === t.user.id ? "🔴" : "🟡");
-          return checkWin(r, c, l)
-            ? ((i = !0),
-              yield o.update({
-                content: `🎉 ${s.toString()} đã chiến thắng!`,
-                embeds: [
-                  new discord_js_1.EmbedBuilder()
-                    .setTitle("Trò chơi Cờ Connect 4")
-                    .setDescription(getBoardAsString(r))
-                    .addFields({
-                      name: "Trạng thái",
-                      value: `${getPlayerDisc(t, s.id)} | ${s.toString()} đã thắng trò chơi Connect 4`,
-                    })
-                    .setColor(e.config.GeneralSettings.EmbedColor),
-                ],
-                components: generateComponentsBoard(!0),
-              }),
-              d.stop())
-            : checkDraw(r)
+        (d.on("collect", (o) =>
+          tslib_1.__awaiter(void 0, void 0, void 0, function* () {
+            d.resetTimer();
+            const { customId: a } = o;
+            if (o.user.id !== s.id)
+              return void o.reply({
+                content: "❌ Bạn không thể đi nước cờ này, đang là lượt của đối thủ.",
+                ephemeral: !0,
+              });
+            if (i)
+              return void o.reply({
+                content: "❌ Trò chơi đã kết thúc.",
+                ephemeral: !0,
+              });
+            const l = parseInt(a.split("connect4-")[1]);
+            if (isNaN(l) || l < 0 || l >= 7)
+              return void o.reply({
+                content: "❌ Nước đi không hợp lệ. Vui lòng chọn một cột phù hợp.",
+                ephemeral: !0,
+              });
+            if (isColumnFull(r, l))
+              return void o.reply({
+                content:
+                  "❌ Cột này đã đầy. Vui lòng chọn cột khác.",
+                ephemeral: !0,
+              });
+            const c = dropDisc(r, l, s.id === t.user.id ? "🔴" : "🟡");
+            return checkWin(r, c, l)
               ? ((i = !0),
                 yield o.update({
-                  content: "Kết quả hòa!",
+                  content: `🎉 ${s.toString()} đã chiến thắng!`,
                   embeds: [
                     new discord_js_1.EmbedBuilder()
                       .setTitle("Trò chơi Cờ Connect 4")
                       .setDescription(getBoardAsString(r))
                       .addFields({
                         name: "Trạng thái",
-                        value: "Trận đấu hòa! Không ai giành chiến thắng!",
+                        value: `${getPlayerDisc(t, s.id)} | ${s.toString()} đã thắng trò chơi Connect 4`,
                       })
                       .setColor(e.config.GeneralSettings.EmbedColor),
                   ],
                   components: generateComponentsBoard(!0),
                 }),
                 d.stop())
-              : ((s = s.id === t.user.id ? n : t.user),
-                void (yield o.update({
-                  content: `Đến lượt của ${s.toString()}`,
-                  embeds: [
-                    new discord_js_1.EmbedBuilder()
-                      .setTitle("Trò chơi Cờ Connect 4")
-                      .setDescription(getBoardAsString(r))
-                      .addFields({
-                        name: "Trạng thái",
-                        value: `${getPlayerDisc(t, s.id)} | Đến lượt của ${s.toString()}`,
-                      })
-                      .setColor(e.config.GeneralSettings.EmbedColor),
-                  ],
-                  components: generateComponentsBoard(),
-                })));
-        }),
-      ),
-        d.on("end", () => {
-          i ||
-            t.editReply({
-              content: "Trò chơi đã kết thúc do quá thời gian chờ.",
-              embeds: [
-                new discord_js_1.EmbedBuilder()
-                  .setTitle("Trò chơi Cờ Connect 4")
-                  .setDescription(getBoardAsString(r))
-                  .setColor(e.config.GeneralSettings.EmbedColor),
-              ],
-              components: generateComponentsBoard(!0),
-            });
-        }));
+              : checkDraw(r)
+                ? ((i = !0),
+                  yield o.update({
+                    content: "Kết quả hòa!",
+                    embeds: [
+                      new discord_js_1.EmbedBuilder()
+                        .setTitle("Trò chơi Cờ Connect 4")
+                        .setDescription(getBoardAsString(r))
+                        .addFields({
+                          name: "Trạng thái",
+                          value: "Trận đấu hòa! Không ai giành chiến thắng!",
+                        })
+                        .setColor(e.config.GeneralSettings.EmbedColor),
+                    ],
+                    components: generateComponentsBoard(!0),
+                  }),
+                  d.stop())
+                : ((s = s.id === t.user.id ? n : t.user),
+                  void (yield o.update({
+                    content: `Đến lượt của ${s.toString()}`,
+                    embeds: [
+                      new discord_js_1.EmbedBuilder()
+                        .setTitle("Trò chơi Cờ Connect 4")
+                        .setDescription(getBoardAsString(r))
+                        .addFields({
+                          name: "Trạng thái",
+                          value: `${getPlayerDisc(t, s.id)} | Đến lượt của ${s.toString()}`,
+                        })
+                        .setColor(e.config.GeneralSettings.EmbedColor),
+                    ],
+                    components: generateComponentsBoard(),
+                  })));
+          }),
+        ),
+          d.on("end", () => {
+            i ||
+              t.editReply({
+                content: "Trò chơi đã kết thúc do quá thời gian chờ.",
+                embeds: [
+                  new discord_js_1.EmbedBuilder()
+                    .setTitle("Trò chơi Cờ Connect 4")
+                    .setDescription(getBoardAsString(r))
+                    .setColor(e.config.GeneralSettings.EmbedColor),
+                ],
+                components: generateComponentsBoard(!0),
+              });
+          }));
+      } catch (error) {
+        console.error("[connect4] Error:", error);
+        const errorEmbed = new discord_js_1.EmbedBuilder()
+          .setTitle("❌ Đã xảy ra lỗi")
+          .setDescription("Có lỗi xảy ra khi thực thi lệnh này. Vui lòng thử lại sau.")
+          .setColor("Red");
+        if (t.replied || t.deferred) {
+          t.followUp({ embeds: [errorEmbed], ephemeral: true }).catch(() => {});
+        } else {
+          t.reply({ embeds: [errorEmbed], ephemeral: true }).catch(() => {});
+        }
+      }
     }),
 });

@@ -17,22 +17,35 @@ exports.default = new Command_1.Command({
   ],
   run: ({ interaction: e, client: r }) =>
     tslib_1.__awaiter(void 0, void 0, void 0, function* () {
-      const a = e.options.getUser("user") || e.user,
-        s = yield (0, querys_1.guilds)().get(e.guildId),
-        i = yield (0, querys_1.users)()
-          .economy()
-          .get({ userId: a.id, guildId: e.guildId });
-      return e.reply({
-        embeds: [
-          (0, replaceAll_1.default)(r.messages.Embeds.BalanceEmbed, {
-            "{user-tag}": a.tag,
-            "{user-avatar}": a.displayAvatarURL(),
-            "{coin}": (null == s ? void 0 : s.economyConfig?.coin) || "🪙",
-            "{cash}": i.balance.money,
-            "{bank}": i.balance.bank,
-            "{total}": i.balance.money + i.balance.bank,
-          }),
-        ],
-      });
+      try {
+        const a = e.options.getUser("user") || e.user,
+          s = yield (0, querys_1.guilds)().get(e.guildId),
+          i = yield (0, querys_1.users)()
+            .economy()
+            .get({ userId: a.id, guildId: e.guildId });
+        return e.reply({
+          embeds: [
+            (0, replaceAll_1.default)(r.messages.Embeds.BalanceEmbed, {
+              "{user-tag}": a.tag,
+              "{user-avatar}": a.displayAvatarURL(),
+              "{coin}": (null == s ? void 0 : s.economyConfig?.coin) || "🪙",
+              "{cash}": i.balance.money,
+              "{bank}": i.balance.bank,
+              "{total}": i.balance.money + i.balance.bank,
+            }),
+          ],
+        });
+      } catch (error) {
+        console.error("[balance] Error:", error);
+        const errorEmbed = new discord_js_1.EmbedBuilder()
+          .setTitle("❌ Đã xảy ra lỗi")
+          .setDescription("Có lỗi xảy ra khi thực thi lệnh này. Vui lòng thử lại sau.")
+          .setColor("Red");
+        if (e.replied || e.deferred) {
+          e.followUp({ embeds: [errorEmbed], ephemeral: true }).catch(() => {});
+        } else {
+          e.reply({ embeds: [errorEmbed], ephemeral: true }).catch(() => {});
+        }
+      }
     }),
 });

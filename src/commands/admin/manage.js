@@ -332,9 +332,22 @@ exports.default = new Command_1.Command({
   ],
   run: ({ client: e, interaction: n }) =>
     tslib_1.__awaiter(void 0, void 0, void 0, function* () {
+      try {
       ({
         "voice-channels": manageVoiceChannelsCategory,
         stats: manageStatsChannels,
       })[n.options.getSubcommandGroup()]({ client: e, interaction: n });
+      } catch (error) {
+        console.error("[manage] Error:", error);
+        const errorEmbed = new discord_js_1.EmbedBuilder()
+          .setTitle("❌ Đã xảy ra lỗi")
+          .setDescription("Có lỗi xảy ra khi thực thi lệnh này. Vui lòng thử lại sau.")
+          .setColor("Red");
+        if (n.replied || n.deferred) {
+          n.followUp({ embeds: [errorEmbed], ephemeral: true }).catch(() => {});
+        } else {
+          n.reply({ embeds: [errorEmbed], ephemeral: true }).catch(() => {});
+        }
+      }
     }),
 });

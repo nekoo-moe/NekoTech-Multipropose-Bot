@@ -58,100 +58,113 @@ exports.default = new Command_1.Command({
   ],
   run: ({ client: e, interaction: t }) =>
     tslib_1.__awaiter(void 0, void 0, void 0, function* () {
-      const o = [e.user, t.user, t.options.getUser("user")],
-        s = yield (0, messageUtils_1.approve)({
-          author: t.user,
-          game: "Tic Tac Toe",
-          user: o[2],
-          interaction: t,
-        });
-      if (!s)
-        return t.editReply({
-          embeds: [
-            (0, replaceAll_1.default)(e.messages.Embeds.GameRejectedEmbed, {
-              "{user-name}": o[2].username,
-              "{user-id}": o[2].id,
-              "{game}": "Tic Tac Toe",
-            }),
-          ],
-          components: [],
-        });
-      let r = Math.floor(2 * Math.random() + 1);
-      const n = [0, 0, 0, 0, 0, 0, 0, 0, 0];
-      yield s.deferUpdate();
-      const i = () =>
-          tslib_1.__awaiter(void 0, void 0, void 0, function* () {
-            return yield t.editReply({
-              content: `${playersEmojis[r]} ${o[r].toString()}`,
-              embeds: [
-                (0, replaceAll_1.default)(
-                  e.messages.Embeds.TicTacToeTurnEmbed,
-                  {
-                    "{turn-username}": o[r].username,
-                    "{turn-id}": o[r].id,
-                    "{game}": "Tic Tac Toe",
-                  },
-                ),
-              ],
-              components: generateComponentsFromBoard(n),
-            });
-          }),
-        d = (yield i()).createMessageComponentCollector({
-          componentType: discord_js_1.ComponentType.Button,
-          filter: (t) =>
-            t.user.id === o[r].id ||
-            (t.reply({
-              embeds: [
-                (0, replaceAll_1.default)(e.messages.Embeds.CantInteractEmbed),
-              ],
-              ephemeral: !0,
-            }),
-            !1),
-          max: 9,
-        });
-      d.on("collect", (s) =>
-        tslib_1.__awaiter(void 0, void 0, void 0, function* () {
-          const a = parseInt(s.customId.replace("tc-", ""));
-          (yield s.deferUpdate(),
-            d.resetTimer(),
-            (n[a] = r),
-            (r = 2 === r ? 1 : 2));
-          const c = checkWinner(n);
-          if (0 !== c) {
-            const s = o[c];
-            return (
-              t.editReply({
-                content: `🎉 ${s.toString()}`,
+      try {
+        const o = [e.user, t.user, t.options.getUser("user")],
+          s = yield (0, messageUtils_1.approve)({
+            author: t.user,
+            game: "Tic Tac Toe",
+            user: o[2],
+            interaction: t,
+          });
+        if (!s)
+          return t.editReply({
+            embeds: [
+              (0, replaceAll_1.default)(e.messages.Embeds.GameRejectedEmbed, {
+                "{user-name}": o[2].username,
+                "{user-id}": o[2].id,
+                "{game}": "Tic Tac Toe",
+              }),
+            ],
+            components: [],
+          });
+        let r = Math.floor(2 * Math.random() + 1);
+        const n = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+        yield s.deferUpdate();
+        const i = () =>
+            tslib_1.__awaiter(void 0, void 0, void 0, function* () {
+              return yield t.editReply({
+                content: `${playersEmojis[r]} ${o[r].toString()}`,
                 embeds: [
                   (0, replaceAll_1.default)(
-                    e.messages.Embeds.TicTacToeWinnerEmbed,
+                    e.messages.Embeds.TicTacToeTurnEmbed,
                     {
-                      "{user-name}": s.username,
-                      "{user-id}": s.id,
+                      "{turn-username}": o[r].username,
+                      "{turn-id}": o[r].id,
                       "{game}": "Tic Tac Toe",
                     },
                   ),
                 ],
-                components: generateComponentsFromBoard(n, !0),
-              }),
-              d.stop()
-            );
-          }
-          if (0 === n.filter((e) => 0 === e).length)
-            return (
-              t.editReply({
+                components: generateComponentsFromBoard(n),
+              });
+            }),
+          d = (yield i()).createMessageComponentCollector({
+            componentType: discord_js_1.ComponentType.Button,
+            filter: (t) =>
+              t.user.id === o[r].id ||
+              (t.reply({
                 embeds: [
-                  (0, replaceAll_1.default)(
-                    e.messages.Embeds.TicTacToeTieEmbed,
-                    { "{game}": "Tic Tac Toe" },
-                  ),
+                  (0, replaceAll_1.default)(e.messages.Embeds.CantInteractEmbed),
                 ],
-                components: generateComponentsFromBoard(n, !0),
+                ephemeral: !0,
               }),
-              d.stop()
-            );
-          yield i();
-        }),
-      );
+              !1),
+            max: 9,
+          });
+        d.on("collect", (s) =>
+          tslib_1.__awaiter(void 0, void 0, void 0, function* () {
+            const a = parseInt(s.customId.replace("tc-", ""));
+            (yield s.deferUpdate(),
+              d.resetTimer(),
+              (n[a] = r),
+              (r = 2 === r ? 1 : 2));
+            const c = checkWinner(n);
+            if (0 !== c) {
+              const s = o[c];
+              return (
+                t.editReply({
+                  content: `🎉 ${s.toString()}`,
+                  embeds: [
+                    (0, replaceAll_1.default)(
+                      e.messages.Embeds.TicTacToeWinnerEmbed,
+                      {
+                        "{user-name}": s.username,
+                        "{user-id}": s.id,
+                        "{game}": "Tic Tac Toe",
+                      },
+                    ),
+                  ],
+                  components: generateComponentsFromBoard(n, !0),
+                }),
+                d.stop()
+              );
+            }
+            if (0 === n.filter((e) => 0 === e).length)
+              return (
+                t.editReply({
+                  embeds: [
+                    (0, replaceAll_1.default)(
+                      e.messages.Embeds.TicTacToeTieEmbed,
+                      { "{game}": "Tic Tac Toe" },
+                    ),
+                  ],
+                  components: generateComponentsFromBoard(n, !0),
+                }),
+                d.stop()
+              );
+            yield i();
+          }),
+        );
+      } catch (error) {
+        console.error("[tic-tac-toe] Error:", error);
+        const errorEmbed = new discord_js_1.EmbedBuilder()
+          .setTitle("❌ Đã xảy ra lỗi")
+          .setDescription("Có lỗi xảy ra khi thực thi lệnh này. Vui lòng thử lại sau.")
+          .setColor("Red");
+        if (t.replied || t.deferred) {
+          t.followUp({ embeds: [errorEmbed], ephemeral: true }).catch(() => {});
+        } else {
+          t.reply({ embeds: [errorEmbed], ephemeral: true }).catch(() => {});
+        }
+      }
     }),
 });

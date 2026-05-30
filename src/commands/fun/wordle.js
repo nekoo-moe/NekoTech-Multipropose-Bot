@@ -16,8 +16,21 @@ exports.default = new Command_1.Command({
   description: "Chơi game đoán từ Wordle giải trí",
   run: ({ interaction: e }) =>
     tslib_1.__awaiter(void 0, void 0, void 0, function* () {
-      const s = new Wordle(e);
-      yield s.startGame();
+      try {
+        const s = new Wordle(e);
+        yield s.startGame();
+      } catch (error) {
+        console.error("[wordle] Error:", error);
+        const errorEmbed = new discord_js_1.EmbedBuilder()
+          .setTitle("❌ Đã xảy ra lỗi")
+          .setDescription("Có lỗi xảy ra khi thực thi lệnh này. Vui lòng thử lại sau.")
+          .setColor("Red");
+        if (e.replied || e.deferred) {
+          e.followUp({ embeds: [errorEmbed], ephemeral: true }).catch(() => {});
+        } else {
+          e.reply({ embeds: [errorEmbed], ephemeral: true }).catch(() => {});
+        }
+      }
     }),
 });
 class Wordle {

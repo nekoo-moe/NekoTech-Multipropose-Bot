@@ -26,40 +26,53 @@ module.exports = new Command_1.Command({
   ],
   run: ({ client: e, interaction: o }) =>
     tslib_1.__awaiter(void 0, void 0, void 0, function* () {
-      var n, s;
-      const d = o.options.getChannel("channel") || o.channel;
       try {
-        const e = JSON.parse(o.options.getString("code"));
-        ((null === (n = null == e ? void 0 : e.embed) || void 0 === n
-          ? void 0
-          : n.color) &&
-          "string" ==
-            typeof (null === (s = null == e ? void 0 : e.embed) || void 0 === s
-              ? void 0
-              : s.color) &&
-          (e.embed.color = (0, discord_js_1.resolveColor)(e.embed.color)),
-          (null == e ? void 0 : e.embed) && (e.embeds = [e.embed]),
-          delete e.embed,
-          yield d.send(e));
-      } catch (e) {
-        return o.reply({
+        var n, s;
+        const d = o.options.getChannel("channel") || o.channel;
+        try {
+          const e = JSON.parse(o.options.getString("code"));
+          ((null === (n = null == e ? void 0 : e.embed) || void 0 === n
+            ? void 0
+            : n.color) &&
+            "string" ==
+              typeof (null === (s = null == e ? void 0 : e.embed) || void 0 === s
+                ? void 0
+                : s.color) &&
+            (e.embed.color = (0, discord_js_1.resolveColor)(e.embed.color)),
+            (null == e ? void 0 : e.embed) && (e.embeds = [e.embed]),
+            delete e.embed,
+            yield d.send(e));
+        } catch (e) {
+          return o.reply({
+            embeds: [
+              new discord_js_1.EmbedBuilder()
+                .setTitle("Lỗi khi gửi tin nhắn")
+                .setDescription(e.message)
+                .setColor("Red"),
+            ],
+            ephemeral: !0,
+          });
+        }
+        yield o.reply({
           embeds: [
             new discord_js_1.EmbedBuilder()
-              .setTitle("Lỗi khi gửi tin nhắn")
-              .setDescription(e.message)
-              .setColor("Red"),
+              .setTitle("Tin nhắn đã được gửi thành công!")
+              .setDescription(`✅ Tin nhắn đã được gửi đến ${d.toString()}`)
+              .setColor(e.config.GeneralSettings.EmbedColor),
           ],
           ephemeral: !0,
         });
+      } catch (error) {
+        console.error("[announce] Error:", error);
+        const errorEmbed = new discord_js_1.EmbedBuilder()
+          .setTitle("❌ Đã xảy ra lỗi")
+          .setDescription("Có lỗi xảy ra khi thực thi lệnh này. Vui lòng thử lại sau.")
+          .setColor("Red");
+        if (o.replied || o.deferred) {
+          o.followUp({ embeds: [errorEmbed], ephemeral: !0 }).catch(() => {});
+        } else {
+          o.reply({ embeds: [errorEmbed], ephemeral: !0 }).catch(() => {});
+        }
       }
-      yield o.reply({
-        embeds: [
-          new discord_js_1.EmbedBuilder()
-            .setTitle("Tin nhắn đã được gửi thành công!")
-            .setDescription(`✅ Tin nhắn đã được gửi đến ${d.toString()}`)
-            .setColor(e.config.GeneralSettings.EmbedColor),
-        ],
-        ephemeral: !0,
-      });
     }),
 });

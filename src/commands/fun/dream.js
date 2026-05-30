@@ -53,42 +53,55 @@ exports.default = new Command_1.Command({
   ],
   run: ({ interaction: e, client: t }) =>
     tslib_1.__awaiter(void 0, void 0, void 0, function* () {
-      const a = e.options.getString("prompt"),
-        i = e.options.getInteger("style");
-      yield e.deferReply();
       try {
-        const o = yield generateImage(i, a);
-        if (null == o ? void 0 : o.is_nsfw)
-          return e.followUp({
-            embeds: [
-              new discord_js_1.EmbedBuilder()
-                .setTitle(
-                  "Vui lòng sử dụng các từ khóa chuẩn mực, lịch sự hơn!",
-                )
-                .setColor("Red"),
-            ],
+        const a = e.options.getString("prompt"),
+          i = e.options.getInteger("style");
+        yield e.deferReply();
+        try {
+          const o = yield generateImage(i, a);
+          if (null == o ? void 0 : o.is_nsfw)
+            return e.followUp({
+              embeds: [
+                new discord_js_1.EmbedBuilder()
+                  .setTitle(
+                    "Vui lòng sử dụng các từ khóa chuẩn mực, lịch sự hơn!",
+                  )
+                  .setColor("Red"),
+              ],
+            });
+          const r = new discord_js_1.AttachmentBuilder(o.result.final, {
+            name: "image.png",
           });
-        const r = new discord_js_1.AttachmentBuilder(o.result.final, {
-          name: "image.png",
-        });
-        e.followUp({
-          embeds: [
-            (0, replaceAll_1.default)(t.messages.Embeds.DreamGeneratedEmbed, {
-              "{prompt}": a,
-              "{style}": i.toString(),
-            }),
-          ],
-          files: [r],
-        });
-      } catch (t) {
-        (console.error(t),
           e.followUp({
             embeds: [
-              new discord_js_1.EmbedBuilder()
-                .setTitle("Đã xảy ra lỗi khi tạo ảnh vẽ, vui lòng thử lại")
-                .setColor("Red"),
+              (0, replaceAll_1.default)(t.messages.Embeds.DreamGeneratedEmbed, {
+                "{prompt}": a,
+                "{style}": i.toString(),
+              }),
             ],
-          }));
+            files: [r],
+          });
+        } catch (t) {
+          (console.error(t),
+            e.followUp({
+              embeds: [
+                new discord_js_1.EmbedBuilder()
+                  .setTitle("Đã xảy ra lỗi khi tạo ảnh vẽ, vui lòng thử lại")
+                  .setColor("Red"),
+              ],
+            }));
+        }
+      } catch (error) {
+        console.error("[dream] Error:", error);
+        const errorEmbed = new discord_js_1.EmbedBuilder()
+          .setTitle("❌ Đã xảy ra lỗi")
+          .setDescription("Có lỗi xảy ra khi thực thi lệnh này. Vui lòng thử lại sau.")
+          .setColor("Red");
+        if (e.replied || e.deferred) {
+          e.followUp({ embeds: [errorEmbed], ephemeral: true }).catch(() => {});
+        } else {
+          e.reply({ embeds: [errorEmbed], ephemeral: true }).catch(() => {});
+        }
       }
     }),
 });

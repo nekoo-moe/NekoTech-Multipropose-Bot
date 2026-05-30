@@ -62,6 +62,7 @@ module.exports = new Command_1.Command({
   ],
   run: ({ client: e, interaction: i }) =>
     tslib_1.__awaiter(void 0, void 0, void 0, function* () {
+      try {
       var o, s, d, t, r, n;
       const l = i.options.getString("reason"),
         a = i.options.getMember("member"),
@@ -271,6 +272,18 @@ module.exports = new Command_1.Command({
             m.push(p));
         }
         (0, pagination_1.default)({ interaction: i, embeds: m, time: 12e4 });
+      }
+      } catch (error) {
+        console.error("[kick] Error:", error);
+        const errorEmbed = new discord_js_1.EmbedBuilder()
+          .setTitle("❌ Đã xảy ra lỗi")
+          .setDescription("Có lỗi xảy ra khi thực thi lệnh này. Vui lòng thử lại sau.")
+          .setColor("Red");
+        if (i.replied || i.deferred) {
+          i.followUp({ embeds: [errorEmbed], ephemeral: !0 }).catch(() => {});
+        } else {
+          i.reply({ embeds: [errorEmbed], ephemeral: !0 }).catch(() => {});
+        }
       }
     }),
 });

@@ -16,6 +16,7 @@ exports.default = new Command_1.Command({
   ],
   run: ({ client: e, interaction: s }) =>
     tslib_1.__awaiter(void 0, void 0, void 0, function* () {
+      try {
       const t = s.options.getString("message");
       (yield s.channel.send({ content: t }),
         yield s.reply({
@@ -26,5 +27,17 @@ exports.default = new Command_1.Command({
           ],
           ephemeral: !0,
         }));
+      } catch (error) {
+        console.error("[say] Error:", error);
+        const errorEmbed = new discord_js_1.EmbedBuilder()
+          .setTitle("❌ Đã xảy ra lỗi")
+          .setDescription("Có lỗi xảy ra khi thực thi lệnh này. Vui lòng thử lại sau.")
+          .setColor("Red");
+        if (s.replied || s.deferred) {
+          s.followUp({ embeds: [errorEmbed], ephemeral: true }).catch(() => {});
+        } else {
+          s.reply({ embeds: [errorEmbed], ephemeral: true }).catch(() => {});
+        }
+      }
     }),
 });

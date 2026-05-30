@@ -126,6 +126,10 @@ Avatar:
   Enabled: true
   Permissions:
     - "@everyone"
+Ping:
+  Enabled: true
+  Permissions:
+    - "@everyone"
 Serverinfo:
   Enabled: true
   Permissions:

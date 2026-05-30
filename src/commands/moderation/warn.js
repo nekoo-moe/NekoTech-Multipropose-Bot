@@ -63,6 +63,7 @@ exports.default = new Command_1.Command({
   ],
   run: ({ client: e, interaction: r }) =>
     tslib_1.__awaiter(void 0, void 0, void 0, function* () {
+      try {
       var s, i, o, n;
       const a = r.options.getString("reason"),
         d = r.options.getMember("member"),
@@ -70,6 +71,16 @@ exports.default = new Command_1.Command({
         l = (null == t ? void 0 : t.warns) || [],
         m = r.options.getSubcommand(!1);
       if ("add" === m) {
+        if (!d)
+          return r.reply({
+            embeds: [
+              new discord_js_1.EmbedBuilder()
+                .setTitle("❌ Người dùng không còn trong server")
+                .setDescription("Thành viên này đã rời khỏi server hoặc không tồn tại.")
+                .setColor("Red"),
+            ],
+            ephemeral: true,
+          });
         if (d.id === e.user.id)
           return r.reply({
             embeds: [(0, replaceAll_1.default)(e.messages.Embeds.WarnBotEmbed)],
@@ -204,6 +215,18 @@ exports.default = new Command_1.Command({
           embeds: t,
           time: 12e4,
         });
+      }
+      } catch (error) {
+        console.error("[warn] Error:", error);
+        const errorEmbed = new discord_js_1.EmbedBuilder()
+          .setTitle("❌ Đã xảy ra lỗi")
+          .setDescription("Có lỗi xảy ra khi thực thi lệnh này. Vui lòng thử lại sau.")
+          .setColor("Red");
+        if (r.replied || r.deferred) {
+          r.followUp({ embeds: [errorEmbed], ephemeral: !0 }).catch(() => {});
+        } else {
+          r.reply({ embeds: [errorEmbed], ephemeral: !0 }).catch(() => {});
+        }
       }
     }),
 });

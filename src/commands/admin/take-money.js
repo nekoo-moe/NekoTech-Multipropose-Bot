@@ -34,6 +34,7 @@ exports.default = new Command_1.Command({
   ],
   run: ({ client: e, interaction: o }) =>
     tslib_1.__awaiter(void 0, void 0, void 0, function* () {
+      try {
       const r = o.options.getUser("user", !0),
         t = o.options.getInteger("amount", !0),
         n = o.options.getString("where"),
@@ -53,5 +54,17 @@ exports.default = new Command_1.Command({
           ],
         })
       );
+      } catch (error) {
+        console.error("[take-money] Error:", error);
+        const errorEmbed = new discord_js_1.EmbedBuilder()
+          .setTitle("❌ Đã xảy ra lỗi")
+          .setDescription("Có lỗi xảy ra khi thực thi lệnh này. Vui lòng thử lại sau.")
+          .setColor("Red");
+        if (o.replied || o.deferred) {
+          o.followUp({ embeds: [errorEmbed], ephemeral: true }).catch(() => {});
+        } else {
+          o.reply({ embeds: [errorEmbed], ephemeral: true }).catch(() => {});
+        }
+      }
     }),
 });

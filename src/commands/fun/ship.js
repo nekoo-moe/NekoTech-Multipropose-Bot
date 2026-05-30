@@ -31,32 +31,45 @@ exports.default = new Command_1.Command({
   ],
   run: ({ interaction: e, client: i }) =>
     tslib_1.__awaiter(void 0, void 0, void 0, function* () {
-      const t = e.options.getUser("one"),
-        r = e.options.getUser("two") || e.user;
-      if (t.id === r.id)
-        return e.reply({
+      try {
+        const t = e.options.getUser("one"),
+          r = e.options.getUser("two") || e.user;
+        if (t.id === r.id)
+          return e.reply({
+            embeds: [
+              (0, replaceAll_1.default)(i.messages.Embeds.ShipWrongMentionEmbed),
+            ],
+          });
+        const s = { extension: "png", size: 512 },
+          o = yield (0, generateShipImage_1.default)(
+            t.displayAvatarURL(s),
+            r.displayAvatarURL(s),
+          ),
+          a = new discord_js_1.AttachmentBuilder(o, { name: "ship.png" });
+        e.reply({
+          files: [a],
           embeds: [
-            (0, replaceAll_1.default)(i.messages.Embeds.ShipWrongMentionEmbed),
+            (0, replaceAll_1.default)(i.messages.Embeds.ShipCorrectEmbed, {
+              "{image}": "attachment://ship.png",
+              "{user1-tag}": t.tag,
+              "{user2-tag}": r.tag,
+              "{user1-id}": t.id,
+              "{user2-id}": r.id,
+              "{ship}": ship(),
+            }),
           ],
         });
-      const s = { extension: "png", size: 512 },
-        o = yield (0, generateShipImage_1.default)(
-          t.displayAvatarURL(s),
-          r.displayAvatarURL(s),
-        ),
-        a = new discord_js_1.AttachmentBuilder(o, { name: "ship.png" });
-      e.reply({
-        files: [a],
-        embeds: [
-          (0, replaceAll_1.default)(i.messages.Embeds.ShipCorrectEmbed, {
-            "{image}": "attachment://ship.png",
-            "{user1-tag}": t.tag,
-            "{user2-tag}": r.tag,
-            "{user1-id}": t.id,
-            "{user2-id}": r.id,
-            "{ship}": ship(),
-          }),
-        ],
-      });
+      } catch (error) {
+        console.error("[ship] Error:", error);
+        const errorEmbed = new discord_js_1.EmbedBuilder()
+          .setTitle("❌ Đã xảy ra lỗi")
+          .setDescription("Có lỗi xảy ra khi thực thi lệnh này. Vui lòng thử lại sau.")
+          .setColor("Red");
+        if (e.replied || e.deferred) {
+          e.followUp({ embeds: [errorEmbed], ephemeral: true }).catch(() => {});
+        } else {
+          e.reply({ embeds: [errorEmbed], ephemeral: true }).catch(() => {});
+        }
+      }
     }),
 });

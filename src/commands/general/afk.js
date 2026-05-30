@@ -36,6 +36,7 @@ exports.default = new Command_1.Command({
   ],
   run: ({ client: e, interaction: s }) =>
     tslib_1.__awaiter(void 0, void 0, void 0, function* () {
+      try {
       const a = s.options.getSubcommand(),
         i = s.options.getString("reason"),
         t = yield (0, querys_1.users)()
@@ -104,6 +105,18 @@ exports.default = new Command_1.Command({
           time: 12e4,
           ephemeral: !0,
         });
+      }
+      } catch (error) {
+        console.error("[afk] Error:", error);
+        const errorEmbed = new discord_js_1.EmbedBuilder()
+          .setTitle("❌ Đã xảy ra lỗi")
+          .setDescription("Có lỗi xảy ra khi thực thi lệnh này. Vui lòng thử lại sau.")
+          .setColor("Red");
+        if (s.replied || s.deferred) {
+          s.followUp({ embeds: [errorEmbed], ephemeral: true }).catch(() => {});
+        } else {
+          s.reply({ embeds: [errorEmbed], ephemeral: true }).catch(() => {});
+        }
       }
     }),
 });

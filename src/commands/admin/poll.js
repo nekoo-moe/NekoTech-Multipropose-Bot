@@ -105,6 +105,7 @@ exports.default = new Command_1.Command({
   ],
   run: ({ client: e, interaction: i }) =>
     tslib_1.__awaiter(void 0, void 0, void 0, function* () {
+      try {
       const o = i.options.getChannel("channel") || i.channel,
         t = i.options.getString("description"),
         n = i.options.getString("type"),
@@ -165,5 +166,17 @@ exports.default = new Command_1.Command({
           embeds: [(0, replaceAll_1.default)(e.messages.Embeds.PollSentEmbed)],
           ephemeral: !0,
         }));
+      } catch (error) {
+        console.error("[poll] Error:", error);
+        const errorEmbed = new discord_js_1.EmbedBuilder()
+          .setTitle("❌ Đã xảy ra lỗi")
+          .setDescription("Có lỗi xảy ra khi thực thi lệnh này. Vui lòng thử lại sau.")
+          .setColor("Red");
+        if (i.replied || i.deferred) {
+          i.followUp({ embeds: [errorEmbed], ephemeral: true }).catch(() => {});
+        } else {
+          i.reply({ embeds: [errorEmbed], ephemeral: true }).catch(() => {});
+        }
+      }
     }),
 });

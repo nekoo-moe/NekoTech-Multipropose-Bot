@@ -50,6 +50,7 @@ exports.default = new Command_1.Command({
   ],
   run: ({ interaction: e, client: i }) =>
     tslib_1.__awaiter(void 0, void 0, void 0, function* () {
+      try {
       var t, d, o, s;
       const a = e.options.getSubcommand();
       if ("load" === a) {
@@ -183,6 +184,18 @@ exports.default = new Command_1.Command({
             ],
             ephemeral: !0,
           });
+        }
+      }
+      } catch (error) {
+        console.error("[backup] Error:", error);
+        const errorEmbed = new discord_js_1.EmbedBuilder()
+          .setTitle("❌ Đã xảy ra lỗi")
+          .setDescription("Có lỗi xảy ra khi thực thi lệnh này. Vui lòng thử lại sau.")
+          .setColor("Red");
+        if (e.replied || e.deferred) {
+          e.followUp({ embeds: [errorEmbed], ephemeral: true }).catch(() => {});
+        } else {
+          e.reply({ embeds: [errorEmbed], ephemeral: true }).catch(() => {});
         }
       }
     }),

@@ -70,6 +70,7 @@ exports.default = new Command_1.Command({
   ],
   run: ({ client: e, interaction: r }) =>
     tslib_1.__awaiter(void 0, void 0, void 0, function* () {
+      try {
       var o, i;
       const t = r.options.getSubcommand();
       if ("add" === t) {
@@ -203,6 +204,18 @@ exports.default = new Command_1.Command({
               ),
             ],
           }));
+      }
+      } catch (error) {
+        console.error("[role] Error:", error);
+        const errorEmbed = new discord_js_1.EmbedBuilder()
+          .setTitle("❌ Đã xảy ra lỗi")
+          .setDescription("Có lỗi xảy ra khi thực thi lệnh này. Vui lòng thử lại sau.")
+          .setColor("Red");
+        if (r.replied || r.deferred) {
+          r.followUp({ embeds: [errorEmbed], ephemeral: true }).catch(() => {});
+        } else {
+          r.reply({ embeds: [errorEmbed], ephemeral: true }).catch(() => {});
+        }
       }
     }),
 });

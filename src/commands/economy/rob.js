@@ -18,72 +18,79 @@ exports.default = new Command_1.Command({
   ],
   run: ({ interaction: e, client: r }) =>
     tslib_1.__awaiter(void 0, void 0, void 0, function* () {
-      var s, o;
-      const i = e.options.getUser("user");
-      if (e.user.id === i.id || i.bot)
-        throw (
-          e.reply({
+      try {
+        var s, o;
+        const i = e.options.getUser("user");
+        if (e.user.id === i.id || i.bot)
+          return e.reply({
             embeds: [
               (0, replaceAll_1.default)(r.messages.Embeds.RobtInvalidUserEmbed),
             ],
-          }),
-          new Error("exclude")
-        );
-      const a = yield (0, querys_1.users)()
-        .economy()
-        .get({ guildId: e.guildId, userId: i.id });
-      if (!a || a.balance.money < 1)
-        throw (
-          e.reply({
+          });
+        const a = yield (0, querys_1.users)()
+          .economy()
+          .get({ guildId: e.guildId, userId: i.id });
+        if (!a || a.balance.money < 1)
+          return e.reply({
             embeds: [
               (0, replaceAll_1.default)(
                 r.messages.Embeds.RobVictimInsufficientEmbed,
               ),
             ],
-          }),
-          new Error("exclude")
-        );
-      const d = yield (0, querys_1.guilds)().get(e.guildId),
-        t = yield (0, querys_1.users)()
-          .economy()
-          .get({ userId: e.user.id, guildId: e.guildId }),
-        l = Math.floor(a.balance.money * (0.5 * Math.random() + 0.5));
-      return Math.floor(100 * Math.random()) < 50
-        ? ((a.balance.money -= l),
-          (t.balance.money += l),
-          yield a.save(),
-          yield t.save(),
-          e.reply({
-            embeds: [
-              (0, replaceAll_1.default)(r.messages.Embeds.RobSuccessEmbed, {
-                "{coin}":
-                  (null === (s = null == d ? void 0 : d.economyConfig) ||
-                  void 0 === s
-                    ? void 0
-                    : s.coin) || "🪙",
-                "{user-avatar}": e.user.displayAvatarURL(),
-                "{user-tag}": e.user.tag,
-                "{victim-tag}": i.tag,
-                "{amount}": l,
-              }),
-            ],
-          }))
-        : ((t.balance.money -= l),
-          yield t.save(),
-          e.reply({
-            embeds: [
-              (0, replaceAll_1.default)(r.messages.Embeds.RobWrongEmbed, {
-                "{coin}":
-                  (null === (o = null == d ? void 0 : d.economyConfig) ||
-                  void 0 === o
-                    ? void 0
-                    : o.coin) || "🪙",
-                "{user-avatar}": e.user.displayAvatarURL(),
-                "{user-tag}": e.user.tag,
-                "{victim-tag}": i.tag,
-                "{amount}": l,
-              }),
-            ],
-          }));
+          });
+        const d = yield (0, querys_1.guilds)().get(e.guildId),
+          t = yield (0, querys_1.users)()
+            .economy()
+            .get({ userId: e.user.id, guildId: e.guildId }),
+          l = Math.floor(a.balance.money * (0.5 * Math.random() + 0.5));
+        return Math.floor(100 * Math.random()) < 50
+          ? ((a.balance.money -= l),
+            (t.balance.money += l),
+            yield a.save(),
+            yield t.save(),
+            e.reply({
+              embeds: [
+                (0, replaceAll_1.default)(r.messages.Embeds.RobSuccessEmbed, {
+                  "{coin}":
+                    (null === (s = null == d ? void 0 : d.economyConfig) ||
+                    void 0 === s
+                      ? void 0
+                      : s.coin) || "🪙",
+                  "{user-avatar}": e.user.displayAvatarURL(),
+                  "{user-tag}": e.user.tag,
+                  "{victim-tag}": i.tag,
+                  "{amount}": l,
+                }),
+              ],
+            }))
+          : ((t.balance.money -= l),
+            yield t.save(),
+            e.reply({
+              embeds: [
+                (0, replaceAll_1.default)(r.messages.Embeds.RobWrongEmbed, {
+                  "{coin}":
+                    (null === (o = null == d ? void 0 : d.economyConfig) ||
+                    void 0 === o
+                      ? void 0
+                      : o.coin) || "🪙",
+                  "{user-avatar}": e.user.displayAvatarURL(),
+                  "{user-tag}": e.user.tag,
+                  "{victim-tag}": i.tag,
+                  "{amount}": l,
+                }),
+              ],
+            }));
+      } catch (error) {
+        console.error("[rob] Error:", error);
+        const errorEmbed = new discord_js_1.EmbedBuilder()
+          .setTitle("❌ Đã xảy ra lỗi")
+          .setDescription("Có lỗi xảy ra khi thực thi lệnh này. Vui lòng thử lại sau.")
+          .setColor("Red");
+        if (e.replied || e.deferred) {
+          e.followUp({ embeds: [errorEmbed], ephemeral: true }).catch(() => {});
+        } else {
+          e.reply({ embeds: [errorEmbed], ephemeral: true }).catch(() => {});
+        }
+      }
     }),
 });

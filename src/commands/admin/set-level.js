@@ -24,6 +24,7 @@ exports.default = new Command_1.Command({
   ],
   run: ({ client: e, interaction: r }) =>
     tslib_1.__awaiter(void 0, void 0, void 0, function* () {
+      try {
       const s = r.options.getUser("user"),
         t = r.options.getInteger("level"),
         i = yield (0, querys_1.users)()
@@ -41,5 +42,17 @@ exports.default = new Command_1.Command({
           ],
         })
       );
+      } catch (error) {
+        console.error("[set-level] Error:", error);
+        const errorEmbed = new discord_js_1.EmbedBuilder()
+          .setTitle("❌ Đã xảy ra lỗi")
+          .setDescription("Có lỗi xảy ra khi thực thi lệnh này. Vui lòng thử lại sau.")
+          .setColor("Red");
+        if (r.replied || r.deferred) {
+          r.followUp({ embeds: [errorEmbed], ephemeral: true }).catch(() => {});
+        } else {
+          r.reply({ embeds: [errorEmbed], ephemeral: true }).catch(() => {});
+        }
+      }
     }),
 });
