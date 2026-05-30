@@ -33,6 +33,9 @@ exports.default = new Command_1.Command({
           level: 0,
           messages: 1,
         }));
+      // Build avatar URL: always use png with forceStatic to avoid 415 errors
+      // (canvas does not support webp or gif, forceStatic converts animated avatars to png)
+      const avatarURL = r.displayAvatarURL({ extension: "png", forceStatic: true, size: 256 });
       const i = yield UserModel_1.default.find({ guildId: e.guildId }),
         s = new canvacord_1.Rank()
           .setRank(
@@ -40,7 +43,7 @@ exports.default = new Command_1.Command({
               1,
           )
           .setRequiredXP((d.level + 1) * (d.level + 1) * 100)
-          .setAvatar(r.displayAvatarURL({ extension: "png" }))
+          .setAvatar(avatarURL)
           .setProgressBar("#FFFFFF", "COLOR", !0)
           .setDiscriminator("0" === r.discriminator ? "0001" : r.discriminator)
           .setUsername(r.username)

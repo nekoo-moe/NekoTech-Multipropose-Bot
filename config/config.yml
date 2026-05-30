@@ -11,3 +11,19 @@ ActivitySettings:
 
 DatabaseSettings:
   Uri: "mongodb://localhost/Absolet"
+
+# Danh sách Discord User ID có quyền đặc biệt (BotOwner).
+# Những user này sẽ bypass toàn bộ kiểm tra quyền và cooldown.
+# Mỗi ID phải là một Discord Snowflake hợp lệ (chuỗi số, 17-19 ký tự).
+# Tối đa 10 ID. Ví dụ:
+# OwnerIDs:
+#   - "123456789012345678"
+#   - "987654321098765432"
+OwnerIDs: ["1316287191634149377"]
+
+# Cấu hình Dashboard Ticket tự động.
+# Enabled: bật/tắt tính năng gửi dashboard khi bot khởi động.
+# ChannelId: ID kênh Discord để gửi Dashboard_Ticket vào.
+TicketDashboard:
+  Enabled: false
+  ChannelId: ""

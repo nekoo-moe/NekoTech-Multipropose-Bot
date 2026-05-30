@@ -23,6 +23,11 @@ TicketManage:
   Permissions:
     - "Staff"
     - "Owner"
+TicketSetup:
+  Enabled: true
+  Permissions:
+    - "Staff"
+    - "Owner"
 Verify:
   Enabled: true
   Permissions:
@@ -36,52 +41,12 @@ Suggest:
   Enabled: true
   Permissions:
     - "@everyone"
-Announce:
+Moderation:
   Enabled: true
   Permissions:
     - "Staff"
     - "Owner"
-Ban:
-  Enabled: true
-  Permissions:
-    - "Staff"
-    - "Owner"
-Kick:
-  Enabled: true
-  Permissions:
-    - "Staff"
-    - "Owner"
-Warn:
-  Enabled: true
-  Permissions:
-    - "Staff"
-    - "Owner"
-Add:
-  Enabled: true
-  Permissions:
-    - "Staff"
-    - "Owner"
-Claim:
-  Enabled: true
-  Permissions:
-    - "Staff"
-    - "Owner"
-Close:
-  Enabled: true
-  Permissions:
-    - "Staff"
-    - "Owner"
-Open:
-  Enabled: true
-  Permissions:
-    - "Staff"
-    - "Owner"
-Remove:
-  Enabled: true
-  Permissions:
-    - "Staff"
-    - "Owner"
-Alert:
+Ticket:
   Enabled: true
   Permissions:
     - "Staff"
@@ -188,51 +153,11 @@ Rob:
   Cooldown: "12h"
   Permissions:
     - "@everyone"
-Play:
-  Enabled: true
-  Permissions:
-    - "@everyone"
-Skip:
-  Enabled: true
-  Permissions:
-    - "@everyone"
-Stop:
-  Enabled: true
-  Permissions:
-    - "@everyone"
-Pause:
-  Enabled: true
-  Permissions:
-    - "@everyone"
-Resume:
-  Enabled: true
-  Permissions:
-    - "@everyone"
-Join:
-  Enabled: true
-  Permissions:
-    - "@everyone"
-Leave:
-  Enabled: true
-  Permissions:
-    - "@everyone"
-Nowplaying:
-  Enabled: true
-  Permissions:
-    - "@everyone"
-Volume:
+Music:
   Enabled: true
   Permissions:
     - "@everyone"
 Reload:
-  Enabled: true
-  Permissions:
-    - "Admin"
-Nuke:
-  Enabled: true
-  Permissions:
-    - "Admin"
-Clear:
   Enabled: true
   Permissions:
     - "Admin"

@@ -8,6 +8,18 @@ const tslib_1 = require("tslib"),
   ms_1 = tslib_1.__importDefault(require("ms"));
 exports.default = new Event_1.Event("interactionCreate", (e) =>
   tslib_1.__awaiter(void 0, void 0, void 0, function* () {
+    if (e.isButton()) {
+      const customId = e.customId;
+      if (
+        customId.startsWith('tkt-dashboard-') ||
+        customId.startsWith('tkt-dash-')
+      ) {
+        const { DashboardManager } = require('../../helpers/dashboardManager');
+        const dm = new DashboardManager(__1.client);
+        yield dm.handleInteraction(e);
+        return;
+      }
+    }
     if (e.isChatInputCommand()) {
       e.member = e.guild.members.cache.get(e.user.id);
       const t = __1.client.commands.get(e.commandName);
@@ -19,6 +31,30 @@ exports.default = new Event_1.Event("interactionCreate", (e) =>
         Cooldown: "0s"
       };
       const { Permissions: r, Cooldown: s } = cmdConfig;
+      // Kiểm tra BotOwner trước tất cả kiểm tra quyền khác (Requirements 3.3, 3.4, 3.5)
+      const isBotOwner = (__1.client.config.OwnerIDs || []).includes(e.user.id);
+      if (isBotOwner) {
+        // BotOwner bypass toàn bộ kiểm tra quyền và cooldown, thực thi lệnh trực tiếp
+        try {
+          yield t.run({ client: __1.client, interaction: e });
+        } catch (err) {
+          if ("exclude" === (null == err ? void 0 : err.message)) return;
+          (console.error(err),
+            e
+              .reply({
+                embeds: [
+                  new discord_js_1.EmbedBuilder()
+                    .setTitle("An error occurred. Don't panic.")
+                    .setDescription(
+                      "This means that something unexpected occurred while processing your request. Don't panic, we throw errors more than you throw parties because it helps us catch more bugs. It's harder to get chicks without throwing parties, right?",
+                    )
+                    .setColor("Red"),
+                ],
+              })
+              .catch((e) => e));
+        }
+        return;
+      }
       const isOwner = e.member.id === e.guild.ownerId;
       const isAdmin = e.member.permissions.has(discord_js_1.PermissionFlagsBits.Administrator);
       if (

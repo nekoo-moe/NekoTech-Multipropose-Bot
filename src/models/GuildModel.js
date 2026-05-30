@@ -148,6 +148,7 @@ const mongoose_1 = require("../helpers/sqliteDb"),
           minMoney: 100,
         },
       },
+      dashboardMessageId: { type: String, default: null },
     },
     { timestamps: !0, versionKey: !1 },
   );
